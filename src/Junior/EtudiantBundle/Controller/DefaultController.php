@@ -10,4 +10,13 @@ class DefaultController extends Controller
     {
         return $this->render('JuniorEtudiantBundle:Default:index.html.twig', array('name' => $name));
     }
+    
+    public function dashboardAction()
+    {
+        return $this->render('JuniorEtudiantBundle:Etudiant:dashboardEtudiant.html.twig');
+    }
 }
+
+
+
+
