@@ -5,31 +5,33 @@
         <title>{% block title %}Junior Entreprise{% endblock %}</title>
         {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}"type="text/css" />
+        <link rel="stylesheet" href="{{ asset('css/layoutJunior.css') }}"type="text/css" />
         {% endblock %}
     </head>
     <body>
-        <div class="container">
-            <div id="header" class="hero-unit">
-                <h1>Junior Entreprise</h1>
-                <p>
-                    <a class="btn btn-primary btn-medium" href=#>
+        <div class="container-fluid">
+            <div id="header">
+                <div id="logo">
+                    <h1>Junior Entreprise</h1>
+                </div>
+                <div id="user-tools">
+                    <a class="btn btn-primary btn-mini" href=#>
                         Se déconnecter
                     </a>
-                </p>
-            </div>
+                </div>
+            </div>F
 
-            <div class="row">
+            <div class="row-fluid">
                 <div id="menu" class="span3">
-                    <ul class="nav nav-pills nav-stacked">
-                    {% block menu_gauche %} {% endblock %}
+                    <ul class="nav nav-tabs nav-stacked">
+                    {% block menu %} {% endblock %}
                     </ul>
-                    {{ render(controller("JEBlogBundle:Blog:menu", {'nombre': 3})) }}
+                    </div>
+                    <div id="content" class="span9">
+                {% block content %}{% endblock %}
+                        </div>
+                    </div>
                 </div>
-                <div id="content" class="span9">
-                {% block body %}{% endblock %}
-                </div>
-            </div>
-        </div>
                 <hr>
                 <footer>
                     <p>Trebouzul unlimited</p>

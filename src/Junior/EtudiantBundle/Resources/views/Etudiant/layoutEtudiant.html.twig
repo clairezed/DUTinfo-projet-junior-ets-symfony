@@ -1,0 +1,39 @@
+{% extends "::layoutJunior.html.twig"%}
+
+{% block title %}
+    {{parent()}} - Etudiant
+{% endblock %}
+    {% block menu %}
+<li><a href="{{ path('junior_etudiant_dashboard') }}" >Dashboard</a></li>
+<li><a href="#" id="etu-frais" title="frais">Mes Frais</a></li>
+<ul class="submenu">
+    <li>
+        <a href="#" id="etu-frais-liste" title="liste frais"><p>tous les frais</p></a>
+    </li>
+    <li>
+        <a href="#" id="etu-frais-enr" title="enregistrer frais"><p>enregistrer des frais</p></a>
+    </li>
+</ul>
+</li>
+
+<li>
+    <a href="#" id="etu-etudes" title="études"><p>MES ETUDES</p></a>
+    <ul class="submenu">
+        <li>
+            <a href="#" id="etu-etudes-acompte" title="demander acompte"><p>demander un acompte</p></a>
+        </li>
+    </ul>
+</li>
+<li>
+    <a href="#" id="infos"  ><p>MES INFOS</p></a>
+</li>
+<li><a href="#" >Mes frais</a></li>
+<li><a href="#" >Mes études</a></li>
+<li><a href="#" >Mes infos</a></li>
+    {% endblock %}
+{% block content %}
+
+    {% block content_etudiant %}
+    {% endblock %} 
+{% endblock %}
+

@@ -1,0 +1,11 @@
+junior_etudiant:
+    resource: "@JuniorEtudiantBundle/Resources/config/routing.yml"
+    prefix:   /etudiant
+
+je_student:
+    resource: "@JEStudentBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+je_blog:
+    resource: "@JEBlogBundle/Resources/config/routing.yml"
+    prefix:   /blog
