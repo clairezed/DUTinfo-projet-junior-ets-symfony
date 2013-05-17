@@ -1,0 +1,7 @@
+parameters:
+#    junior_etudiant.example.class: Junior\EtudiantBundle\Example
+
+services:
+#    junior_etudiant.example:
+#        class: %junior_etudiant.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

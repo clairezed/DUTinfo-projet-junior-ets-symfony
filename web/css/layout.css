@@ -1,0 +1,28 @@
+/* 
+    Document   : layout.css
+    Created on : 17 mai 2013, 10:59:53
+    Author     : claire
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+/****************************************
+    HEADER
+*******************************************/
+#user-tools
+{
+    float:right;
+    background-color: #CCC;
+}
+
+
+
+
+/****************************************
+    SIDE MENU
+*******************************************/
+
