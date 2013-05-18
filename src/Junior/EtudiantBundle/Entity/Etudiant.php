@@ -71,6 +71,13 @@ class Etudiant
      * @ORM\Column(name="dateNaissance", type="string", length=255)
      */
     private $dateNaissance;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telEtudiant", type="string", length=10)
+     */
+    private $telEtudiant;
 
 
     /**
@@ -302,5 +309,28 @@ class Etudiant
     public function getParticipants()
     {
         return $this->participants;
+    }
+
+    /**
+     * Set telEtudiant
+     *
+     * @param string $telEtudiant
+     * @return Etudiant
+     */
+    public function setTelEtudiant($telEtudiant)
+    {
+        $this->telEtudiant = $telEtudiant;
+
+        return $this;
+    }
+
+    /**
+     * Get telEtudiant
+     *
+     * @return string 
+     */
+    public function getTelEtudiant()
+    {
+        return $this->telEtudiant;
     }
 }

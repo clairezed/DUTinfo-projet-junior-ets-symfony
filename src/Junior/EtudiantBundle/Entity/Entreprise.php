@@ -36,9 +36,9 @@ class Entreprise
     private $adresseEntreprise;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="telEntreprise", type="integer")
+     * @ORM\Column(name="telEntreprise", type="string", length=10)
      */
     private $telEntreprise;
 

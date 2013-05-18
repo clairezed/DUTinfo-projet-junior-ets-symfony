@@ -71,6 +71,13 @@ class Etudiant
      * @ORM\Column(name="dateNaissance", type="string", length=255)
      */
     private $dateNaissance;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telEtudiant", type="string", length=10)
+     */
+    private $telEtudiant;
 
 
     /**
@@ -269,5 +276,38 @@ class Etudiant
     public function getFrais()
     {
         return $this->frais;
+    }
+
+    /**
+     * Add participants
+     *
+     * @param \Junior\EtudiantBundle\Entity\Participant $participants
+     * @return Etudiant
+     */
+    public function addParticipant(\Junior\EtudiantBundle\Entity\Participant $participants)
+    {
+        $this->participants[] = $participants;
+
+        return $this;
+    }
+
+    /**
+     * Remove participants
+     *
+     * @param \Junior\EtudiantBundle\Entity\Participant $participants
+     */
+    public function removeParticipant(\Junior\EtudiantBundle\Entity\Participant $participants)
+    {
+        $this->participants->removeElement($participants);
+    }
+
+    /**
+     * Get participants
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getParticipants()
+    {
+        return $this->participants;
     }
 }

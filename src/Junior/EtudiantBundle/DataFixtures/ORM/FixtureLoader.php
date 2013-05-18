@@ -25,6 +25,7 @@ class FixtureLoader implements FixtureInterface
     $dupont->setAdresseEtudiant('8, rue de la Choucroute Farcie');
     $dupont->setNumSecu('123456');
     $dupont->setDateNaissance('13/12/1987');
+    $dupont->setTelEtudiant('0612345678');
       
     $durand = new Etudiant();
     $durand->setNumEtudiant('e2');
@@ -32,6 +33,7 @@ class FixtureLoader implements FixtureInterface
     $durand->setAdresseEtudiant('12, rue du Poney Farceur');
     $durand->setNumSecu('654321');
     $durand->setDateNaissance('28/02/1983');
+    $durand->setTelEtudiant('0687654321');
 
     $duchmol = new Etudiant();
     $duchmol->setNumEtudiant('e3');
@@ -39,6 +41,7 @@ class FixtureLoader implements FixtureInterface
     $duchmol->setAdresseEtudiant('16, rue de la Belette Farceuse');
     $duchmol->setNumSecu('987654');
     $duchmol->setDateNaissance('24/04/1982');
+    $duchmol->setTelEtudiant('0601020304');
     
     $dugland = new Etudiant();
     $dugland->setNumEtudiant('e4');
@@ -46,6 +49,7 @@ class FixtureLoader implements FixtureInterface
     $dugland->setAdresseEtudiant('20, rue de l\'Hippocampe Hilare');
     $dugland->setNumSecu('456789');
     $dugland->setDateNaissance('05/09/1986'); 
+    $dugland->setTelEtudiant('0604030201');
     
     $manager->persist($dupont);
     $manager->persist($durand);
