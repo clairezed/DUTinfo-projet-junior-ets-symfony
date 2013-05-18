@@ -14,9 +14,29 @@ class Etude
 {
     
     /**
+     * @ORM\OneToOne(targetEntity="Junior\EtudiantBundle\Entity\Facture", cascade={"persist"})
+     */
+    private $facture;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Junior\EtudiantBundle\Entity\Convention", cascade={"persist"})
+     */
+    private $convention;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Junior\EtudiantBundle\Entity\Participant", mappedBy="etude")
+     */
+    private $participants;
+    
+    /**
      * @ORM\OneToMany(targetEntity="Junior\EtudiantBundle\Entity\Indemnites", mappedBy="etude")
      */
     private $indemnites;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Junior\EtudiantBundle\Entity\Frais", mappedBy="etude")
+     */
+    private $frais;
     
     /**
      * @var integer
@@ -159,5 +179,117 @@ class Etude
     public function getIndemnites()
     {
         return $this->indemnites;
+    }
+
+    /**
+     * Set facture
+     *
+     * @param \Junior\EtudiantBundle\Entity\Facture $facture
+     * @return Etude
+     */
+    public function setFacture(\Junior\EtudiantBundle\Entity\Facture $facture = null)
+    {
+        $this->facture = $facture;
+
+        return $this;
+    }
+
+    /**
+     * Get facture
+     *
+     * @return \Junior\EtudiantBundle\Entity\Facture 
+     */
+    public function getFacture()
+    {
+        return $this->facture;
+    }
+
+    /**
+     * Set convention
+     *
+     * @param \Junior\EtudiantBundle\Entity\Convention $convention
+     * @return Etude
+     */
+    public function setConvention(\Junior\EtudiantBundle\Entity\Convention $convention = null)
+    {
+        $this->convention = $convention;
+
+        return $this;
+    }
+
+    /**
+     * Get convention
+     *
+     * @return \Junior\EtudiantBundle\Entity\Convention 
+     */
+    public function getConvention()
+    {
+        return $this->convention;
+    }
+
+    /**
+     * Add frais
+     *
+     * @param \Junior\EtudiantBundle\Entity\Frais $frais
+     * @return Etude
+     */
+    public function addFrai(\Junior\EtudiantBundle\Entity\Frais $frais)
+    {
+        $this->frais[] = $frais;
+
+        return $this;
+    }
+
+    /**
+     * Remove frais
+     *
+     * @param \Junior\EtudiantBundle\Entity\Frais $frais
+     */
+    public function removeFrai(\Junior\EtudiantBundle\Entity\Frais $frais)
+    {
+        $this->frais->removeElement($frais);
+    }
+
+    /**
+     * Get frais
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFrais()
+    {
+        return $this->frais;
+    }
+
+    /**
+     * Add participants
+     *
+     * @param \Junior\EtudiantBundle\Entity\Participant $participants
+     * @return Etude
+     */
+    public function addParticipant(\Junior\EtudiantBundle\Entity\Participant $participants)
+    {
+        $this->participants[] = $participants;
+
+        return $this;
+    }
+
+    /**
+     * Remove participants
+     *
+     * @param \Junior\EtudiantBundle\Entity\Participant $participants
+     */
+    public function removeParticipant(\Junior\EtudiantBundle\Entity\Participant $participants)
+    {
+        $this->participants->removeElement($participants);
+    }
+
+    /**
+     * Get participants
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getParticipants()
+    {
+        return $this->participants;
     }
 }

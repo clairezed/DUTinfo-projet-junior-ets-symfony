@@ -12,11 +12,21 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Etudiant
 {
+
+    /**
+     * @ORM\OneToMany(targetEntity="Junior\EtudiantBundle\Entity\Participant", mappedBy="etudiant")
+     */
+    private $participants;
     
     /**
      * @ORM\OneToMany(targetEntity="Junior\EtudiantBundle\Entity\Indemnites", mappedBy="etudiant")
      */
     private $indemnites;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Junior\EtudiantBundle\Entity\Frais", mappedBy="etudiant")
+     */
+    private $frais;
     
     /**
      * @var integer
@@ -61,6 +71,13 @@ class Etudiant
      * @ORM\Column(name="dateNaissance", type="string", length=255)
      */
     private $dateNaissance;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telEtudiant", type="string", length=10)
+     */
+    private $telEtudiant;
 
 
     /**
@@ -186,5 +203,111 @@ class Etudiant
     public function getDateNaissance()
     {
         return $this->dateNaissance;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->indemnites = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add indemnites
+     *
+     * @param \Junior\EtudiantBundle\Entity\Indemnites $indemnites
+     * @return Etudiant
+     */
+    public function addIndemnite(\Junior\EtudiantBundle\Entity\Indemnites $indemnites)
+    {
+        $this->indemnites[] = $indemnites;
+    
+        return $this;
+    }
+
+    /**
+     * Remove indemnites
+     *
+     * @param \Junior\EtudiantBundle\Entity\Indemnites $indemnites
+     */
+    public function removeIndemnite(\Junior\EtudiantBundle\Entity\Indemnites $indemnites)
+    {
+        $this->indemnites->removeElement($indemnites);
+    }
+
+    /**
+     * Get indemnites
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getIndemnites()
+    {
+        return $this->indemnites;
+    }
+
+    /**
+     * Add frais
+     *
+     * @param \Junior\EtudiantBundle\Entity\Frais $frais
+     * @return Etudiant
+     */
+    public function addFrai(\Junior\EtudiantBundle\Entity\Frais $frais)
+    {
+        $this->frais[] = $frais;
+
+        return $this;
+    }
+
+    /**
+     * Remove frais
+     *
+     * @param \Junior\EtudiantBundle\Entity\Frais $frais
+     */
+    public function removeFrai(\Junior\EtudiantBundle\Entity\Frais $frais)
+    {
+        $this->frais->removeElement($frais);
+    }
+
+    /**
+     * Get frais
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFrais()
+    {
+        return $this->frais;
+    }
+
+    /**
+     * Add participants
+     *
+     * @param \Junior\EtudiantBundle\Entity\Participant $participants
+     * @return Etudiant
+     */
+    public function addParticipant(\Junior\EtudiantBundle\Entity\Participant $participants)
+    {
+        $this->participants[] = $participants;
+
+        return $this;
+    }
+
+    /**
+     * Remove participants
+     *
+     * @param \Junior\EtudiantBundle\Entity\Participant $participants
+     */
+    public function removeParticipant(\Junior\EtudiantBundle\Entity\Participant $participants)
+    {
+        $this->participants->removeElement($participants);
+    }
+
+    /**
+     * Get participants
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getParticipants()
+    {
+        return $this->participants;
     }
 }
