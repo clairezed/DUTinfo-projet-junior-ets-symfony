@@ -1,5 +1,5 @@
 junior_etudiant:
-    resource: "@JuniorEtudiantBundle/Resources/config/routing.yml"
+    resource: "@JuniorEtudiantBundle/Resources/config/routing/etudiant.yml"
     prefix:   /etudiant
 
 je_student:

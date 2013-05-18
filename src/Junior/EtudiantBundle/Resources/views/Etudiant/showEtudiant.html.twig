@@ -1,0 +1,73 @@
+{% extends "JuniorEtudiantBundle:Etudiant:layoutEtudiant.html.twig" %}
+
+{% block title %}
+{{ parent()}} - Infos
+{% endblock %}
+
+{% block content_etudiant %}
+
+<ul class="breadcrumb">
+    <li class="active"><a href="#">Dashboard</a> <span class="divider">/</span></li>
+</ul>
+<h2>Mes infos</h2>
+
+    <table class="table table-bordered table-condensed">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Numetudiant</th>
+                <td>{{ entity.numEtudiant }}</td>
+            </tr>
+            <tr>
+                <th>Nometudiant</th>
+                <td>{{ entity.nomEtudiant }}</td>
+            </tr>
+            <tr>
+                <th>Adresseetudiant</th>
+                <td>{{ entity.adresseEtudiant }}</td>
+            </tr>
+            <tr>
+                <th>Numsecu</th>
+                <td>{{ entity.numSecu }}</td>
+            </tr>
+            <tr>
+                <th>Datenaissance</th>
+                <td>{{ entity.dateNaissance }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        {#
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('etudiant') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('etudiant_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>
+        <form action="{{ path('etudiant_delete', { 'id': entity.id }) }}" method="post">
+            <input type="hidden" name="_method" value="DELETE" />
+            {{ form_widget(delete_form) }}
+            <button type="submit">Delete</button>
+        </form>
+    </li>
+</ul>
+#}
+<button class="btn" type="button">Voir tous les frais</button>
+<button class="btn" type="button">Enregistrer des frais</button>
+<button class="btn" type="button">
+    {#
+    <a href="{{ path('junior_etudiant_editEtudiant', { 'id': entity.id }) }}">Editer mes infos</a>
+#}
+    <a href="{{ path('junior_etudiant_editEtudiant', { 'id': 1 }) }}">Editer mes infos</a>
+</button>
+
+{% endblock %} 
