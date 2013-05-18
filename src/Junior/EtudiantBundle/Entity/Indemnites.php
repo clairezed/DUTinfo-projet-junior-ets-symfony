@@ -13,6 +13,14 @@ use Doctrine\ORM\Mapping as ORM;
 class Indemnites
 {
     
+//    /**
+//     * @var integer
+//     *
+//     * @ORM\Column(name="idIndemnites", type="integer", unique="true")
+//     * @ORM\GeneratedValue(strategy="AUTO")
+//     */
+//    private $idIndemnites;
+    
     /**
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Junior\EtudiantBundle\Entity\Etudiant", inversedBy="indemnites")
@@ -26,6 +34,11 @@ class Indemnites
      * @ORM\JoinColumn(nullable=false)
      */
     private $etude;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Junior\EtudiantBundle\Entity\Acompte", mappedBy="indemnites")
+     */
+    private $acomptes;
     
 //    /**
 //     * @var integer
@@ -151,5 +164,45 @@ class Indemnites
     public function getEtude()
     {
         return $this->etude;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->acomptes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add acomptes
+     *
+     * @param \Junior\EtudiantBundle\Entity\Acompte $acomptes
+     * @return Indemnites
+     */
+    public function addAcompte(\Junior\EtudiantBundle\Entity\Acompte $acomptes)
+    {
+        $this->acomptes[] = $acomptes;
+
+        return $this;
+    }
+
+    /**
+     * Remove acomptes
+     *
+     * @param \Junior\EtudiantBundle\Entity\Acompte $acomptes
+     */
+    public function removeAcompte(\Junior\EtudiantBundle\Entity\Acompte $acomptes)
+    {
+        $this->acomptes->removeElement($acomptes);
+    }
+
+    /**
+     * Get acomptes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAcomptes()
+    {
+        return $this->acomptes;
     }
 }

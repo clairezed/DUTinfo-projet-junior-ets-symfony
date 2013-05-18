@@ -68,27 +68,4 @@ class Convention
     {
         return $this->dateConvention;
     }
-
-    /**
-     * Set entreprise
-     *
-     * @param \Junior\EtudiantBundle\Entity\Entreprise $entreprise
-     * @return Convention
-     */
-    public function setEntreprise(\Junior\EtudiantBundle\Entity\Entreprise $entreprise)
-    {
-        $this->entreprise = $entreprise;
-
-        return $this;
-    }
-
-    /**
-     * Get entreprise
-     *
-     * @return \Junior\EtudiantBundle\Entity\Entreprise 
-     */
-    public function getEntreprise()
-    {
-        return $this->entreprise;
-    }
 }

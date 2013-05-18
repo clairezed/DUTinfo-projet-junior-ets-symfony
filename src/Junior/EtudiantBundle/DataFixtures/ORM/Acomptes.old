@@ -1,0 +1,26 @@
+<?php
+ 
+namespace Sdz\BlogBundle\DataFixtures\ORM;
+ 
+use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
+use Junior\EtudiantBundle\Entity\Acompte;
+ 
+class Acomptes implements FixtureInterface
+{
+  public function load(ObjectManager $manager)
+  {
+    $a1 = new Acompte();
+    $a1->setDateAcompte('12/05/2013');
+    $a1->setMontantAcompte('300');
+    
+    $a2 = new Acompte();
+    $a2->setDateAcompte('03/03/2013');
+    $a2->setMontantAcompte('280.5');
+   
+    $manager->persist($a1);
+    $manager->persist($a2);
+    
+    $manager->flush();
+  }
+}
