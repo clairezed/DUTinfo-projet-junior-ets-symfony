@@ -15,37 +15,52 @@
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
-            <th>Id</th>
-            <th>Nom Etude</th>
-            <th>Prix Journee</th>
-            <th>Indemnites</th>
+            {#<th>Id</th>#}
+            <th>Nom de l'étude</th>
+            {#<th>Prix Journee</th>#}
+            <th>Statut</th>
             <th>Detail</th>
             <th>Acompte</th>
         </tr>
     </thead>
     <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td>{{ entity.id }}</td>
-                <td>{{ entity.nomEtude }}</td>
-                <td>{{ entity.prixJournee }}</td>
-                <td>a calculer</td>
-                <td><button class="btn btn-info btn-small" type="button"><a href="#">Voir l'etude</a></button></td>
-                <td><button class="btn btn-warning btn-small" type="button"><a href="#">Demander un acompte</a></button></td>
-                {#
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('etudiant_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('etudiant_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-                </td>
-                #}
-            </tr>
-        {% endfor %}
+        {% set cpt = 0 %}
+        {% if etudes[0] != NULL %}
+            {% for etude in etudes %}
+                <tr>
+                    {#<td>{{ etude.id }}</td>#}
+                    <td>{{ etude.nomEtude }}</td>
+                    {#<td>{{ etude.prixJournee }}</td>#}
+                    <td>{{ statuts[cpt] }}</td>
+                    {% set cpt = cpt+1 %}
+                    {#<td><button class="btn btn-info btn-small" type="button"><a href="{{ path('junior_etudiant_showEtude', {'id':etude.id}) }}">Voir l'etude</a></button></td>#}
+                    <td>   
+                        <a href="{{ path('junior_etudiant_showEtude', {'idEtude': etude.id, 'idEtudiant':etudiant.id}) }}" class="btn btn-primary btn-small">
+                            <i class="icon-search icon-white"></i>
+                            Voir l'étude
+                        </a>
+                    </td>
+                    <td>   
+                        <a href="#" class="btn btn-info btn-small">
+                            <i class="icon-edit icon-white"></i>
+                            Demander un acompte
+                        </a>
+                    </td>
+                    {#
+                    <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('etudiant_show', { 'id': entity.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('etudiant_edit', { 'id': entity.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                    </td>
+                    #}
+                </tr>
+            {% endfor %}
+        {% endif %}
         </tbody>
     </table>
 

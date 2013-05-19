@@ -3,7 +3,6 @@
 {% block title %}
     {{parent()}} - Etudiant
 {% endblock %}
-
     {% block body %}
 <div id="menu" class="span3">
     <ul class="nav nav-tabs nav-stacked">
@@ -18,6 +17,9 @@
             </li>
         </ul>
         </li>
+
+
+
 
         <li>
             <a href="{{ path('junior_etudiant_listEtudes', {'id':1}) }}" id="etu-etudes" title="études"><p>MES ETUDES</p></a>
@@ -35,7 +37,6 @@
 <div id="content" class="span9">
                 {% block content_etudiant %}{% endblock %}
     </div>
-
 
 {% endblock %}
 

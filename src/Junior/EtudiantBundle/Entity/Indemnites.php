@@ -13,41 +13,31 @@ use Doctrine\ORM\Mapping as ORM;
 class Indemnites
 {
     
-//    /**
-//     * @var integer
-//     *
-//     * @ORM\Column(name="idIndemnites", type="integer", unique="true")
-//     * @ORM\GeneratedValue(strategy="AUTO")
-//     */
-//    private $idIndemnites;
-    
     /**
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Junior\EtudiantBundle\Entity\Etudiant", inversedBy="indemnites")
      * @ORM\JoinColumn(nullable=false)
      */
     private $etudiant;
     
     /**
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Junior\EtudiantBundle\Entity\Etude", inversedBy="indemnites")
      * @ORM\JoinColumn(nullable=false)
      */
     private $etude;
     
     /**
-     * @ORM\OneToMany(targetEntity="Junior\EtudiantBundle\Entity\Acompte", mappedBy="indemnites")
+     * @ORM\OneToMany(targetEntity="Junior\EtudiantBundle\Entity\Acompte", mappedBy="indemnite")
      */
     private $acomptes;
     
-//    /**
-//     * @var integer
-//     *
-//     * @ORM\Column(name="id", type="integer")
-//     * @ORM\Id
-//     * @ORM\GeneratedValue(strategy="AUTO")
-//     */
-//    private $id;
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
 
     /**
      * @var integer
@@ -182,7 +172,7 @@ class Indemnites
     public function addAcompte(\Junior\EtudiantBundle\Entity\Acompte $acomptes)
     {
         $this->acomptes[] = $acomptes;
-
+        $acomptes->setIndemnite($this);
         return $this;
     }
 

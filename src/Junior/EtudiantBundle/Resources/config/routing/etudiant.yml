@@ -32,7 +32,7 @@ junior_etudiant_listEtudes:
     defaults: { _controller: "JuniorEtudiantBundle:Etudiant:listEtudes" }
     
 junior_etudiant_showEtude:
-    pattern:  /{id}/etude
+    pattern:  /{idEtude}/{idEtudiant}/etude
     defaults: { _controller: "JuniorEtudiantBundle:Etudiant:showEtude" }
 
 
