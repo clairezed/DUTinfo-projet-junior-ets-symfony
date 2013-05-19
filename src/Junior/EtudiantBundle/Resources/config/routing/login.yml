@@ -1,0 +1,37 @@
+junior_etudiant_homepage:
+    pattern:  /index
+    defaults: { _controller: JuniorEtudiantBundle:Etudiant:index }
+    
+junior_etudiant_dashboard:
+    pattern:  /dashboard
+    defaults: { _controller: JuniorEtudiantBundle:Etudiant:dashboard }
+    
+junior_etudiant_showEtudiant:
+    pattern:  /{id}/info
+    defaults: { _controller: JuniorEtudiantBundle:Etudiant:showEtudiant }
+    
+junior_etudiant_editEtudiant:
+    pattern:  /{id}/info/edit
+    defaults: { _controller: JuniorEtudiantBundle:Etudiant:editEtudiant }
+    
+junior_etudiant_updateEtudiant:
+    pattern:  /{id}/info/update
+    defaults: { _controller: "JuniorEtudiantBundle:Etudiant:updateEtudiant" }
+    requirements: { _method: post|put }
+
+junior_etudiant_listFrais:
+    pattern:  /{id}/frais
+    defaults: { _controller: "JuniorEtudiantBundle:Etudiant:listFrais" }
+
+junior_etudiant_newFrais:
+    pattern:  /{id}/frais/new
+    defaults: { _controller: "JuniorEtudiantBundle:Etudiant:newFrais" }
+    
+junior_etudiant_listEtudes:
+    pattern:  /{id}/etudes
+    defaults: { _controller: "JuniorEtudiantBundle:Etudiant:listEtudes" }
+    
+junior_etudiant_showEtude:
+    pattern:  /{id}/etude
+    defaults: { _controller: "JuniorEtudiantBundle:Etudiant:showEtude" }
+

@@ -22,8 +22,6 @@ class EtudiantController extends Controller
      * Page d'accueil etudiant
      * -> Tableau de bord
      * penser a integrer l'id a partir d'ici
-      * @Secure(roles="IS_AUTHENTICATED_REMEMBERED")
-      * 
      */ 
     public function dashboardAction()
     {

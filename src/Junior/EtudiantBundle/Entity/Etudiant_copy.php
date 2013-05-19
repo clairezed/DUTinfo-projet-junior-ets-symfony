@@ -2,7 +2,6 @@
 
 namespace Junior\EtudiantBundle\Entity;
 
-use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -11,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Junior\EtudiantBundle\Entity\EtudiantRepository")
  */
-class Etudiant extends BaseUser
+class Etudiant
 {
 
     /**
@@ -36,7 +35,7 @@ class Etudiant extends BaseUser
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+    private $id;
 
     /**
      * @var string
@@ -210,10 +209,7 @@ class Etudiant extends BaseUser
      */
     public function __construct()
     {
-        parent::__construct();          // pour faire appel au construct FOS
         $this->indemnites = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->email = $this->getNomEtudiant();
-        $this->enabled = true;
     }
     
     /**

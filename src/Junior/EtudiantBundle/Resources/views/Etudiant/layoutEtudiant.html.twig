@@ -3,34 +3,39 @@
 {% block title %}
     {{parent()}} - Etudiant
 {% endblock %}
-    {% block menu %}
-<li><a href="{{ path('junior_etudiant_dashboard') }}" >DASHBOARD</a></li>
-<li><a href="{{ path('junior_etudiant_listFrais', {'id':1}) }}" id="etu-frais" title="frais">MES FRAIS</a></li>
-<ul class="submenu">
-    <li>
-        <a href="{{ path('junior_etudiant_listFrais', {'id':1}) }}" id="etu-frais-liste" title="liste frais"><p>tous les frais</p></a>
-    </li>
-    <li>
-        <a href="{{ path('junior_etudiant_newFrais', {'id':1}) }}" id="etu-frais-enr" title="enregistrer frais"><p>enregistrer des frais</p></a>
-    </li>
-</ul>
-</li>
 
-<li>
-    <a href="{{ path('junior_etudiant_listEtudes', {'id':1}) }}" id="etu-etudes" title="études"><p>MES ETUDES</p></a>
-    <ul class="submenu">
+    {% block body %}
+<div id="menu" class="span3">
+    <ul class="nav nav-tabs nav-stacked">
+        <li><a href="{{ path('junior_etudiant_dashboard') }}" >DASHBOARD</a></li>
+        <li><a href="{{ path('junior_etudiant_listFrais', {'id':1}) }}" id="etu-frais" title="frais">MES FRAIS</a></li>
+        <ul class="submenu">
+            <li>
+                <a href="{{ path('junior_etudiant_listFrais', {'id':1}) }}" id="etu-frais-liste" title="liste frais"><p>tous les frais</p></a>
+            </li>
+            <li>
+                <a href="{{ path('junior_etudiant_newFrais', {'id':1}) }}" id="etu-frais-enr" title="enregistrer frais"><p>enregistrer des frais</p></a>
+            </li>
+        </ul>
+        </li>
+
         <li>
-            <a href="{{ path('junior_etudiant_listEtudes', {'id':1}) }}" id="etu-etudes-liste" title="liste etudes"><p>toutes les études</p></a>
+            <a href="{{ path('junior_etudiant_listEtudes', {'id':1}) }}" id="etu-etudes" title="études"><p>MES ETUDES</p></a>
+            <ul class="submenu">
+                <li>
+                    <a href="{{ path('junior_etudiant_listEtudes', {'id':1}) }}" id="etu-etudes-liste" title="liste etudes"><p>toutes les études</p></a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="{{ path('junior_etudiant_showEtudiant', {'id':1}) }}" id="infos"  ><p>MES INFOS</p></a>
         </li>
     </ul>
-</li>
-<li>
-    <a href="{{ path('junior_etudiant_showEtudiant', {'id':1}) }}" id="infos"  ><p>MES INFOS</p></a>
-</li>
-    {% endblock %}
-{% block content %}
+</div>
+<div id="content" class="span9">
+                {% block content_etudiant %}{% endblock %}
+    </div>
 
-    {% block content_etudiant %}
-    {% endblock %} 
+
 {% endblock %}
 
