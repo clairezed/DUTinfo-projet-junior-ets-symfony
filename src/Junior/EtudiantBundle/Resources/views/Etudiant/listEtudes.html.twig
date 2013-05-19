@@ -35,7 +35,7 @@
                     {% set cpt = cpt+1 %}
                     {#<td><button class="btn btn-info btn-small" type="button"><a href="{{ path('junior_etudiant_showEtude', {'id':etude.id}) }}">Voir l'etude</a></button></td>#}
                     <td>   
-                        <a href="{{ path('junior_etudiant_showEtude', {'idEtude': etude.id, 'idEtudiant':etudiant.id}) }}" class="btn btn-primary btn-small">
+                        <a href="{{ path('junior_etudiant_showEtude', {'idEtude': etude.id, 'idEtudiant':app.user.id}) }}" class="btn btn-primary btn-small">
                             <i class="icon-search icon-white"></i>
                             Voir l'étude
                         </a>

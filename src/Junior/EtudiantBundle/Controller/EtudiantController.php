@@ -7,60 +7,72 @@ use Junior\EtudiantBundle\Entity\Etudiant;
 use Junior\EtudiantBundle\Entity\Etude;
 use Junior\EtudiantBundle\Entity\Participant;
 use Junior\EtudiantBundle\Form\EtudiantType;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
-class EtudiantController extends Controller
-{
+class EtudiantController extends Controller {
+
 //    public function indexAction($name)
 //    {
 //        return $this->render('JuniorEtudiantBundle:Default:index.html.twig', array('name' => $name));
 //    }
-    
-    public function indexAction()
-    {
+
+    public function indexAction() {
         return $this->render('JuniorEtudiantBundle:Default:index.html.twig');
     }
-    
-     /**
+
+    /**
      * Page d'accueil etudiant
      * -> Tableau de bord
      * penser a integrer l'id a partir d'ici
-      * @Secure(roles="IS_AUTHENTICATED_REMEMBERED")
-      * 
-     */ 
-    public function dashboardAction()
-    {
+     * @Secure(roles="IS_AUTHENTICATED_REMEMBERED")
+     * 
+     */
+    public function dashboardAction() {
+//        $user = $this->getUser();
+//        if (null === $user) {
+//// Ici, l'utilisateur est anonyme ou l'URL n'est pas derrière un             pare-feu
+//        } else {
+//// Ici, $user est une instance de notre classe User
+//        }
+
+
         return $this->render('JuniorEtudiantBundle:Etudiant:dashboardEtudiant.html.twig');
     }
-    
-/**************************************************
-* Actions de manipulation des infos etudiant
-***************************************************/ 
-    
-     /**
+
+    /*     * ************************************************
+     * Actions de manipulation des infos etudiant
+     * ************************************************* */
+
+    /**
      * Voir les infos personnelles d'un etudiant
      *
-     */ 
-    public function showEtudiantAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
+     */
+    public function showEtudiantAction($id) {
 
-        $entity = $em->getRepository('JuniorEtudiantBundle:Etudiant')->find($id);
+        $user = $this->getUser();
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Etudiant entity.');
-        }
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $id = $user->getId();
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('JuniorEtudiantBundle:Etudiant')->find($id);
 
-        return $this->render('JuniorEtudiantBundle:Etudiant:showEtudiant.html.twig', array(
-            'entity'      => $entity,        
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find Etudiant entity.');
+            }
+
+            return $this->render('JuniorEtudiantBundle:Etudiant:showEtudiant.html.twig', array(
+                        'entity' => $entity,
             ));
+        }
     }
-    
+
     /**
      * Displays a form to edit an existing Etudiant entity.
      *
      */
-    public function editEtudiantAction($id)
-    {
+    public function editEtudiantAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('JuniorEtudiantBundle:Etudiant')->find($id);
@@ -72,17 +84,16 @@ class EtudiantController extends Controller
         $editForm = $this->createForm(new EtudiantType(), $entity);
 
         return $this->render('JuniorEtudiantBundle:Etudiant:editEtudiant.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
         ));
     }
-    
+
     /**
      * Edits an existing Etudiant entity.
      *
      */
-    public function updateEtudiantAction(Request $request, $id)
-    {
+    public function updateEtudiantAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('JuniorEtudiantBundle:Etudiant')->find($id);
@@ -102,76 +113,106 @@ class EtudiantController extends Controller
         }
 
         return $this->render('JuniorEtudiantBundle:Etudiant:editEtudiant.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
         ));
     }
 
-    
-/**************************************************
-* Actions de manipulation des FRAIS
-***************************************************/     
-public function listFraisAction()
-{
-    $em = $this->getDoctrine()->getEntityManager();
- 
-    $entities = $em->getRepository('JuniorEtudiantBundle:Frais')->findAll();
- 
-    return $this->render('JuniorEtudiantBundle:Etudiant:listFrais.html.twig', array(
-        'entities' => $entities
-    ));
-}
+    /*     * ************************************************
+     * Actions de manipulation des FRAIS
+     * ************************************************* */
 
-public function newFraisAction()
-{
-    return $this->render('JuniorEtudiantBundle:Etudiant:newFrais.html.twig');
-}
+    public function listFraisAction() {
+        $user = $this->getUser();
 
-/**************************************************
-* Actions de manipulation des ETUDES
-***************************************************/  
-public function listEtudesAction($id)
-{
-    $cpt = 0;
-    $listeEtudes = array(NULL); //Initialisation des variables : évite une erreur si l'étudiant ne participe à aucune étude
-    $listeStatuts = array(NULL);
-    $em = $this->getDoctrine()->getManager();
-    
-    $etudiant = $em->getRepository('JuniorEtudiantBundle:Etudiant')->find($id);
-    $listeParticipations = $etudiant->getParticipants(); //On récupère la liste des entrées de la table participation correspondant à cet étudiant
-    
-    foreach($listeParticipations as $participation) { //Pour chaque entrée dans la liste, on récupère l'étude associée et le statut de l'étudiant pour celle-ci
-        $listeEtudes[$cpt] = $participation->getEtude(); 
-        $listeStatuts[$cpt] = $participation->getStatutEtudiant();
-        $cpt++;
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $id = $user->getId();
+            $em = $this->getDoctrine()->getEntityManager();
+
+            $entities = $em->getRepository('JuniorEtudiantBundle:Frais')->findAll();
+
+            return $this->render('JuniorEtudiantBundle:Etudiant:listFrais.html.twig', array(
+                        'entities' => $entities
+            ));
+        }
     }
-    
-    return $this->render('JuniorEtudiantBundle:Etudiant:listEtudes.html.twig', array(
-        'etudes' => $listeEtudes, 'statuts' => $listeStatuts, 'etudiant' => $etudiant
-    ));
-}    
 
-public function showEtudeAction($idEtude, $idEtudiant) {
-    $em = $this->getDoctrine()->getManager();
-    $etude = $em->getRepository('JuniorEtudiantBundle:Etude')->find($idEtude);
-    $participant = $em->getRepository('JuniorEtudiantBundle:Participant')->findOneBy(array('etudiant' => $idEtudiant, 'etude' => $idEtude));
-    $statut = $participant->getStatutEtudiant();
-    $indemnites = $em->getRepository('JuniorEtudiantBundle:Indemnites')->findOneBy(array('etudiant' => $idEtudiant, 'etude' => $idEtude));
-    $nbJours = $indemnites->getNbJours();
-    $acomptes = $indemnites->getAcomptes();
-    
-    return $this->render('JuniorEtudiantBundle:Etudiant:showEtude.html.twig', array(
-        'etude' => $etude, 'statut' => $statut, 'nbJours' => $nbJours, 'acomptes' => $acomptes
-    ));
-    
-}
-    
-    
-/**************************************************
-* Actions créés automatiquement par le CRUD etudiant
- * (our info et exemples
-***************************************************/ 
-    
+    public function newFraisAction() {
+        $user = $this->getUser();
+
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $id = $user->getId();
+
+            return $this->render('JuniorEtudiantBundle:Etudiant:newFrais.html.twig', array(
+                'id' => $id
+            ));
+        }
+    }
+
+    /*     * ************************************************
+     * Actions de manipulation des ETUDES
+     * ************************************************* */
+
+    public function listEtudesAction($id) {
+
+        $user = $this->getUser();
+
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $id = $user->getId();
+            $cpt = 0;
+            $listeEtudes = array(NULL); //Initialisation des variables : évite une erreur si l'étudiant ne participe à aucune étude
+            $listeStatuts = array(NULL);
+            $em = $this->getDoctrine()->getManager();
+
+            $etudiant = $em->getRepository('JuniorEtudiantBundle:Etudiant')->find($id);
+            $listeParticipations = $etudiant->getParticipants(); //On récupère la liste des entrées de la table participation correspondant à cet étudiant
+
+            foreach ($listeParticipations as $participation) { //Pour chaque entrée dans la liste, on récupère l'étude associée et le statut de l'étudiant pour celle-ci
+                $listeEtudes[$cpt] = $participation->getEtude();
+                $listeStatuts[$cpt] = $participation->getStatutEtudiant();
+                $cpt++;
+            }
+
+            return $this->render('JuniorEtudiantBundle:Etudiant:listEtudes.html.twig', array(
+                        'etudes' => $listeEtudes, 'statuts' => $listeStatuts, 'etudiant' => $etudiant
+            ));
+        }
+    }
+
+    public function showEtudeAction($idEtude, $idEtudiant) {
+
+        $user = $this->getUser();
+
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $id = $user->getId();
+
+            $em = $this->getDoctrine()->getManager();
+            $etude = $em->getRepository('JuniorEtudiantBundle:Etude')->find($idEtude);
+            $participant = $em->getRepository('JuniorEtudiantBundle:Participant')->findOneBy(array('etudiant' => $idEtudiant, 'etude' => $idEtude));
+            $statut = $participant->getStatutEtudiant();
+            $indemnites = $em->getRepository('JuniorEtudiantBundle:Indemnites')->findOneBy(array('etudiant' => $idEtudiant, 'etude' => $idEtude));
+            $nbJours = $indemnites->getNbJours();
+            $acomptes = $indemnites->getAcomptes();
+
+            return $this->render('JuniorEtudiantBundle:Etudiant:showEtude.html.twig', array(
+                        'etude' => $etude, 'statut' => $statut, 'nbJours' => $nbJours, 'acomptes' => $acomptes
+            ));
+        }
+    }
+
+    /*     * ************************************************
+     * Actions créés automatiquement par le CRUD etudiant
+     * (our info et exemples
+     * ************************************************* */
+
 //    
 //    public function showAction($id)
 //    {
@@ -285,7 +326,4 @@ public function showEtudeAction($idEtude, $idEtudiant) {
 //        ;
 //    }
 }
-
-
-
 
