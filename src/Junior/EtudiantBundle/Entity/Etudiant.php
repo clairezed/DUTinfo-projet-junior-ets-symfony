@@ -221,7 +221,7 @@ class Etudiant
     public function addIndemnite(\Junior\EtudiantBundle\Entity\Indemnites $indemnites)
     {
         $this->indemnites[] = $indemnites;
-    
+        $indemnites->setEtudiant($this);
         return $this;
     }
 
@@ -251,10 +251,10 @@ class Etudiant
      * @param \Junior\EtudiantBundle\Entity\Frais $frais
      * @return Etudiant
      */
-    public function addFrai(\Junior\EtudiantBundle\Entity\Frais $frais)
+    public function addFrais(\Junior\EtudiantBundle\Entity\Frais $frais)
     {
         $this->frais[] = $frais;
-
+        $frais->setEtudiant($this);
         return $this;
     }
 
@@ -263,7 +263,7 @@ class Etudiant
      *
      * @param \Junior\EtudiantBundle\Entity\Frais $frais
      */
-    public function removeFrai(\Junior\EtudiantBundle\Entity\Frais $frais)
+    public function removeFrais(\Junior\EtudiantBundle\Entity\Frais $frais)
     {
         $this->frais->removeElement($frais);
     }
@@ -287,7 +287,7 @@ class Etudiant
     public function addParticipant(\Junior\EtudiantBundle\Entity\Participant $participants)
     {
         $this->participants[] = $participants;
-
+        $participants->setEtudiant($this);
         return $this;
     }
 

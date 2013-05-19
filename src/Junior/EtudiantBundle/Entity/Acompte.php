@@ -15,10 +15,7 @@ class Acompte
     
     /**
      * @ORM\ManyToOne(targetEntity="Junior\EtudiantBundle\Entity\Indemnites", inversedBy="acomptes")
-     * @ORM\JoinColumns({
-     *  @ORM\JoinColumn(name="etude_id", referencedColumnName="etude_id", nullable=false),
-     *  @ORM\JoinColumn(name="etudiant_id", referencedColumnName="etudiant_id", nullable=false)
-     * })
+     * @ORM\JoinColumn(nullable=false)
      */
     private $indemnite;
     
@@ -111,7 +108,6 @@ class Acompte
     public function setIndemnite(\Junior\EtudiantBundle\Entity\Indemnites $indemnite)
     {
         $this->indemnite = $indemnite;
-
         return $this;
     }
 

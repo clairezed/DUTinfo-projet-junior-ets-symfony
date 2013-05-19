@@ -1,0 +1,53 @@
+{% extends "JuniorEtudiantBundle:Etudiant:layoutEtudiant.html.twig" %}
+
+{% block title %}
+{{ parent()}} - Infos
+{% endblock %}
+
+{% block content_etudiant %}
+
+<ul class="breadcrumb">
+    <li class="active"><a href="#">Dashboard</a> <span class="divider">/</span></li>
+</ul>
+
+{% set total = etude.prixJournee * nbJours %}
+
+<div>
+    <h2>Etude</h2>
+    <ul class="inline">
+        <li>N° : {{ etude.id }} </li>
+        <li>Titre : {{ etude.nomEtude }}</li>
+        <li>Rôle : {{ statut }}</li>
+    </ul>
+    <ul class="inline">
+        <li>Nombre de jours : {{ nbJours }}</li>
+        <li>Prix / jour : {{ etude.prixJournee }}</li>
+        <li>Total : {{ total }}</li>
+    </ul>
+</div>
+
+<div>
+    <h2>Acomptes</h2>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Numero</th>
+                <th>Date</th>
+                <th>Montant</th>
+                <th>Statut</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for acompte in acomptes %}
+                <tr>
+                    <td>{{ acompte.id }}</td>
+                    <td>{{ acompte.dateAcompte }}</td>
+                    <td>{{ acompte.montantAcompte }}</td>
+                    <td></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %} 

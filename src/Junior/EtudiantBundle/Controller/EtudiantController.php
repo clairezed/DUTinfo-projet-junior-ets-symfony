@@ -4,6 +4,8 @@ namespace Junior\EtudiantBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Junior\EtudiantBundle\Entity\Etudiant;
+use Junior\EtudiantBundle\Entity\Etude;
+use Junior\EtudiantBundle\Entity\Participant;
 use Junior\EtudiantBundle\Form\EtudiantType;
 
 class EtudiantController extends Controller
@@ -126,16 +128,41 @@ public function newFraisAction()
 /**************************************************
 * Actions de manipulation des ETUDES
 ***************************************************/  
-public function listEtudesAction()
+public function listEtudesAction($id)
 {
-    $em = $this->getDoctrine()->getEntityManager();
- 
-    $entities = $em->getRepository('JuniorEtudiantBundle:Etude')->findAll();
- 
+    $cpt = 0;
+    $listeEtudes = array(NULL); //Initialisation des variables : évite une erreur si l'étudiant ne participe à aucune étude
+    $listeStatuts = array(NULL);
+    $em = $this->getDoctrine()->getManager();
+    
+    $etudiant = $em->getRepository('JuniorEtudiantBundle:Etudiant')->find($id);
+    $listeParticipations = $etudiant->getParticipants(); //On récupère la liste des entrées de la table participation correspondant à cet étudiant
+    
+    foreach($listeParticipations as $participation) { //Pour chaque entrée dans la liste, on récupère l'étude associée et le statut de l'étudiant pour celle-ci
+        $listeEtudes[$cpt] = $participation->getEtude(); 
+        $listeStatuts[$cpt] = $participation->getStatutEtudiant();
+        $cpt++;
+    }
+    
     return $this->render('JuniorEtudiantBundle:Etudiant:listEtudes.html.twig', array(
-        'entities' => $entities
+        'etudes' => $listeEtudes, 'statuts' => $listeStatuts, 'etudiant' => $etudiant
     ));
 }    
+
+public function showEtudeAction($idEtude, $idEtudiant) {
+    $em = $this->getDoctrine()->getManager();
+    $etude = $em->getRepository('JuniorEtudiantBundle:Etude')->find($idEtude);
+    $participant = $em->getRepository('JuniorEtudiantBundle:Participant')->findOneBy(array('etudiant' => $idEtudiant, 'etude' => $idEtude));
+    $statut = $participant->getStatutEtudiant();
+    $indemnites = $em->getRepository('JuniorEtudiantBundle:Indemnites')->findOneBy(array('etudiant' => $idEtudiant, 'etude' => $idEtude));
+    $nbJours = $indemnites->getNbJours();
+    $acomptes = $indemnites->getAcomptes();
+    
+    return $this->render('JuniorEtudiantBundle:Etudiant:showEtude.html.twig', array(
+        'etude' => $etude, 'statut' => $statut, 'nbJours' => $nbJours, 'acomptes' => $acomptes
+    ));
+    
+}
     
     
 /**************************************************
