@@ -1,7 +1,12 @@
 parameters:
-#    junior_etudiant.example.class: Junior\EtudiantBundle\Example
+  junior_etudiant.services.authentication.login_success_handler.class: Junior\EtudiantBundle\Services\Authentication\LoginSuccessHandler
+
 
 services:
-#    junior_etudiant.example:
-#        class: %junior_etudiant.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+#  service permettant une bonne redirection de l'url après login, selon le role de la personne qui se connecte
+  junior_etudiant.services.authentication.login_success_handler: 
+    class: %junior_etudiant.services.authentication.login_success_handler.class%
+    arguments: ["@router", "@security.context"]
+    tags:
+      - { name: 'monolog.logger', channel: 'security' }
+ 

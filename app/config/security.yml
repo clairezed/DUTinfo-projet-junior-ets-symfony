@@ -9,48 +9,55 @@ security:
         Junior\UserBundle\Entity\Etudiant: sha512
 
     role_hierarchy:
-        ROLE_ADMIN:       [ROLE_USER, ROLE_ETUDIANT]
+        ROLE_ADMIN:       [ROLE_USER, ROLE_ETUDIANT, ROLE_GESTION]
         ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
         
 
     providers:
+        chain_provider:
+            chain:
+                providers: [gestion_provider, fos_userbundle, etudiant_provider]
+        gestion_provider:
+            memory:
+                users:
+                    gestion:  { password: gestion, roles: 'ROLE_GESTION'  }
+                    etudiant: { password: etudiant, roles: 'ROLE_ETUDIANT' }
+                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
         fos_userbundle:
             id: fos_user.user_provider.username
-        main:
-           entity: { class: Junior\EtudiantBundle\Entity\Etudiant, property: username }
-#        in_memory:
-#            memory:
-#                users:
-#                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-#                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+        etudiant_provider:
+           entity: { class: Junior\EtudiantBundle\Entity\Etudiant, property: username }      
+
 
     firewalls:
-        dev:
-            pattern:  ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-        
+            
         main:
           pattern:    ^/
           anonymous: true
-          provider:  main
+          provider:  chain_provider
           form_login:
+            success_handler: junior_etudiant.services.authentication.login_success_handler
             login_path: fos_user_security_login
             check_path: fos_user_security_check
-            default_target_path: /etudiant/dashboard
-            always_use_default_target_path: true
+            use_referer:        true
           logout:
             path: fos_user_security_logout
             target: /login
 #          remember_me:
-#            key: %secret%
+#            key: %secret%    
+#        
 
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
 
 
 
     access_control:
-        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
         - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/gestion/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/etudiant/, role: ROLE_ETUDIANT }
+        - { path: ^/gestion/, role: ROLE_GESTION }
         

@@ -1,6 +1,10 @@
 junior_etudiant:
     resource: "@JuniorEtudiantBundle/Resources/config/routing/etudiant.yml"
     prefix:   /etudiant
+    
+junior_gestion:
+    resource: "@JuniorEtudiantBundle/Resources/config/routing/gestion.yml"
+    prefix:   /gestion
 
 #je_student:
 #    resource: "@JEStudentBundle/Resources/config/routing.yml"
@@ -29,14 +33,4 @@ fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
     
-    
-login:
-    pattern:  /login
-    defaults: { _controller: JuniorEtudiantBundle:Security:login }
-    
-login_check:
-    pattern:  /login_check
-
-logout:
-    pattern: /logout
     

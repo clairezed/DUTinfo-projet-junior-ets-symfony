@@ -1,0 +1,42 @@
+{% extends "JuniorEtudiantBundle:Gestion:layoutGestion.html.twig" %}
+
+{% block title %}
+{{ parent()}} - Dashboard
+{% endblock %}
+
+{% block content_gestion %}
+
+<ul class="breadcrumb">
+    <li class="active"><a href="#">Dashboard</a> <span class="divider">/</span></li>
+</ul>
+<h2>Dashboard Gestion</h2>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Nom</th>
+            <th>Nom</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>test</td>
+            <td>test</td>
+            <td>test</td>
+        </tr>
+        <tr>
+            <td>test</td>
+            <td>test</td>
+            <td>test</td>
+        </tr>
+        <tr>
+            <td>test</td>
+            <td>test</td>
+            <td>test</td>
+        </tr>
+    </tbody>
+</table>
+<button class="btn" type="button"><a href="#" ><p>Voir tous les frais</p></a></button>
+<button class="btn" type="button"><a href="#" ><p>Enregistrer des frais</p></a></button>
+{% endblock %} 

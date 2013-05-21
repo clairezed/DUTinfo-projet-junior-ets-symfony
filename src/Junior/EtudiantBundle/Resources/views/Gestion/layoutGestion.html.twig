@@ -1,0 +1,40 @@
+{% extends "::layoutJunior.html.twig"%}
+
+{% block title %}
+    {{parent()}} - Gestion
+{% endblock %}
+    {% block body %}
+<div id="menu" class="span3">
+    <ul class="nav nav-tabs nav-stacked">
+        <li><a href="{{ path('junior_gestion_dashboard') }}" >DASHBOARD</a></li>
+        <li><a href="#" id="etudiants" title="frais">ETUDIANTS</a></li>
+        <ul class="submenu">
+            <li>
+                <a href="#" id="etu-frais-liste" title="liste etudiants"><p>tous les étudiants</p></a>
+            </li>
+            <li>
+                <a href="#" id="etu-frais-enr" title="gérer acomptes"><p>Gérer les acomptes</p></a>
+            </li>
+            <li>
+                <a href="#" id="etu-frais-enr" title="gérer frais"><p>Gérer les frais</p></a>
+            </li>
+        </ul>
+        <li>
+            <a href="#" id="etu-etudes" title="études"><p>ETUDES</p></a>
+            <ul class="submenu">
+                <li>
+                    <a href="#" id="etu-etudes-liste" title="liste etudes"><p>toutes les études</p></a>
+                </li>
+                <li>
+                    <a href="#" id="etu-etudes-liste" title="créer etude"><p>Créer une étude</p></a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div id="content" class="span9">
+                {% block content_gestion %}{% endblock %}
+    </div>
+
+{% endblock %}
+

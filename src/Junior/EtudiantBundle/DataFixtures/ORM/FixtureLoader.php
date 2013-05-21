@@ -49,7 +49,8 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
             ->get('security.encoder_factory')
             ->getEncoder($dupont);
         $dupont->setPassword($encoder->encodePassword('secret', $dupont->getSalt()));
-        $dupont->setRoles(array('ROLE_ADMIN'));
+        $dupont->setRoles(array('ROLE_ETUDIANT'));
+        $dupont->setEnabled(true);
         
 
         $durand = new Etudiant();
@@ -64,7 +65,8 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $encoder = $this->container
             ->get('security.encoder_factory')->getEncoder($durand);
         $durand->setPassword($encoder->encodePassword('secret', $durand->getSalt()));
-        $durand->setRoles(array('ROLE_ADMIN'));
+        $durand->setRoles(array('ROLE_ETUDIANT'));
+        $durand->setEnabled(true);
         
         
         $duchmol = new Etudiant();
@@ -79,7 +81,8 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $encoder = $this->container
             ->get('security.encoder_factory')->getEncoder($duchmol);
         $duchmol->setPassword($encoder->encodePassword('secret', $duchmol->getSalt()));
-        $duchmol->setRoles(array('ROLE_ADMIN'));
+        $duchmol->setRoles(array('ROLE_ETUDIANT'));
+        $duchmol->setEnabled(true);
 
         $dugland = new Etudiant();
         $dugland->setNumEtudiant('e4');
@@ -93,7 +96,8 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $encoder = $this->container
             ->get('security.encoder_factory')->getEncoder($dugland);
         $dugland->setPassword($encoder->encodePassword('secret', $dugland->getSalt()));
-        $dugland->setRoles(array('ROLE_ADMIN'));
+        $dugland->setRoles(array('ROLE_ETUDIANT'));
+        $dugland->setEnabled(true);
         
         
         $manager->persist($dupont);
