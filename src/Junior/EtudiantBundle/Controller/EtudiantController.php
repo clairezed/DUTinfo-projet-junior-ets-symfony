@@ -8,6 +8,7 @@ use Junior\EtudiantBundle\Entity\Etude;
 use Junior\EtudiantBundle\Entity\Participant;
 use Junior\EtudiantBundle\Form\EtudiantType;
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\HttpFoundation\Request;
 
 class EtudiantController extends Controller {
 
@@ -35,8 +36,24 @@ class EtudiantController extends Controller {
 //// Ici, $user est une instance de notre classe User
 //        }
 
+        $user = $this->getUser();
 
-        return $this->render('JuniorEtudiantBundle:Etudiant:dashboardEtudiant.html.twig');
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $id = $user->getId();
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('JuniorEtudiantBundle:Etudiant')->find($id);
+
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find Etudiant entity.');
+            }
+
+
+            return $this->render('JuniorEtudiantBundle:Etudiant:dashboardEtudiant.html.twig', array(
+                        'entity' => $entity,
+            ));
+        };
     }
 
     /*     * ************************************************
@@ -47,7 +64,7 @@ class EtudiantController extends Controller {
      * Voir les infos personnelles d'un etudiant
      *
      */
-    public function showEtudiantAction($id) {
+    public function showEtudiantAction() {
 
         $user = $this->getUser();
 
@@ -72,50 +89,67 @@ class EtudiantController extends Controller {
      * Displays a form to edit an existing Etudiant entity.
      *
      */
-    public function editEtudiantAction($id) {
-        $em = $this->getDoctrine()->getManager();
+    public function editEtudiantAction() {
 
-        $entity = $em->getRepository('JuniorEtudiantBundle:Etudiant')->find($id);
+        $user = $this->getUser();
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Etudiant entity.');
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $id = $user->getId();
+            $em = $this->getDoctrine()->getManager();
+
+            $entity = $em->getRepository('JuniorEtudiantBundle:Etudiant')->find($id);
+
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find Etudiant entity.');
+            }
+
+            $editForm = $this->createForm(new EtudiantType(), $entity);
+
+            return $this->render('JuniorEtudiantBundle:Etudiant:editEtudiant.html.twig', array(
+                        'entity' => $entity,
+                        'edit_form' => $editForm->createView(),
+            ));
         }
-
-        $editForm = $this->createForm(new EtudiantType(), $entity);
-
-        return $this->render('JuniorEtudiantBundle:Etudiant:editEtudiant.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-        ));
     }
 
     /**
      * Edits an existing Etudiant entity.
      *
      */
-    public function updateEtudiantAction(Request $request, $id) {
-        $em = $this->getDoctrine()->getManager();
+    public function updateEtudiantAction(Request $request) {
 
-        $entity = $em->getRepository('JuniorEtudiantBundle:Etudiant')->find($id);
+        $user = $this->getUser();
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Etudiant entity.');
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $id = $user->getId();
+
+            $em = $this->getDoctrine()->getManager();
+
+            $entity = $em->getRepository('JuniorEtudiantBundle:Etudiant')->find($id);
+
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find Etudiant entity.');
+            }
+
+            $editForm = $this->createForm(new EtudiantType(), $entity);
+            $editForm->bind($request);
+
+            if ($editForm->isValid()) {
+                $em->persist($entity);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('junior_etudiant_showEtudiant', array('id' => $id)));
+            }
+
+            return $this->render('JuniorEtudiantBundle:Etudiant:editEtudiant.html.twig', array(
+                        'entity' => $entity,
+                        'edit_form' => $editForm->createView(),
+            ));
         }
-
-        $editForm = $this->createForm(new EtudiantType(), $entity);
-        $editForm->bind($request);
-
-        if ($editForm->isValid()) {
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('junior_etudiant_showEtudiant', array('id' => $id)));
-        }
-
-        return $this->render('JuniorEtudiantBundle:Etudiant:editEtudiant.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-        ));
     }
 
     /*     * ************************************************
@@ -148,7 +182,7 @@ class EtudiantController extends Controller {
             $id = $user->getId();
 
             return $this->render('JuniorEtudiantBundle:Etudiant:newFrais.html.twig', array(
-                'id' => $id
+                        'id' => $id
             ));
         }
     }
@@ -157,7 +191,7 @@ class EtudiantController extends Controller {
      * Actions de manipulation des ETUDES
      * ************************************************* */
 
-    public function listEtudesAction($id) {
+    public function listEtudesAction() {
 
         $user = $this->getUser();
 
@@ -185,14 +219,14 @@ class EtudiantController extends Controller {
         }
     }
 
-    public function showEtudeAction($idEtude, $idEtudiant) {
+    public function showEtudeAction($idEtude) {
 
         $user = $this->getUser();
 
         if (null === $user) {
             return $this->render('JuniorEtudiantBundle::layout.html.twig');
         } else {
-            $id = $user->getId();
+            $idEtudiant = $user->getId();
 
             $em = $this->getDoctrine()->getManager();
             $etude = $em->getRepository('JuniorEtudiantBundle:Etude')->find($idEtude);

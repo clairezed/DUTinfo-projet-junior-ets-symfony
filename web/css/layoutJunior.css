@@ -82,3 +82,23 @@ body
 {
     background-color: #EEE;
 }
+
+
+/****************************************
+    SURCHARGE BOOTSTRAP
+*******************************************/
+.input-prepend .add-on
+{
+    background-color: #CCC;
+}
+
+placeholder
+{
+    background-color: #BBB;
+}
+
+
+#prependedInput
+{
+    background-color: #FFF;
+}

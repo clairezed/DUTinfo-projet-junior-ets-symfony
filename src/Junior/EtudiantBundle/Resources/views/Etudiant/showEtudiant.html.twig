@@ -14,29 +14,34 @@
     <table class="table table-bordered table-condensed">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Numetudiant</th>
+                <th>N° Etudiant</th>
                 <td>{{ entity.numEtudiant }}</td>
             </tr>
             <tr>
-                <th>Nometudiant</th>
+                <th>Nom</th>
                 <td>{{ entity.nomEtudiant }}</td>
             </tr>
             <tr>
-                <th>Adresseetudiant</th>
+                <th>Adresse</th>
                 <td>{{ entity.adresseEtudiant }}</td>
             </tr>
             <tr>
-                <th>Numsecu</th>
+                <th>N° SS</th>
                 <td>{{ entity.numSecu }}</td>
             </tr>
             <tr>
-                <th>Datenaissance</th>
+                <th>Date de naissance</th>
                 <td>{{ entity.dateNaissance }}</td>
             </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ entity.telEtudiant }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ entity.email }}</td>
+            </tr>
+            
         </tbody>
     </table>
 
@@ -62,10 +67,7 @@
 </ul>
 #}
 <button class="btn" type="button">
-    {#
-    <a href="{{ path('junior_etudiant_editEtudiant', { 'id': entity.id }) }}">Editer mes infos</a>
-#}
-    <a href="{{ path('junior_etudiant_editEtudiant', { 'id': 1 }) }}">Editer mes infos</a>
+    <a href="{{ path('junior_etudiant_editEtudiant') }}">Editer mes infos</a>
 </button>
 
 {% endblock %} 

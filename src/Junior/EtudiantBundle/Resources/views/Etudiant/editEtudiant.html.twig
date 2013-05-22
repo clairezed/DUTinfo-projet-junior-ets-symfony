@@ -6,19 +6,49 @@
 
 {% block content_etudiant %}
 
+
 <ul class="breadcrumb">
     <li class="active"><a href="#">Dashboard</a> <span class="divider">/</span></li>
 </ul>
-<h2>Mes infos - Editer</h2>
+
+<div class="container-fluid">
+    <h2>Mes infos - Editer</h2>
+
+    <div class="row-fluid">
+        <div class="input-prepend">
+            <span class="add-on">N° Etudiant</span>
+            <input class="span4" id="prependedInput" id="disabledInput" type="text" placeholder="{{app.user.numetudiant}}" disabled>
+        </div>
+        <div class="input-prepend">
+            <span class="add-on">Nom</span>
+            <input class="span4" id="prependedInput" id="disabledInput" type="text" placeholder="{{app.user.nometudiant}}" disabled>
+        </div>
+        <div class="input-prepend">
+            <span class="add-on">Prénom</span>
+            <input class="span4" id="prependedInput" id="disabledInput" type="text" placeholder="{{app.user.nometudiant}}" disabled>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="input-prepend">
+            <span class="add-on">N° SS</span>
+            <input class="span6" id="prependedInput" id="disabledInput" type="text" placeholder="{{app.user.numsecu}}" disabled>
+        </div>
+        <div class="input-prepend">
+            <span class="add-on">Date de naissance</span>
+            <input class="span6" id="prependedInput" id="disabledInput" type="text" placeholder="{{app.user.datenaissance}}" disabled>
+        </div>
+    </div>
+
 
     <form action="{{ path('junior_etudiant_updateEtudiant', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-     
+
         <input type="hidden" name="_method" value="PUT" />
         {{ form_widget(edit_form) }}
         <p>
             <button type="submit">Valider</button>
         </p>
     </form>
+</div>
 
         {#
 <ul class="record_actions">

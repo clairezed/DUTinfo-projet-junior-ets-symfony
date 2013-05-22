@@ -7,63 +7,63 @@ junior_etudiant_dashboard:
     defaults: { _controller: JuniorEtudiantBundle:Etudiant:dashboard }
     
 junior_etudiant_showEtudiant:
-    pattern:  /{id}/info
+    pattern:  /info
     defaults: { _controller: JuniorEtudiantBundle:Etudiant:showEtudiant }
     
 junior_etudiant_editEtudiant:
-    pattern:  /{id}/info/edit
+    pattern:  /info/edit
     defaults: { _controller: JuniorEtudiantBundle:Etudiant:editEtudiant }
     
 junior_etudiant_updateEtudiant:
-    pattern:  /{id}/info/update
+    pattern:  /info/update
     defaults: { _controller: "JuniorEtudiantBundle:Etudiant:updateEtudiant" }
     requirements: { _method: post|put }
 
 junior_etudiant_listFrais:
-    pattern:  /{id}/frais
+    pattern:  /frais
     defaults: { _controller: "JuniorEtudiantBundle:Etudiant:listFrais" }
 
 junior_etudiant_newFrais:
-    pattern:  /{id}/frais/new
+    pattern:  /frais/new
     defaults: { _controller: "JuniorEtudiantBundle:Etudiant:newFrais" }
     
 junior_etudiant_listEtudes:
-    pattern:  /{id}/etudes
+    pattern:  /etudes
     defaults: { _controller: "JuniorEtudiantBundle:Etudiant:listEtudes" }
     
 junior_etudiant_showEtude:
-    pattern:  /{idEtude}/{idEtudiant}/etude
+    pattern:  /{idEtude}/etude
     defaults: { _controller: "JuniorEtudiantBundle:Etudiant:showEtude" }
 
 
 #routes generees par le crud etudiant, pour info et exemple
-etudiant:
-    pattern:  /
-    defaults: { _controller: "JuniorEtudiantBundle:Etudiant:index" }
-
-etudiant_show:
-    pattern:  /{id}/show
-    defaults: { _controller: "JuniorEtudiantBundle:Etudiant:show" }
-
-etudiant_new:
-    pattern:  /new
-    defaults: { _controller: "JuniorEtudiantBundle:Etudiant:new" }
-
-etudiant_create:
-    pattern:  /create
-    defaults: { _controller: "JuniorEtudiantBundle:Etudiant:create" }
-    requirements: { _method: post }
-
-etudiant_edit:
-    pattern:  /{id}/edit
-    defaults: { _controller: "JuniorEtudiantBundle:Etudiant:edit" }
-
-etudiant_update:
-    pattern:  /{id}/update
-    defaults: { _controller: "JuniorEtudiantBundle:Etudiant:update" }
-    requirements: { _method: post|put }
-
-etudiant_delete:
-    pattern:  /{id}/delete
-    defaults: { _controller: "JuniorEtudiantBundle:Etudiant:delete" }
-    requirements: { _method: post|delete }
+#etudiant:
+#    pattern:  /
+#    defaults: { _controller: "JuniorEtudiantBundle:Etudiant:index" }
+#
+#etudiant_show:
+#    pattern:  /{id}/show
+#    defaults: { _controller: "JuniorEtudiantBundle:Etudiant:show" }
+#
+#etudiant_new:
+#    pattern:  /new
+#    defaults: { _controller: "JuniorEtudiantBundle:Etudiant:new" }
+#
+#etudiant_create:
+#    pattern:  /create
+#    defaults: { _controller: "JuniorEtudiantBundle:Etudiant:create" }
+#    requirements: { _method: post }
+#
+#etudiant_edit:
+#    pattern:  /{id}/edit
+#    defaults: { _controller: "JuniorEtudiantBundle:Etudiant:edit" }
+#
+#etudiant_update:
+#    pattern:  /{id}/update
+#    defaults: { _controller: "JuniorEtudiantBundle:Etudiant:update" }
+#    requirements: { _method: post|put }
+#
+#etudiant_delete:
+#    pattern:  /{id}/delete
+#    defaults: { _controller: "JuniorEtudiantBundle:Etudiant:delete" }
+#    requirements: { _method: post|delete }
