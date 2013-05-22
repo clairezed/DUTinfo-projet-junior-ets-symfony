@@ -35,7 +35,13 @@
     </ul>
 </div>
 <div id="content" class="span9">
+    <ul class="breadcrumb">
+        <li class="active"><a href="#">Dashboard</a> <span class="divider">/</span></li>
+    </ul>
+
+    <div class="container-fluid">
                 {% block content_etudiant %}{% endblock %}
+        </div>
     </div>
 
 {% endblock %}
