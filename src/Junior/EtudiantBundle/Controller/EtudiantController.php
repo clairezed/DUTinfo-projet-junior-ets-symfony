@@ -29,12 +29,6 @@ class EtudiantController extends Controller {
      * 
      */
     public function dashboardAction() {
-//        $user = $this->getUser();
-//        if (null === $user) {
-//// Ici, l'utilisateur est anonyme ou l'URL n'est pas derrière un             pare-feu
-//        } else {
-//// Ici, $user est une instance de notre classe User
-//        }
 
         $user = $this->getUser();
 
@@ -165,10 +159,10 @@ class EtudiantController extends Controller {
             $id = $user->getId();
             $em = $this->getDoctrine()->getEntityManager();
 
-            $entities = $em->getRepository('JuniorEtudiantBundle:Frais')->findAll();
+            $list_frais = $em->getRepository('JuniorEtudiantBundle:Frais')->findFraisbyIdEtudiant($id);
 
             return $this->render('JuniorEtudiantBundle:Etudiant:listFrais.html.twig', array(
-                        'entities' => $entities
+                        'list_frais' => $list_frais
             ));
         }
     }

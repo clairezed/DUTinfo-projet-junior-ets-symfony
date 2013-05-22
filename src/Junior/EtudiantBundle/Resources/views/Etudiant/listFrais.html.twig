@@ -12,19 +12,21 @@
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
-            <th>Id</th>
+            <th>Date achat</th>
+            <th>Etude</th>
             <th>Type frais</th>
             <th>Montant frais</th>
-            <th>Date achat</th>
+
         </tr>
     </thead>
     <tbody>
-        {% for entity in entities %}
+        {% for entity in list_frais %}
             <tr>
-                <td>{{ entity.id }}</td>
+                <td>{{ entity.dateAchat }}</td>
+                <td>{{ entity.etude.nomEtude }}</td>
                 <td>{{ entity.typeFrais }}</td>
                 <td>{{ entity.montantFrais }}</td>
-                <td>{{ entity.dateAchat }}</td>
+
                 {#
                 <td>
                 <ul>
