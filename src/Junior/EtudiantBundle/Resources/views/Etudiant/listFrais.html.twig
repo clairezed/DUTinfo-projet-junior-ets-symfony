@@ -6,7 +6,7 @@
 
 {% block content_etudiant %}
 
-<h2>Mes frais</h2>
+<h2>Mes derniers frais</h2>
 
 
 <table class="table table-striped table-bordered">
@@ -16,16 +16,52 @@
             <th>Etude</th>
             <th>Type frais</th>
             <th>Montant frais</th>
+            <th>Statut</th>
 
         </tr>
     </thead>
     <tbody>
-        {% for entity in list_frais %}
+        {% for frais in list_frais %}
             <tr>
-                <td>{{ entity.dateAchat }}</td>
-                <td>{{ entity.etude.nomEtude }}</td>
-                <td>{{ entity.typeFrais }}</td>
-                <td>{{ entity.montantFrais }}</td>
+                <td>{{ frais.dateAchat }}</td>
+                <td>{{ frais.etude.nomEtude }}</td>
+                <td>{{ frais.typeFrais }}</td>
+                <td>{{ frais.montantFrais }}</td>
+                <td>todo</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <button class="btn" type="button">
+        <a href="{{ path('junior_etudiant_newFrais', { 'id': 1 }) }}">Enregistrer un nouveau frais</a>
+    </button>
+
+
+    <p></p>
+    <h2>Tous mes remboursements de frais</h2>
+
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>N° RF</th>
+                <th>Date</th>
+                <th>Nb frais</th>
+                <th>Montant total</th>
+                <th></th>
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for rf in list_rf %}
+                <tr>
+                    <td>{{ rf.id }}</td>
+                    <td>{{ rf.dateRemboursement}}</td>
+                    <td>nb</td>
+                    <td>tot</td>
+                    <td><a href="{{ path('junior_etudiant_showRembFrais', {'idRF': rf.id}) }}" class="btn btn-primary btn-small">
+                            <i class="icon-search icon-white"></i>
+                            Détail
+                        </a></td>
 
                 {#
                 <td>
@@ -39,13 +75,11 @@
                 </ul>
                 </td>
                 #}
-            </tr>
+                </tr>
         {% endfor %}
-        </tbody>
-    </table>
-    <button class="btn" type="button">
-        <a href="{{ path('junior_etudiant_newFrais', { 'id': 1 }) }}">Enregistrer un nouveau frais</a>
-    </button>
+            </tbody>
+        </table>
+
 
 
 {% endblock %}

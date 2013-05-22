@@ -160,9 +160,11 @@ class EtudiantController extends Controller {
             $em = $this->getDoctrine()->getEntityManager();
 
             $list_frais = $em->getRepository('JuniorEtudiantBundle:Frais')->findFraisbyIdEtudiant($id);
+            $list_rf = $em->getRepository('JuniorEtudiantBundle:RemboursementFrais')->findRFbyIdEtudiant($id);
 
             return $this->render('JuniorEtudiantBundle:Etudiant:listFrais.html.twig', array(
-                        'list_frais' => $list_frais
+                        'list_frais' => $list_frais,
+                        'list_rf' => $list_rf
             ));
         }
     }
@@ -177,6 +179,23 @@ class EtudiantController extends Controller {
 
             return $this->render('JuniorEtudiantBundle:Etudiant:newFrais.html.twig', array(
                         'id' => $id
+            ));
+        }
+    }
+    
+    public function showRembFraisAction($idRF) {
+        $user = $this->getUser();
+
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+//            $id = $user->getId();
+            $em = $this->getDoctrine()->getEntityManager();
+
+            $rf = $em->getRepository('JuniorEtudiantBundle:RemboursementFrais')->find($idRF);
+
+            return $this->render('JuniorEtudiantBundle:Etudiant:showRembFrais.html.twig', array(
+                        'rf' => $rf
             ));
         }
     }

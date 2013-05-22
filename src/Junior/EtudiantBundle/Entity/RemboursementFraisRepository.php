@@ -12,4 +12,23 @@ use Doctrine\ORM\EntityRepository;
  */
 class RemboursementFraisRepository extends EntityRepository
 {
+    
+    public function findRFbyIdEtudiant($idEtudiant) {
+        
+        $qb = $this->createQueryBuilder('rf')
+                ->leftJoin('rf.frais', 'frais')
+                ->addSelect('frais')
+                ->leftJoin('frais.etudiant', 'etu')
+                ->addSelect('etu')
+                ->leftJoin('frais.etude', 'etude')
+                ->addSelect('etude');
+
+        $qb->where('etu = :etudiant')
+                ->setParameter('etudiant', $idEtudiant)
+                ->orderBy('frais.dateAchat', 'DESC');
+
+        return $qb->getQuery()
+                        ->getResult();
+    }
+    
 }
