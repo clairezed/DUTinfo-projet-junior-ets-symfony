@@ -63,8 +63,13 @@
     </li>
 </ul>
 #}
-<button class="btn" type="button">
+{#<button class="btn" type="button">
     <a href="{{ path('junior_etudiant_editEtudiant') }}">Editer mes infos</a>
-</button>
+</button>#}
+
+<a href="{{ path('junior_etudiant_editEtudiant') }}" class="btn btn-primary btn-small">
+    <i class="icon-search icon-white"></i>
+    Editer mes infos
+</a>
 
 {% endblock %} 

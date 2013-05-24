@@ -5,8 +5,10 @@ namespace Junior\EtudiantBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Junior\EtudiantBundle\Entity\Etudiant;
 use Junior\EtudiantBundle\Entity\Etude;
+use Junior\EtudiantBundle\Entity\Acompte;
 use Junior\EtudiantBundle\Entity\Participant;
 use Junior\EtudiantBundle\Form\EtudiantType;
+use Junior\EtudiantBundle\Form\AcompteType;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -248,6 +250,54 @@ class EtudiantController extends Controller {
 
             return $this->render('JuniorEtudiantBundle:Etudiant:showEtude.html.twig', array(
                         'etude' => $etude, 'statut' => $statut, 'nbJours' => $nbJours, 'acomptes' => $acomptes
+            ));
+        }
+    }
+    
+    /*     * ************************************************
+     * Actions de manipulation des ACOMPTES
+     * ************************************************* */
+    
+    public function newAcompteAction($idEtude) {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $acompte = new Acompte();
+        
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $idEtudiant = $user->getId();
+            $etude = $em->getRepository('JuniorEtudiantBundle:Etude')->findOneById($idEtude);
+            $indemnite = $em->getRepository('JuniorEtudiantBundle:Indemnites')->findOneBy(array('etudiant' => $idEtudiant, 'etude' => $idEtude));
+            $acompte->setIndemnite($indemnite);
+            
+             $form = $this->createForm(new AcompteType(), $acompte);
+             
+             $request = $this->getRequest();
+             
+            if ($request->getMethod() == 'POST') {
+//                $postData = $request->request->get('junior_etudiantbundle_acomptetype');
+//                $montant = $postData['montantAcompte'];
+//                $date = $postData['dateAcompte'];
+//                $date = $date['month'] + " - " + $date['day'] + " - " + $date['year'];
+//                $acompte->setDateAcompte(new \DateTime($date));
+//                $acompte->setMontantAcompte($montant);
+                //$form->bind($request);
+                $form->bind($request);
+                if ($form->isValid()) {
+                    $acompte->setIndemnite($indemnite);
+                    $em->persist($acompte);
+                    $em->flush();
+                    $this->get('session')->getFlashBag()->add('info', 'Votre demande d\'acompte a été transmise');
+                }
+                else {
+                    $this->get('session')->getFlashBag()->add('info', 'Erreur lors de la transmission de la demande');
+                }
+
+                return $this->redirect($this->generateUrl('junior_etudiant_listEtudes'));
+            } 
+            return $this->render('JuniorEtudiantBundle:Etudiant:newAcompte.html.twig', array(
+            'form' => $form->createView(), 'idEtude' => $idEtude, 'etude' =>$etude
             ));
         }
     }

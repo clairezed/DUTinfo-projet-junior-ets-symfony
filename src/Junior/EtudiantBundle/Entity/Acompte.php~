@@ -36,9 +36,9 @@ class Acompte
     private $montantAcompte;
 
     /**
-     * @var string
+     * @var date
      *
-     * @ORM\Column(name="dateAcompte", type="string", length=255)
+     * @ORM\Column(name="dateAcompte", type="date")
      */
     private $dateAcompte;
 

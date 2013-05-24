@@ -1,6 +1,7 @@
 <?php
 
 namespace Junior\EtudiantBundle\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -36,9 +37,9 @@ class Acompte
     private $montantAcompte;
 
     /**
-     * @var string
+     * @var date
      *
-     * @ORM\Column(name="dateAcompte", type="string", length=255)
+     * @ORM\Column(name="dateAcompte", type="date")
      */
     private $dateAcompte;
 

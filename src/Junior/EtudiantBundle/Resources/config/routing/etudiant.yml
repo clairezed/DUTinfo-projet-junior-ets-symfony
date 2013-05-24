@@ -39,6 +39,10 @@ junior_etudiant_showEtude:
     pattern:  /{idEtude}/etude
     defaults: { _controller: "JuniorEtudiantBundle:Etudiant:showEtude" }
 
+junior_etudiant_newAcompte:
+    pattern:  /{idEtude}/acompte/new
+    defaults: { _controller: "JuniorEtudiantBundle:Etudiant:newAcompte" }
+
 
 #routes generees par le crud etudiant, pour info et exemple
 #etudiant:
