@@ -14,13 +14,13 @@ class Frais
 {
     
     /**
-     * @ORM\OneToMany(targetEntity="Junior\EtudiantBundle\Entity\RemboursementFrais", mappedBy="frais")
+     * @ORM\ManyToOne(targetEntity="Junior\EtudiantBundle\Entity\RemboursementFrais", inversedBy="frais")
      */
     private $remboursementsFrais;
     
     /**
      * @ORM\ManyToOne(targetEntity="Junior\EtudiantBundle\Entity\Etudiant", inversedBy="frais")
-     * @ORM\JoinColumn(nullable=false)
+     * 
      */
     private $etudiant;
     
@@ -141,15 +141,38 @@ class Frais
     }
 
     /**
+     * Set remboursementsFrais
+     *
+     * @param \Junior\EtudiantBundle\Entity\RemboursementFrais $remboursementsFrais
+     * @return Frais
+     */
+    public function setRemboursementsFrais(\Junior\EtudiantBundle\Entity\RemboursementFrais $remboursementsFrais = null)
+    {
+        $this->remboursementsFrais = $remboursementsFrais;
+    
+        return $this;
+    }
+
+    /**
+     * Get remboursementsFrais
+     *
+     * @return \Junior\EtudiantBundle\Entity\RemboursementFrais 
+     */
+    public function getRemboursementsFrais()
+    {
+        return $this->remboursementsFrais;
+    }
+
+    /**
      * Set etudiant
      *
      * @param \Junior\EtudiantBundle\Entity\Etudiant $etudiant
      * @return Frais
      */
-    public function setEtudiant(\Junior\EtudiantBundle\Entity\Etudiant $etudiant)
+    public function setEtudiant(\Junior\EtudiantBundle\Entity\Etudiant $etudiant = null)
     {
         $this->etudiant = $etudiant;
-
+    
         return $this;
     }
 
@@ -172,7 +195,7 @@ class Frais
     public function setEtude(\Junior\EtudiantBundle\Entity\Etude $etude)
     {
         $this->etude = $etude;
-
+    
         return $this;
     }
 
@@ -184,45 +207,5 @@ class Frais
     public function getEtude()
     {
         return $this->etude;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->remboursementsFrais = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add remboursementsFrais
-     *
-     * @param \Junior\EtudiantBundle\Entity\RemboursementFrais $remboursementsFrais
-     * @return Frais
-     */
-    public function addRemboursementsFrai(\Junior\EtudiantBundle\Entity\RemboursementFrais $remboursementsFrais)
-    {
-        $this->remboursementsFrais[] = $remboursementsFrais;
-
-        return $this;
-    }
-
-    /**
-     * Remove remboursementsFrais
-     *
-     * @param \Junior\EtudiantBundle\Entity\RemboursementFrais $remboursementsFrais
-     */
-    public function removeRemboursementsFrai(\Junior\EtudiantBundle\Entity\RemboursementFrais $remboursementsFrais)
-    {
-        $this->remboursementsFrais->removeElement($remboursementsFrais);
-    }
-
-    /**
-     * Get remboursementsFrais
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getRemboursementsFrais()
-    {
-        return $this->remboursementsFrais;
     }
 }

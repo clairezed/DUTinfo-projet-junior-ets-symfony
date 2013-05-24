@@ -18,7 +18,7 @@ use Junior\EtudiantBundle\Entity\RemboursementFrais;
 use Junior\EtudiantBundle\Entity\Facture;
 
 class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
-    
+
     /**
      * @var ContainerInterface
      */
@@ -27,15 +27,13 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
     /**
      * {@inheritDoc}
      */
-    public function setContainer(ContainerInterface $container = null)
-    {
+    public function setContainer(ContainerInterface $container = null) {
         $this->container = $container;
     }
-    
-    
+
     public function load(ObjectManager $manager) {
 
-        
+
         $dupont = new Etudiant();
         $dupont->setNumEtudiant('e1');
         $dupont->setNomEtudiant('Dupont');
@@ -46,12 +44,12 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $dupont->setUsername('e1');
         $dupont->setEmail('dupont@etu.com');
         $encoder = $this->container
-            ->get('security.encoder_factory')
-            ->getEncoder($dupont);
+                ->get('security.encoder_factory')
+                ->getEncoder($dupont);
         $dupont->setPassword($encoder->encodePassword('secret', $dupont->getSalt()));
         $dupont->setRoles(array('ROLE_ETUDIANT'));
         $dupont->setEnabled(true);
-        
+
 
         $durand = new Etudiant();
         $durand->setNumEtudiant('e2');
@@ -63,12 +61,12 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $durand->setUsername('e2');
         $durand->setEmail('durand@etu.com');
         $encoder = $this->container
-            ->get('security.encoder_factory')->getEncoder($durand);
+                        ->get('security.encoder_factory')->getEncoder($durand);
         $durand->setPassword($encoder->encodePassword('secret', $durand->getSalt()));
         $durand->setRoles(array('ROLE_ETUDIANT'));
         $durand->setEnabled(true);
-        
-        
+
+
         $duchmol = new Etudiant();
         $duchmol->setNumEtudiant('e3');
         $duchmol->setNomEtudiant('Duchmol');
@@ -79,7 +77,7 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $duchmol->setUsername('e3');
         $duchmol->setEmail('duchmol@etu.com');
         $encoder = $this->container
-            ->get('security.encoder_factory')->getEncoder($duchmol);
+                        ->get('security.encoder_factory')->getEncoder($duchmol);
         $duchmol->setPassword($encoder->encodePassword('secret', $duchmol->getSalt()));
         $duchmol->setRoles(array('ROLE_ETUDIANT'));
         $duchmol->setEnabled(true);
@@ -94,12 +92,12 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $dugland->setUsername('e4');
         $dugland->setEmail('dugland@etu.com');
         $encoder = $this->container
-            ->get('security.encoder_factory')->getEncoder($dugland);
+                        ->get('security.encoder_factory')->getEncoder($dugland);
         $dugland->setPassword($encoder->encodePassword('secret', $dugland->getSalt()));
         $dugland->setRoles(array('ROLE_ETUDIANT'));
         $dugland->setEnabled(true);
-        
-        
+
+
         $manager->persist($dupont);
         $manager->persist($durand);
         $manager->persist($duchmol);
@@ -184,48 +182,81 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $manager->persist($p6);
         $manager->flush();
 
+        
+        
+         $rf1 = new RemboursementFrais();
+        $rf1->setDateRemboursement('27/04/2013');
+//        $rf1->addFrai($f1);
+//        $rf1->addFrai($f2);
+
+        $rf2 = new RemboursementFrais();
+        $rf2->setDateRemboursement('06/05/2013');
+//        $rf2->addFrai($f3);
+
+        $rf3 = new RemboursementFrais();
+        $rf3->setDateRemboursement('16/06/2013');
+//        $rf3->addFrai($f4);
+        
+        
+
+        $manager->persist($rf1);
+        $manager->persist($rf2);
+        $manager->persist($rf3);
+        $manager->flush();
+
+
         $f1 = new Frais();
-        $f1->setEtude($uc_e);
-        $f1->setEtudiant($dupont);
+        $f1->setEtude($dspr_e);
+        $f1->setEtudiant($durand);
         $f1->setTypeFrais('Materiel de laboratoire');
         $f1->setMontantFrais('2000');
         $f1->setDateAchat('25/04/2013');
+        $f1->setRemboursementsFrais($rf1);
+
 
         $f2 = new Frais();
         $f2->setEtude($dspr_e);
         $f2->setEtudiant($durand);
         $f2->setTypeFrais('Nourriture galactique standard');
         $f2->setMontantFrais('32');
-        $f2->setDateAchat('22/03/2013');
+        $f2->setDateAchat('22/04/2013');
+        $f2->setRemboursementsFrais($rf1);
 
         $f3 = new Frais();
-        $f3->setEtude($dspr_e);
-        $f3->setEtudiant($durand);
+        $f3->setEtude($uc_e);
+        $f3->setEtudiant($dupont);
         $f3->setTypeFrais('Transport Hyperluminique');
         $f3->setMontantFrais('12500');
         $f3->setDateAchat('03/05/2013');
+        $f3->setRemboursementsFrais($rf2);
+
+        $f4 = new Frais();
+        $f4->setEtude($uc_e);
+        $f4->setEtudiant($duchmol);
+        $f4->setTypeFrais('tournevis sonic');
+        $f4->setMontantFrais('1200');
+        $f4->setDateAchat('30/06/2013');
+        $f4->setRemboursementsFrais($rf3);
+
+        $f5 = new Frais();
+        $f5->setEtude($dspr_e);
+        $f5->setEtudiant($dupont);
+        $f5->setTypeFrais('location licorne');
+        $f5->setMontantFrais('80');
+        $f5->setDateAchat('14/07/2013');
+        
 
         $manager->persist($f1);
         $manager->persist($f2);
         $manager->persist($f3);
+        $manager->persist($f4);
+        $manager->persist($f5);
         $manager->flush();
 
-        $rf1 = new RemboursementFrais();
-        $rf1->setFrais($f1);
-        $rf1->setDateRemboursement('27/04/2013');
 
-        $rf2 = new RemboursementFrais();
-        $rf2->setFrais($f2);
-        $rf2->setDateRemboursement('28/03/2013');
-
-        $rf3 = new RemboursementFrais();
-        $rf3->setFrais($f3);
-        $rf3->setDateRemboursement('06/05/2013');
-
-        $manager->persist($rf1);
-        $manager->persist($rf2);
-        $manager->persist($rf3);
-        $manager->flush();
+       
+        
+        
 
         $i1 = new Indemnites();
         $i1->setEtude($uc_e);
