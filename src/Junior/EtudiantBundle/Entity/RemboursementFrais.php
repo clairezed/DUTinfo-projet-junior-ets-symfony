@@ -91,4 +91,15 @@ class RemboursementFrais
     {
         return $this->frais;
     }
+    
+    public function getNbFrais()
+    {
+        
+    }
+    
+    public function getMontantTotal()
+    {
+        
+    }
+    
 }

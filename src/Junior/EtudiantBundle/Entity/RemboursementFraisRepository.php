@@ -30,5 +30,28 @@ class RemboursementFraisRepository extends EntityRepository
         return $qb->getQuery()
                         ->getResult();
     }
+//    
+//    public function nbFraisinRF($idEtudiant) {
+//        
+//        $qb = $this->createQueryBuilder('rf')
+//                ->leftJoin('rf.frais', 'frais')
+//                ->addSelect('frais')
+//                ->leftJoin('frais.etudiant', 'etu')
+//                ->addSelect('etu')
+//                ->leftJoin('frais.etude', 'etude')
+//                ->addSelect('etude');
+//
+//        $qb->where('etu = :etudiant')
+//                ->setParameter('etudiant', $idEtudiant)
+//                ->getQuery();
+//        
+//        $total = $query->select('COUNT(frais)')
+//               ->getQuery()
+//               ->getSingleScalarResult();
+//
+//        return $total;
+//    }
+    
+    
     
 }

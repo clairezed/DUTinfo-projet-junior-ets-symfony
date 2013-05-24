@@ -6,34 +6,41 @@
 
 {% block content_etudiant %}
 
-<h2>Liste des frais</h2>
+
+<h2>Mes derniers frais</h2>
+
 
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
-            <th>Nom</th>
-            <th>Nom</th>
-            <th>Nom</th>
+            <th>Date achat</th>
+            <th>Etude</th>
+            <th>Type frais</th>
+            <th>Montant frais</th>
+            <th>Statut</th>
+
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>test</td>
-            <td>test</td>
-            <td>test</td>
-        </tr>
-        <tr>
-            <td>test</td>
-            <td>test</td>
-            <td>test</td>
-        </tr>
-        <tr>
-            <td>test</td>
-            <td>test</td>
-            <td>test</td>
-        </tr>
-    </tbody>
-</table>
-<button class="btn" type="button"><a href="{{ path('junior_etudiant_listFrais', {'id':1}) }}" ><p>Voir tous les frais</p></a></button>
-<button class="btn" type="button"><a href="#" ><p>Enregistrer des frais</p></a></button>
+        {% for frais in list_frais %}
+            <tr>
+                <td>{{ frais.dateAchat }}</td>
+                <td>{{ frais.etude.nomEtude }}</td>
+                <td>{{ frais.typeFrais }}</td>
+                <td>{{ frais.montantFrais }}</td>
+                <td>todo</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+   <button class="btn btn-primary" type="button"><a href="{{ path('junior_etudiant_listFrais', {'id':1}) }}" ><p>Voir tous les frais</p></a></button>
+<button class="btn btn-primary" type="button"><a href="#" ><p>Enregistrer des frais</p></a></button>
+
+
+    <p></p>
+    <p></p>
+    
+    
+    
+
 {% endblock %} 
