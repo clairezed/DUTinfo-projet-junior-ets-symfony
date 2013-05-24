@@ -10,15 +10,14 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Junior\EtudiantBundle\Entity\RemboursementFraisRepository")
  */
-class RemboursementFrais
-{
-    
+class RemboursementFrais {
+
     /**
-     * @ORM\ManyToOne(targetEntity="Junior\EtudiantBundle\Entity\Frais", inversedBy="remboursementsFrais")
+     * @ORM\OneToMany(targetEntity="Junior\EtudiantBundle\Entity\Frais", mappedBy="remboursementsFrais", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $frais;
-    
+
     /**
      * @var integer
      *
@@ -29,13 +28,22 @@ class RemboursementFrais
     private $id;
 
     /**
-     * @var string
+     * @var date
      *
-     * @ORM\Column(name="dateRemboursement", type="string", length=255)
+     * @ORM\Column(name="dateRemboursement", type="date")
      */
     private $dateRemboursement;
 
 
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->frais = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     /**
      * Get id
      *
@@ -49,7 +57,7 @@ class RemboursementFrais
     /**
      * Set dateRemboursement
      *
-     * @param string $dateRemboursement
+     * @param \DateTime $dateRemboursement
      * @return RemboursementFrais
      */
     public function setDateRemboursement($dateRemboursement)
@@ -62,7 +70,7 @@ class RemboursementFrais
     /**
      * Get dateRemboursement
      *
-     * @return string 
+     * @return \DateTime 
      */
     public function getDateRemboursement()
     {
@@ -70,36 +78,55 @@ class RemboursementFrais
     }
 
     /**
-     * Set frais
+     * Add frais
      *
      * @param \Junior\EtudiantBundle\Entity\Frais $frais
      * @return RemboursementFrais
      */
-    public function setFrais(\Junior\EtudiantBundle\Entity\Frais $frais)
+    public function addFrai(\Junior\EtudiantBundle\Entity\Frais $frais)
     {
-        $this->frais = $frais;
-
+        $this->frais[] = $frais;
+    
         return $this;
+    }
+
+    /**
+     * Remove frais
+     *
+     * @param \Junior\EtudiantBundle\Entity\Frais $frais
+     */
+    public function removeFrai(\Junior\EtudiantBundle\Entity\Frais $frais)
+    {
+        $this->frais->removeElement($frais);
     }
 
     /**
      * Get frais
      *
-     * @return \Junior\EtudiantBundle\Entity\Frais 
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getFrais()
     {
         return $this->frais;
     }
     
-    public function getNbFrais()
-    {
-        
+    
+    
+    
+    public function __toString() {
+        return "'+$this->id+'";
     }
     
-    public function getMontantTotal()
-    {
-        
+
+    public function getMontantTotal() {
+        $listFrais = $this->frais;
+        $total = 0;
+        foreach ($listFrais as $frais) {
+            $total+=$frais->getMontantFrais();
+        }
+
+        return $total;
     }
+    
     
 }

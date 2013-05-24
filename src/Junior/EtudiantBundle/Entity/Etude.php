@@ -292,4 +292,9 @@ class Etude
     {
         return $this->participants;
     }
+    
+    
+    public function __toString() {
+        return $this->nomEtude;
+    }
 }

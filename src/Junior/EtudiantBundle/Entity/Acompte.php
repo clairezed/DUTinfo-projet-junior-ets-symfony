@@ -44,6 +44,8 @@ class Acompte
     private $dateAcompte;
 
 
+   
+
     /**
      * Get id
      *
@@ -80,7 +82,7 @@ class Acompte
     /**
      * Set dateAcompte
      *
-     * @param string $dateAcompte
+     * @param \DateTime $dateAcompte
      * @return Acompte
      */
     public function setDateAcompte($dateAcompte)
@@ -93,7 +95,7 @@ class Acompte
     /**
      * Get dateAcompte
      *
-     * @return string 
+     * @return \DateTime 
      */
     public function getDateAcompte()
     {
@@ -109,6 +111,7 @@ class Acompte
     public function setIndemnite(\Junior\EtudiantBundle\Entity\Indemnites $indemnite)
     {
         $this->indemnite = $indemnite;
+    
         return $this;
     }
 

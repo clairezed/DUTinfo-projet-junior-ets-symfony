@@ -29,43 +29,12 @@ class Convention
     private $id;
 
     /**
-     * @var string
+     * @var date
      *
-     * @ORM\Column(name="dateConvention", type="string", length=255)
+     * @ORM\Column(name="dateConvention", type="date", length=255)
      */
     private $dateConvention;
 
 
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set dateConvention
-     *
-     * @param string $dateConvention
-     * @return Convention
-     */
-    public function setDateConvention($dateConvention)
-    {
-        $this->dateConvention = $dateConvention;
-    
-        return $this;
-    }
-
-    /**
-     * Get dateConvention
-     *
-     * @return string 
-     */
-    public function getDateConvention()
-    {
-        return $this->dateConvention;
-    }
+   
 }

@@ -67,9 +67,9 @@ class Etudiant extends BaseUser
     private $numSecu;
 
     /**
-     * @var string
+     * @var date
      *
-     * @ORM\Column(name="dateNaissance", type="string", length=255)
+     * @ORM\Column(name="dateNaissance", type="date")
      */
     private $dateNaissance;
     
@@ -183,28 +183,7 @@ class Etudiant extends BaseUser
         return $this->numSecu;
     }
 
-    /**
-     * Set dateNaissance
-     *
-     * @param string $dateNaissance
-     * @return Etudiant
-     */
-    public function setDateNaissance($dateNaissance)
-    {
-        $this->dateNaissance = $dateNaissance;
-    
-        return $this;
-    }
-
-    /**
-     * Get dateNaissance
-     *
-     * @return string 
-     */
-    public function getDateNaissance()
-    {
-        return $this->dateNaissance;
-    }
+   
     /**
      * Constructor
      */
@@ -336,5 +315,51 @@ class Etudiant extends BaseUser
     public function getTelEtudiant()
     {
         return $this->telEtudiant;
+    }
+
+    /**
+     * Add frais
+     *
+     * @param \Junior\EtudiantBundle\Entity\Frais $frais
+     * @return Etudiant
+     */
+    public function addFrai(\Junior\EtudiantBundle\Entity\Frais $frais)
+    {
+        $this->frais[] = $frais;
+    
+        return $this;
+    }
+
+    /**
+     * Remove frais
+     *
+     * @param \Junior\EtudiantBundle\Entity\Frais $frais
+     */
+    public function removeFrai(\Junior\EtudiantBundle\Entity\Frais $frais)
+    {
+        $this->frais->removeElement($frais);
+    }
+
+    /**
+     * Set dateNaissance
+     *
+     * @param \DateTime $dateNaissance
+     * @return Etudiant
+     */
+    public function setDateNaissance($dateNaissance)
+    {
+        $this->dateNaissance = $dateNaissance;
+    
+        return $this;
+    }
+
+    /**
+     * Get dateNaissance
+     *
+     * @return \DateTime 
+     */
+    public function getDateNaissance()
+    {
+        return $this->dateNaissance;
     }
 }

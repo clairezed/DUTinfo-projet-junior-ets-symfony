@@ -29,12 +29,14 @@ class Convention
     private $id;
 
     /**
-     * @var string
+     * @var date
      *
-     * @ORM\Column(name="dateConvention", type="string", length=255)
+     * @ORM\Column(name="dateConvention", type="date", length=255)
      */
     private $dateConvention;
 
+
+   
 
     /**
      * Get id
@@ -49,7 +51,7 @@ class Convention
     /**
      * Set dateConvention
      *
-     * @param string $dateConvention
+     * @param \DateTime $dateConvention
      * @return Convention
      */
     public function setDateConvention($dateConvention)
@@ -62,7 +64,7 @@ class Convention
     /**
      * Get dateConvention
      *
-     * @return string 
+     * @return \DateTime 
      */
     public function getDateConvention()
     {
@@ -78,7 +80,7 @@ class Convention
     public function setEntreprise(\Junior\EtudiantBundle\Entity\Entreprise $entreprise)
     {
         $this->entreprise = $entreprise;
-
+    
         return $this;
     }
 

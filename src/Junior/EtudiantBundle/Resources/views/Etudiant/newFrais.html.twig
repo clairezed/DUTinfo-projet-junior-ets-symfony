@@ -19,16 +19,24 @@
         </tr>
     </thead>
     <tbody>
-            <tr>
-                <td>todo</td>
-                <td>todo</td>
-                <td>todo</td>
-                <td>todo</td>
-                <td>todo</td>
-                <td><button class="btn btn-small btn-success" type="button">+</button></td>
-            </tr>
-        </tbody>
-    </table>
+        <tr>
+            <td>todo</td>
+            <td>todo</td>
+            <td>todo</td>
+            <td>todo</td>
+            <td>todo</td>
+            <td><button class="btn btn-small btn-success" type="button">+</button></td>
+        </tr>
+    </tbody>
+</table>
+<div class="well">
+    <form method="post" {{ form_enctype(form) }}>
+{{ form_widget(form) }}
+            <input type="submit" class="btn btn-primary" />
+        </form>
+    </div>
+
+
 {#
 
     <form action="{{ path('etudiant_create') }}" method="post" {{ form_enctype(form) }}>
@@ -48,9 +56,9 @@
 
 #}
 
-<button class="btn" type="button">Valider</button>
-<button class="btn" type="button">
-    <a href="{{ path('junior_etudiant_listFrais', { 'id': 1 }) }}">Annuler</a>
-</button>
+    <button class="btn" type="button">Valider</button>
+    <button class="btn" type="button">
+        <a href="{{ path('junior_etudiant_listFrais', { 'id': app.user.id }) }}">Annuler</a>
+    </button>
 
 {% endblock %} 
