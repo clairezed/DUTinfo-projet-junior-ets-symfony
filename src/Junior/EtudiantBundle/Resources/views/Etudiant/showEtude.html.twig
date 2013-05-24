@@ -38,7 +38,7 @@
             {% for acompte in acomptes %}
                 <tr>
                     <td>{{ acompte.id }}</td>
-                    <td>{{ acompte.dateAcompte }}</td>
+                    <td>{{ acompte.dateAcompte|date("d/m/Y") }}</td>
                     <td>{{ acompte.montantAcompte }}</td>
                     <td></td>
                 </tr>

@@ -55,7 +55,7 @@
         {% for rf in list_rf %}
                 <tr>
                     <td>{{ rf.id }}</td>
-                    <td>{{ rf.dateRemboursement}}</td>
+                    <td>{{ rf.dateRemboursement|date("d/m/Y")}}</td>
                     <td>{{ rf.frais.count }}</td>
                     <td>{{ rf.montantTotal }}</td>
                     <td><a href="{{ path('junior_etudiant_showRembFrais', {'idRF': rf.id}) }}" class="btn btn-primary btn-small">
