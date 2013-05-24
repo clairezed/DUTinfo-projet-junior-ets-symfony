@@ -109,4 +109,17 @@ class RemboursementFrais
     {
         return $this->frais;
     }
+    
+        public function getMontantTotal()
+    {
+       $listFrais = $this->frais;
+       $total = 0;
+       foreach ($listFrais as $frais) {
+           $total+=$frais->getMontantFrais();
+       }
+       
+       return $total;
+    }
+    
+    
 }

@@ -56,8 +56,8 @@
                 <tr>
                     <td>{{ rf.id }}</td>
                     <td>{{ rf.dateRemboursement}}</td>
-                    <td>nb</td>
-                    <td>tot</td>
+                    <td>{{ rf.frais.count }}</td>
+                    <td>{{ rf.montantTotal }}</td>
                     <td><a href="{{ path('junior_etudiant_showRembFrais', {'idRF': rf.id}) }}" class="btn btn-primary btn-small">
                             <i class="icon-search icon-white"></i>
                             Détail
