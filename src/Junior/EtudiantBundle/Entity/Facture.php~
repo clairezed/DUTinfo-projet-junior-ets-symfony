@@ -40,27 +40,4 @@ class Facture
     }
 
    
-
-    /**
-     * Set dateFacture
-     *
-     * @param \DateTime $dateFacture
-     * @return Facture
-     */
-    public function setDateFacture($dateFacture)
-    {
-        $this->dateFacture = $dateFacture;
-    
-        return $this;
-    }
-
-    /**
-     * Get dateFacture
-     *
-     * @return \DateTime 
-     */
-    public function getDateFacture()
-    {
-        return $this->dateFacture;
-    }
 }

@@ -10,15 +10,14 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Junior\EtudiantBundle\Entity\RemboursementFraisRepository")
  */
-class RemboursementFrais
-{
-    
+class RemboursementFrais {
+
     /**
      * @ORM\OneToMany(targetEntity="Junior\EtudiantBundle\Entity\Frais", mappedBy="remboursementsFrais", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $frais;
-    
+
     /**
      * @var integer
      *
@@ -29,13 +28,22 @@ class RemboursementFrais
     private $id;
 
     /**
-     * @var string
+     * @var date
      *
-     * @ORM\Column(name="dateRemboursement", type="string", length=255)
+     * @ORM\Column(name="dateRemboursement", type="date")
      */
     private $dateRemboursement;
 
 
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->frais = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     /**
      * Get id
      *
@@ -47,17 +55,9 @@ class RemboursementFrais
     }
 
     /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->frais = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
-    /**
      * Set dateRemboursement
      *
-     * @param string $dateRemboursement
+     * @param \DateTime $dateRemboursement
      * @return RemboursementFrais
      */
     public function setDateRemboursement($dateRemboursement)
@@ -70,7 +70,7 @@ class RemboursementFrais
     /**
      * Get dateRemboursement
      *
-     * @return string 
+     * @return \DateTime 
      */
     public function getDateRemboursement()
     {
@@ -110,15 +110,22 @@ class RemboursementFrais
         return $this->frais;
     }
     
-        public function getMontantTotal()
-    {
-       $listFrais = $this->frais;
-       $total = 0;
-       foreach ($listFrais as $frais) {
-           $total+=$frais->getMontantFrais();
-       }
-       
-       return $total;
+    
+    
+    
+    public function __toString() {
+        return "'+$this->id+'";
+    }
+    
+
+    public function getMontantTotal() {
+        $listFrais = $this->frais;
+        $total = 0;
+        foreach ($listFrais as $frais) {
+            $total+=$frais->getMontantFrais();
+        }
+
+        return $total;
     }
     
     

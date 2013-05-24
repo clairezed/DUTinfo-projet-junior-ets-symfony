@@ -23,7 +23,7 @@
     <tbody>
         {% for frais in list_frais %}
             <tr>
-                <td>{{ frais.dateAchat }}</td>
+                <td>{{ frais.dateAchat|date("d/m/Y") }}</td>
                 <td>{{ frais.etude.nomEtude }}</td>
                 <td>{{ frais.typeFrais }}</td>
                 <td>{{ frais.montantFrais }}</td>

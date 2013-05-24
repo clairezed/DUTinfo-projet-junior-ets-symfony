@@ -6,7 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Junior\EtudiantBundle\Entity\Etudiant;
 use Junior\EtudiantBundle\Entity\Etude;
 use Junior\EtudiantBundle\Entity\Participant;
+use Junior\EtudiantBundle\Entity\Frais;
 use Junior\EtudiantBundle\Form\EtudiantType;
+use Junior\EtudiantBundle\Form\FraisType;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -173,10 +175,21 @@ class EtudiantController extends Controller {
         if (null === $user) {
             return $this->render('JuniorEtudiantBundle::layout.html.twig');
         } else {
-            $id = $user->getId();
+            $frais = new Frais;
+            $form = $this->createForm(new FraisType, $frais);
+            $request = $this->get('request');
+            if ($request->getMethod() == 'POST') {
+                $form->bind($request);
+                if ($form->isValid()) {
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($frais);
+                    $em->flush();
 
+                    return $this->redirect($this->generateUrl('junior_etudiant_dashboard'));
+                }
+            }
             return $this->render('JuniorEtudiantBundle:Etudiant:newFrais.html.twig', array(
-                        'id' => $id
+                        'form' => $form->createView(),
             ));
         }
     }

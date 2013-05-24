@@ -54,11 +54,12 @@ class Frais
     private $montantFrais;
 
     /**
-     * @var string
+     * @var date
      *
-     * @ORM\Column(name="dateAchat", type="string", length=255)
+     * @ORM\Column(name="dateAchat", type="date")
      */
     private $dateAchat;
 
 
+    
 }

@@ -54,12 +54,14 @@ class Frais
     private $montantFrais;
 
     /**
-     * @var string
+     * @var date
      *
-     * @ORM\Column(name="dateAchat", type="string", length=255)
+     * @ORM\Column(name="dateAchat", type="date")
      */
     private $dateAchat;
 
+
+    
 
     /**
      * Get id
@@ -120,7 +122,7 @@ class Frais
     /**
      * Set dateAchat
      *
-     * @param string $dateAchat
+     * @param \DateTime $dateAchat
      * @return Frais
      */
     public function setDateAchat($dateAchat)
@@ -133,7 +135,7 @@ class Frais
     /**
      * Get dateAchat
      *
-     * @return string 
+     * @return \DateTime 
      */
     public function getDateAchat()
     {

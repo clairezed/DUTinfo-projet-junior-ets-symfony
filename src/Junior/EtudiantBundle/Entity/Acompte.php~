@@ -36,88 +36,12 @@ class Acompte
     private $montantAcompte;
 
     /**
-     * @var string
+     * @var date
      *
-     * @ORM\Column(name="dateAcompte", type="string", length=255)
+     * @ORM\Column(name="dateAcompte", type="date")
      */
     private $dateAcompte;
 
 
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set montantAcompte
-     *
-     * @param float $montantAcompte
-     * @return Acompte
-     */
-    public function setMontantAcompte($montantAcompte)
-    {
-        $this->montantAcompte = $montantAcompte;
-    
-        return $this;
-    }
-
-    /**
-     * Get montantAcompte
-     *
-     * @return float 
-     */
-    public function getMontantAcompte()
-    {
-        return $this->montantAcompte;
-    }
-
-    /**
-     * Set dateAcompte
-     *
-     * @param string $dateAcompte
-     * @return Acompte
-     */
-    public function setDateAcompte($dateAcompte)
-    {
-        $this->dateAcompte = $dateAcompte;
-    
-        return $this;
-    }
-
-    /**
-     * Get dateAcompte
-     *
-     * @return string 
-     */
-    public function getDateAcompte()
-    {
-        return $this->dateAcompte;
-    }
-
-    /**
-     * Set indemnite
-     *
-     * @param \Junior\EtudiantBundle\Entity\Indemnites $indemnite
-     * @return Acompte
-     */
-    public function setIndemnite(\Junior\EtudiantBundle\Entity\Indemnites $indemnite)
-    {
-        $this->indemnite = $indemnite;
-        return $this;
-    }
-
-    /**
-     * Get indemnite
-     *
-     * @return \Junior\EtudiantBundle\Entity\Indemnites 
-     */
-    public function getIndemnite()
-    {
-        return $this->indemnite;
-    }
+   
 }

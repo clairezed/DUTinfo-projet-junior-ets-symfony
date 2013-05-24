@@ -8,34 +8,37 @@
 
 
 <div>
-    <h2>Remboursement de frais n°{{ rf.id }}</h2>
+    <h2>Remboursement de frais n°{{ rf.id }} en date du {{ rf.dateRemboursement }}</h2>
 </div>
 
 <div>
     <table class="table table-striped table-bordered">
-    <thead>
-        <tr>
-            <th>Date achat</th>
-            <th>Etude</th>
-            <th>Type frais</th>
-            <th>Montant frais</th>
-            <th>Statut</th>
-
-        </tr>
-    </thead>
-    <tbody>
-     {#   {% for frais in list_frais %}
+        <thead>
             <tr>
-                <td>{{ frais.dateAchat }}</td>
-                <td>{{ frais.etude.nomEtude }}</td>
-                <td>{{ frais.typeFrais }}</td>
-                <td>{{ frais.montantFrais }}</td>
-                <td>todo</td>
+                <th>Date achat</th>
+                <th>Etude</th>
+                <th>Type frais</th>
+                <th>Montant frais</th>
+                <th>Statut</th>
+
             </tr>
+        </thead>
+        <tbody>
+       {% for frais in rf.frais %}
+                <tr>
+                    <td>{{ frais.dateAchat|date("d/m/Y") }}</td>
+                    <td>{{ frais.etude.nomEtude }}</td>
+                    <td>{{ frais.typeFrais }}</td>
+                    <td>{{ frais.montantFrais }}</td>
+                    <td>todo</td>
+                </tr>
         {% endfor %}
-            #}
-        </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+        <a href="{{ path('junior_etudiant_listFrais', { 'id': app.user.id }) }}" class="btn btn-info btn-small">
+            <i class="icon-arrow-left icon-white"></i>
+            Retour à la liste des frais
+        </a>
+    </div>
 
 {% endblock %} 

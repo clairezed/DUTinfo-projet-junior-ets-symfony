@@ -39,7 +39,7 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $dupont->setNomEtudiant('Dupont');
         $dupont->setAdresseEtudiant('8, rue de la Choucroute Farcie');
         $dupont->setNumSecu('123456');
-        $dupont->setDateNaissance('13/12/1987');
+        $dupont->setDateNaissance(new \DateTime('1987/12/13')); 
         $dupont->setTelEtudiant('0612345678');
         $dupont->setUsername('e1');
         $dupont->setEmail('dupont@etu.com');
@@ -56,7 +56,7 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $durand->setNomEtudiant('Durand');
         $durand->setAdresseEtudiant('12, rue du Poney Farceur');
         $durand->setNumSecu('654321');
-        $durand->setDateNaissance('28/02/1983');
+        $durand->setDateNaissance(new \DateTime('1983/02/28'));
         $durand->setTelEtudiant('0687654321');
         $durand->setUsername('e2');
         $durand->setEmail('durand@etu.com');
@@ -72,7 +72,7 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $duchmol->setNomEtudiant('Duchmol');
         $duchmol->setAdresseEtudiant('16, rue de la Belette Farceuse');
         $duchmol->setNumSecu('987654');
-        $duchmol->setDateNaissance('24/04/1982');
+        $duchmol->setDateNaissance(new \DateTime('1982/04/22'));
         $duchmol->setTelEtudiant('0601020304');
         $duchmol->setUsername('e3');
         $duchmol->setEmail('duchmol@etu.com');
@@ -87,7 +87,7 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $dugland->setNomEtudiant('Dugland');
         $dugland->setAdresseEtudiant('20, rue de l\'Hippocampe Hilare');
         $dugland->setNumSecu('456789');
-        $dugland->setDateNaissance('05/09/1986');
+        $dugland->setDateNaissance(new \DateTime('1988/09/05'));
         $dugland->setTelEtudiant('0604030201');
         $dugland->setUsername('e4');
         $dugland->setEmail('dugland@etu.com');
@@ -119,11 +119,11 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $manager->flush();
 
         $dspr_c = new Convention();
-        $dspr_c->setDateConvention('23/03/2013');
+        $dspr_c->setDateConvention(new \DateTime('2013/03/12'));
         $dspr_c->setEntreprise($dspr);
 
         $uc_c = new Convention();
-        $uc_c->setDateConvention('08/11/2012');
+        $uc_c->setDateConvention(new \DateTime('2012/11/08'));
         $uc_c->setEntreprise($uc);
 
         $manager->persist($dspr_c);
@@ -185,16 +185,16 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         
         
          $rf1 = new RemboursementFrais();
-        $rf1->setDateRemboursement('27/04/2013');
+        $rf1->setDateRemboursement(new \DateTime('2013/02/04'));
 //        $rf1->addFrai($f1);
 //        $rf1->addFrai($f2);
 
         $rf2 = new RemboursementFrais();
-        $rf2->setDateRemboursement('06/05/2013');
+        $rf2->setDateRemboursement(new \DateTime('2013/05/06')); 
 //        $rf2->addFrai($f3);
 
         $rf3 = new RemboursementFrais();
-        $rf3->setDateRemboursement('16/06/2013');
+        $rf3->setDateRemboursement(new \DateTime('2013/06/05')); 
 //        $rf3->addFrai($f4);
         
         
@@ -210,7 +210,7 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $f1->setEtudiant($durand);
         $f1->setTypeFrais('Materiel de laboratoire');
         $f1->setMontantFrais('2000');
-        $f1->setDateAchat('25/04/2013');
+        $f1->setDateAchat(new \DateTime('2013/04/15')); 
         $f1->setRemboursementsFrais($rf1);
 
 
@@ -219,7 +219,7 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $f2->setEtudiant($durand);
         $f2->setTypeFrais('Nourriture galactique standard');
         $f2->setMontantFrais('32');
-        $f2->setDateAchat('22/04/2013');
+        $f2->setDateAchat(new \DateTime('2013/04/22')); 
         $f2->setRemboursementsFrais($rf1);
 
         $f3 = new Frais();
@@ -227,7 +227,7 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $f3->setEtudiant($dupont);
         $f3->setTypeFrais('Transport Hyperluminique');
         $f3->setMontantFrais('12500');
-        $f3->setDateAchat('03/05/2013');
+        $f3->setDateAchat(new \DateTime('2013/05/08')); 
         $f3->setRemboursementsFrais($rf2);
 
         $f4 = new Frais();
@@ -235,7 +235,7 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $f4->setEtudiant($duchmol);
         $f4->setTypeFrais('tournevis sonic');
         $f4->setMontantFrais('1200');
-        $f4->setDateAchat('30/06/2013');
+        $f4->setDateAchat(new \DateTime('2013/06/30')); 
         $f4->setRemboursementsFrais($rf3);
 
         $f5 = new Frais();
@@ -243,7 +243,7 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $f5->setEtudiant($dupont);
         $f5->setTypeFrais('location licorne');
         $f5->setMontantFrais('80');
-        $f5->setDateAchat('14/07/2013');
+        $f5->setDateAchat(new \DateTime('2013/07/14')); 
         
 
         $manager->persist($f1);
@@ -304,12 +304,12 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
 
         $a1 = new Acompte();
         $a1->setIndemnite($i1);
-        $a1->setDateAcompte('12/05/2013');
+        $a1->setDateAcompte(new \DateTime('2013/05/18')); 
         $a1->setMontantAcompte('300');
 
         $a2 = new Acompte();
         $a2->setIndemnite($i2);
-        $a2->setDateAcompte('03/03/2013');
+        $a2->setDateAcompte(new \DateTime('2013/03/13')); 
         $a2->setMontantAcompte('280.5');
 
         $manager->persist($a1);

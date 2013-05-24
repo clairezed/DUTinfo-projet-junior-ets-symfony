@@ -259,4 +259,42 @@ class Etude
     {
         return $this->frais;
     }
+
+    /**
+     * Add participants
+     *
+     * @param \Junior\EtudiantBundle\Entity\Participant $participants
+     * @return Etude
+     */
+    public function addParticipant(\Junior\EtudiantBundle\Entity\Participant $participants)
+    {
+        $this->participants[] = $participants;
+
+        return $this;
+    }
+
+    /**
+     * Remove participants
+     *
+     * @param \Junior\EtudiantBundle\Entity\Participant $participants
+     */
+    public function removeParticipant(\Junior\EtudiantBundle\Entity\Participant $participants)
+    {
+        $this->participants->removeElement($participants);
+    }
+
+    /**
+     * Get participants
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getParticipants()
+    {
+        return $this->participants;
+    }
+    
+    
+    public function __toString() {
+        return $this->nomEtude;
+    }
 }
