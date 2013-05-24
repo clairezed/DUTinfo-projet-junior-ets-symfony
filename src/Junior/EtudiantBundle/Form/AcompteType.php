@@ -3,7 +3,6 @@
 namespace Junior\EtudiantBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\BaseType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -13,7 +12,6 @@ class AcompteType extends AbstractType
     {
         $builder
             ->add('montantAcompte')
-            ->add('dateAcompte', 'date', array('label' => 'Date de l\'acompte'))
         ;
     }
 

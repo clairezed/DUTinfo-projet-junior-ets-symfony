@@ -6,9 +6,22 @@
 
 {% block content_etudiant %}
 
+
 {% for flashMessage in app.session.flashbag.get('info') %}
-    {{ flashMessage }}
+    <p class="text-info">
+        <i class="icon-ok"></i>
+        {{ flashMessage }}
+    </p>
 {% endfor %}
+
+
+{% for flashMessage in app.session.flashbag.get('erreur') %}
+    <p class="text-error">
+        <i class="icon-warning-sign"></i>
+        {{ flashMessage }}
+    </p>
+{% endfor %}
+
 
 <table class="table table-striped table-bordered">
     <thead>

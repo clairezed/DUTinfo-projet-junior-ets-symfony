@@ -306,11 +306,13 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $a1->setIndemnite($i1);
         $a1->setDateAcompte(new \DateTime('2013/05/18')); 
         $a1->setMontantAcompte('300');
+        $a1->setStatutAcompte('En attente');
 
         $a2 = new Acompte();
         $a2->setIndemnite($i2);
         $a2->setDateAcompte(new \DateTime('2013/03/13')); 
         $a2->setMontantAcompte('280.5');
+        $a2->setStatutAcompte('Validé');
 
         $manager->persist($a1);
         $manager->persist($a2);

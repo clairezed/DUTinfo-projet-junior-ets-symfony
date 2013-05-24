@@ -296,15 +296,26 @@ class EtudiantController extends Controller {
 //                $acompte->setDateAcompte(new \DateTime($date));
 //                $acompte->setMontantAcompte($montant);
                 //$form->bind($request);
+                $postData = $request->request->get('junior_etudiantbundle_acomptetype');
+                $montant = $postData['montantAcompte'];
                 $form->bind($request);
-                if ($form->isValid()) {
+                if ($form->isValid() && $indemnite->getNombreAcomptes() < 3 && (($montant + $indemnite->getTotalAcomptes()) <= ($indemnite->getNbJours() * $indemnite->getEtude()->getPrixJournee() * 0.8))) {
+                    var_dump($indemnite->getNombreAcomptes());
                     $acompte->setIndemnite($indemnite);
+                    $acompte->setDateAcompte(new \Datetime());
+                    $acompte->setStatutAcompte('En attente');
                     $em->persist($acompte);
                     $em->flush();
                     $this->get('session')->getFlashBag()->add('info', 'Votre demande d\'acompte a été transmise');
                 }
+                else if ($indemnite->getNombreAcomptes() >= 3) {
+                    $this->get('session')->getFlashBag()->add('erreur', 'Erreur : vous avez déja demandé trois acomptes pour cette étude');
+                }
+                else if (($montant + $indemnite->getTotalAcomptes()) > ($indemnite->getNbJours() * $indemnite->getEtude()->getPrixJournee() * 0.8)) {
+                    $this->get('session')->getFlashBag()->add('erreur', 'Erreur : vous avez dépassé le montant autorisé pour cette étude');
+                }
                 else {
-                    $this->get('session')->getFlashBag()->add('info', 'Erreur lors de la transmission de la demande');
+                    $this->get('session')->getFlashBag()->add('erreur', 'Erreur lors de la transmission de la demande');
                 }
 
                 return $this->redirect($this->generateUrl('junior_etudiant_listEtudes'));

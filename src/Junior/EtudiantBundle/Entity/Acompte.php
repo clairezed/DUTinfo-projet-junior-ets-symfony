@@ -43,8 +43,12 @@ class Acompte
      */
     private $dateAcompte;
 
-
-   
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="statutAcompte", type="string", length=255)
+     */
+    private $statutAcompte;
 
     /**
      * Get id
@@ -123,5 +127,28 @@ class Acompte
     public function getIndemnite()
     {
         return $this->indemnite;
+    }
+
+    /**
+     * Set statutAcompte
+     *
+     * @param string $statutAcompte
+     * @return Acompte
+     */
+    public function setStatutAcompte($statutAcompte)
+    {
+        $this->statutAcompte = $statutAcompte;
+
+        return $this;
+    }
+
+    /**
+     * Get statutAcompte
+     *
+     * @return string 
+     */
+    public function getStatutAcompte()
+    {
+        return $this->statutAcompte;
     }
 }

@@ -195,4 +195,23 @@ class Indemnites
     {
         return $this->acomptes;
     }
+    
+    public function getNombreAcomptes()
+    {
+        $listeAcomptes = $this->getAcomptes();
+        $nbAcomptes = 0;
+        foreach($listeAcomptes as $acompte) {
+            $nbAcomptes = $nbAcomptes + 1;
+        }
+        return $nbAcomptes;
+    }
+    
+    public function getTotalAcomptes() {
+        $listeAcomptes = $this->getAcomptes();
+        $total = 0;
+        foreach($listeAcomptes as $acompte) {
+            $total = $total + $acompte->getMontantAcompte();
+        }
+        return $total;
+    }
 }

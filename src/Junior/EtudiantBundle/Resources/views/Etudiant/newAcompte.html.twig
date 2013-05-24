@@ -10,7 +10,17 @@
 <div>
     <h2>Demande d'acompte</h2>
     <form action="{{ path('junior_etudiant_newAcompte', {'idEtude' : etude.id}) }}" method="post" {{ form_enctype(form) }}>
-        {{ form_widget(form) }}
+        <div>
+            {{ form_label(form.montantAcompte, "Montant demandé :") }}
+
+            {{ form_errors(form.montantAcompte) }}
+
+            <div class="input-append">
+                {{ form_widget(form.montantAcompte) }}
+                <span class="add-on">€</span>
+            </div>
+        </div>
+        {{ form_rest(form) }}
         <input type="submit" class="btn btn-primary" value="Valider" style="margin-top:10px"/>
     </form>
 </div>
