@@ -1,25 +1,25 @@
 {% extends "JuniorEtudiantBundle:Etudiant:layoutEtudiant.html.twig" %}
 
 {% block title %}
-{{ parent()}} - Infos
+{{ parent()}} - Etudes
 {% endblock %}
 
 {% block content_etudiant %}
 
 
 {% for flashMessage in app.session.flashbag.get('info') %}
-    <p class="text-info">
-        <i class="icon-ok"></i>
+    <div class="alert alert-info">
         {{ flashMessage }}
-    </p>
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
 {% endfor %}
 
 
 {% for flashMessage in app.session.flashbag.get('erreur') %}
-    <p class="text-error">
-        <i class="icon-warning-sign"></i>
+    <div class="alert alert-error">
         {{ flashMessage }}
-    </p>
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
 {% endfor %}
 
 
@@ -39,24 +39,30 @@
         {% if etudes[0] != NULL %}
             {% for etude in etudes %}
                 <tr>
-                    {#<td>{{ etude.id }}</td>#}
                     <td>{{ etude.nomEtude }}</td>
-                    {#<td>{{ etude.prixJournee }}</td>#}
                     <td>{{ statuts[cpt] }}</td>
                     {% set cpt = cpt+1 %}
-                    {#<td><button class="btn btn-info btn-small" type="button"><a href="{{ path('junior_etudiant_showEtude', {'id':etude.id}) }}">Voir l'etude</a></button></td>#}
                     <td>   
                         <a href="{{ path('junior_etudiant_showEtude', {'idEtude': etude.id, 'idEtudiant':app.user.id}) }}" class="btn btn-primary btn-small">
                             <i class="icon-search icon-white"></i>
                             Voir l'étude
                         </a>
                     </td>
-                    <td>   
-                        <a href="{{ path('junior_etudiant_newAcompte', {'idEtude': etude.id}) }}" class="btn btn-info btn-small">
-                            <i class="icon-edit icon-white"></i>
-                            Demander un acompte
-                        </a>
-                    </td>
+                    {% if etude.statutEtude == "En cours" %}
+                        <td>   
+                            <a href="{{ path('junior_etudiant_newAcompte', {'idEtude': etude.id}) }}" class="btn btn-info btn-small">
+                                <i class="icon-edit icon-white"></i>
+                                Demander un acompte
+                            </a>
+                        </td>
+                    {% else %}
+                        <td>   
+                            <a href="#" class="btn btn-warning btn-small">
+                                <i class="icon-ban-circle icon-white"></i>
+                                Cette étude est terminée
+                            </a>
+                        </td>
+                    {% endif %}
                     {#
                     <td>
                     <ul>

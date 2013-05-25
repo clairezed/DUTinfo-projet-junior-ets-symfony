@@ -125,23 +125,37 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $uc_c = new Convention();
         $uc_c->setDateConvention(new \DateTime('2012/11/08'));
         $uc_c->setEntreprise($uc);
+        
+        $dspr_c2 = new Convention();
+        $dspr_c2->setDateConvention(new \DateTime('2013/05/08'));
+        $dspr_c2->setEntreprise($dspr);
 
         $manager->persist($dspr_c);
         $manager->persist($uc_c);
+        $manager->persist($dspr_c2);
         $manager->flush();
 
         $dspr_e = new Etude();
         $dspr_e->setNomEtude('La réception de la politique familiale impériale dans les mondes de la Bordure Extérieure');
         $dspr_e->setPrixJournee('150');
         $dspr_e->setConvention($dspr_c);
+        $dspr_e->setStatutEtude('En cours');
 
         $uc_e = new Etude();
         $uc_e->setNomEtude('Projection prévisionnelle de propagation d\'un virus mutagène');
         $uc_e->setPrixJournee('210.5');
         $uc_e->setConvention($uc_c);
+        $uc_e->setStatutEtude('En cours');
+        
+        $dspr_e2 = new Etude();
+        $dspr_e2->setNomEtude('L\'impact relations publiques longue durée de la destruction d\'une planète');
+        $dspr_e2->setPrixJournee('200');
+        $dspr_e2->setConvention($dspr_c2);
+        $dspr_e2->setStatutEtude('Terminée');
 
         $manager->persist($dspr_e);
         $manager->persist($uc_e);
+        $manager->persist($dspr_e2);
         $manager->flush();
 
         $p1 = new Participant();
@@ -173,6 +187,16 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $p6->setEtude($dspr_e);
         $p6->setEtudiant($dupont);
         $p6->setStatutEtudiant("participant");
+        
+        $p7 = new Participant();
+        $p7->setEtude($dspr_e2);
+        $p7->setEtudiant($dupont);
+        $p7->setStatutEtudiant("reponsable");
+        
+        $p8 = new Participant();
+        $p8->setEtude($dspr_e2);
+        $p8->setEtudiant($durand);
+        $p8->setStatutEtudiant("participant");
 
         $manager->persist($p1);
         $manager->persist($p2);
@@ -180,6 +204,8 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $manager->persist($p4);
         $manager->persist($p5);
         $manager->persist($p6);
+        $manager->persist($p7);
+        $manager->persist($p8);
         $manager->flush();
 
         
@@ -293,13 +319,27 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $i6->setEtudiant($dupont);
         $i6->setNbJours('120');
         $i6->setRetenue('6');
+        
+        $i7 = new Indemnites();
+        $i7->setEtude($dspr_e2);
+        $i7->setEtudiant($dupont);
+        $i7->setNbJours('40');
+        $i7->setRetenue('4');
 
+        $i8 = new Indemnites();
+        $i8->setEtude($dspr_e2);
+        $i8->setEtudiant($durand);
+        $i8->setNbJours('40');
+        $i8->setRetenue('4');
+        
         $manager->persist($i1);
         $manager->persist($i2);
         $manager->persist($i3);
         $manager->persist($i4);
         $manager->persist($i5);
         $manager->persist($i6);
+        $manager->persist($i7);
+        $manager->persist($i8);
         $manager->flush();
 
         $a1 = new Acompte();

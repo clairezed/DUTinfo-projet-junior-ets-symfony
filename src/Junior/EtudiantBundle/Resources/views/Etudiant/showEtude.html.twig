@@ -1,7 +1,7 @@
 {% extends "JuniorEtudiantBundle:Etudiant:layoutEtudiant.html.twig" %}
 
 {% block title %}
-{{ parent()}} - Infos
+{{ parent()}} - Etude
 {% endblock %}
 
 {% block content_etudiant %}
@@ -9,17 +9,18 @@
 
 {% set total = etude.prixJournee * nbJours %}
 
-<div>
-    <h2>Etude</h2>
+<h2>Etude</h2>
+<div class="well">
     <ul class="inline">
-        <li>N° : {{ etude.id }} </li>
-        <li>Titre : {{ etude.nomEtude }}</li>
-        <li>Rôle : {{ statut }}</li>
+        <li>N° : <span class="label">{{ etude.id }}</span></li>
+        <li>Titre : <span class="label">{{ etude.nomEtude }}</span></li>
+        <li>Rôle : <span class="label">{{ statut }}</span></li>
     </ul>
     <ul class="inline">
-        <li>Nombre de jours : {{ nbJours }}</li>
-        <li>Prix / jour : {{ etude.prixJournee }}</li>
-        <li>Total : {{ total }}</li>
+        <li>Durée : <span class="label">{{ nbJours }} jours</span></li>
+        <li>Prix par jour : <span class="label">{{ etude.prixJournee }} €</span></li>
+        <li>Total : <span class="label">{{ total }} €</span></li>
+        <li>Statut : <span class="label">{{ etude.statutEtude }}</span></li>
     </ul>
 </div>
 

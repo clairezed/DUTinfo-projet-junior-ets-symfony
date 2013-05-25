@@ -60,7 +60,13 @@ class Etude
      * @ORM\Column(name="prixJournee", type="float")
      */
     private $prixJournee;
-
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="statutEtude", type="string", length=255)
+     */
+    private $statutEtude;
 
     /**
      * Get id
@@ -296,5 +302,28 @@ class Etude
     
     public function __toString() {
         return $this->nomEtude;
+    }
+
+    /**
+     * Set statutEtude
+     *
+     * @param string $statutEtude
+     * @return Etude
+     */
+    public function setStatutEtude($statutEtude)
+    {
+        $this->statutEtude = $statutEtude;
+
+        return $this;
+    }
+
+    /**
+     * Get statutEtude
+     *
+     * @return string 
+     */
+    public function getStatutEtude()
+    {
+        return $this->statutEtude;
     }
 }
