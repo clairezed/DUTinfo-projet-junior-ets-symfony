@@ -326,4 +326,5 @@ class Etude
     {
         return $this->statutEtude;
     }
+    
 }

@@ -362,4 +362,26 @@ class Etudiant extends BaseUser
     {
         return $this->dateNaissance;
     }
+    
+    public function getEtudes()
+    {
+        $cpt = 0;
+        $listeParticipations = $this->getParticipants();
+        foreach ($listeParticipations as $participation) {
+            $listeEtudes[$cpt] = $participation->getEtude();
+            $cpt++;
+        }
+        return $listeEtudes;
+    }
+    
+    public function getStatuts()
+    {
+        $cpt = 0;
+        $listeParticipations = $this->getParticipants();
+        foreach ($listeParticipations as $participation) {
+            $listeStatuts[$cpt] = $participation->getStatutEtudiant();
+            $cpt++;
+        }
+        return $listeStatuts;
+    }
 }
