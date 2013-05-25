@@ -6,8 +6,11 @@
 
 {% block content_etudiant %}
 
+
+
 <h2>Enregistrer de nouveaux frais</h2>
 
+{#
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
@@ -29,12 +32,25 @@
         </tr>
     </tbody>
 </table>
+#}
 <div class="well">
     <form method="post" {{ form_enctype(form) }}>
+        <div>
+            {{ form_label(form.typeFrais, "Intitulé du frais :") }}
+                {{ form_widget(form.typeFrais) }}
+                {{ form_label(form.montantFrais, "Montant :") }}
+                {{ form_widget(form.montantFrais) }}
+                {{ form_label(form.dateAchat, "Date de la facture :") }}
+                {{ form_widget(form.dateAchat) }}
+
+        </div>
 {{ form_widget(form) }}
             <input type="submit" class="btn btn-primary" />
+                 <a class="btn btn-danger" href="{{ path('junior_etudiant_listFrais', { 'id': app.user.id }) }}">Annuler</a>
         </form>
+   
     </div>
+    
 
 
 {#
@@ -55,10 +71,5 @@
 </ul>
 
 #}
-
-    <button class="btn" type="button">Valider</button>
-    <button class="btn" type="button">
-        <a href="{{ path('junior_etudiant_listFrais', { 'id': app.user.id }) }}">Annuler</a>
-    </button>
 
 {% endblock %} 

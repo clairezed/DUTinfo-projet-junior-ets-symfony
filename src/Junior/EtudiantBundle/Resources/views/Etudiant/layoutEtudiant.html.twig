@@ -17,6 +17,9 @@
             <li>
                 <a href="{{ path('junior_etudiant_listFrais', {'id': app.user.id}) }}" id="etu-frais-liste" title="liste frais"><p>tous les frais</p></a>
             </li>
+            <li>
+                <a href="{{ path('junior_etudiant_listRF', {'id': app.user.id}) }}" id="etu-rf-liste" title="liste frais"><p>tous les remboursements de frais</p></a>
+            </li>
             <li role="presentation">
                 <a href="{{ path('junior_etudiant_newFrais', {'id':app.user.id}) }}" id="etu-frais-enr" title="enregistrer frais"><p>enregistrer des frais</p></a>
             </li>

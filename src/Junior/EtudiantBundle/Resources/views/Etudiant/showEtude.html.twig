@@ -24,6 +24,8 @@
     </ul>
 </div>
 
+{# n'afficher les acomptes que s'il y a de acomptes à afficher#}
+{% if acomptes.count > 0 %}
 <div>
     <h2>Acomptes</h2>
     <table class="table table-striped table-bordered">
@@ -44,8 +46,20 @@
                     <td>{{ acompte.statutAcompte }}</td>
                 </tr>
             {% endfor %}
-        </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+    </div>
+{% else %}
+<p>Vous n'avez demandé aucun acompte pour cette étude.<p>
+  {% endif %}
+
+{% if etude.statutEtude == "En cours" %}
+    <td>   
+        <a href="{{ path('junior_etudiant_newAcompte', {'idEtude': etude.id}) }}" class="btn btn-info btn-small">
+            <i class="icon-edit icon-white"></i>
+            Demander un acompte
+        </a>
+    </td>
+                    {% endif %}
 
 {% endblock %} 

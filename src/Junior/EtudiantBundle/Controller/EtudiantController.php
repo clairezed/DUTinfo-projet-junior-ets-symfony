@@ -43,9 +43,11 @@ class EtudiantController extends Controller {
             $em = $this->getDoctrine()->getEntityManager();
 
             $list_frais = $em->getRepository('JuniorEtudiantBundle:Frais')->findFraisbyIdEtudiant($id);
+            $list_acompte = $em->getRepository('JuniorEtudiantBundle:Acompte')->findAcomptebyIdEtudiant($id);
 
             return $this->render('JuniorEtudiantBundle:Etudiant:dashboardEtudiant.html.twig', array(
                         'list_frais' => $list_frais,
+                        'list_acompte' => $list_acompte,
             ));
         }
     }
@@ -165,6 +167,25 @@ class EtudiantController extends Controller {
 
             return $this->render('JuniorEtudiantBundle:Etudiant:listFrais.html.twig', array(
                         'list_frais' => $list_frais,
+                        'list_rf' => $list_rf
+//                        'nbfrais' => $nbfrais
+            ));
+        }
+    }
+
+    public function listRFAction() {
+        $user = $this->getUser();
+
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $id = $user->getId();
+            $em = $this->getDoctrine()->getEntityManager();
+
+            $list_rf = $em->getRepository('JuniorEtudiantBundle:RemboursementFrais')->findRFbyIdEtudiant($id);
+//            $nbfrais = $list_rf->getFrais()->count();
+
+            return $this->render('JuniorEtudiantBundle:Etudiant:listRF.html.twig', array(
                         'list_rf' => $list_rf
 //                        'nbfrais' => $nbfrais
             ));

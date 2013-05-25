@@ -22,6 +22,10 @@ junior_etudiant_updateEtudiant:
 junior_etudiant_listFrais:
     pattern:  /frais
     defaults: { _controller: "JuniorEtudiantBundle:Etudiant:listFrais" }
+    
+junior_etudiant_listRF:
+    pattern:  /remboursementfrais
+    defaults: { _controller: "JuniorEtudiantBundle:Etudiant:listRF" }
 
 junior_etudiant_newFrais:
     pattern:  /frais/new
