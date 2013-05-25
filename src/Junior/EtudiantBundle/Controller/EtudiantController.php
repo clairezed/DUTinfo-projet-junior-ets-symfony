@@ -43,9 +43,12 @@ class EtudiantController extends Controller {
             $em = $this->getDoctrine()->getEntityManager();
 
             $list_frais = $em->getRepository('JuniorEtudiantBundle:Frais')->findFraisbyIdEtudiant($id);
+            $etudiant = $em->getRepository('JuniorEtudiantBundle:Etudiant')->findOneById($id);
+            $etudes = $etudiant->getEtudes();
+            $statuts = $etudiant->getStatuts();
 
             return $this->render('JuniorEtudiantBundle:Etudiant:dashboardEtudiant.html.twig', array(
-                        'list_frais' => $list_frais,
+                        'list_frais' => $list_frais, 'etudes' => $etudes, 'statuts' => $statuts
             ));
         }
     }
@@ -289,13 +292,6 @@ class EtudiantController extends Controller {
              $request = $this->getRequest();
              
             if ($request->getMethod() == 'POST') {
-//                $postData = $request->request->get('junior_etudiantbundle_acomptetype');
-//                $montant = $postData['montantAcompte'];
-//                $date = $postData['dateAcompte'];
-//                $date = $date['month'] + " - " + $date['day'] + " - " + $date['year'];
-//                $acompte->setDateAcompte(new \DateTime($date));
-//                $acompte->setMontantAcompte($montant);
-                //$form->bind($request);
                 $postData = $request->request->get('junior_etudiantbundle_acomptetype');
                 $montant = $postData['montantAcompte'];
                 $form->bind($request);
