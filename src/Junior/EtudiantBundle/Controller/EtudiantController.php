@@ -184,13 +184,17 @@ class EtudiantController extends Controller {
             $form = $this->createForm(new FraisType, $frais);
             $request = $this->get('request');
             if ($request->getMethod() == 'POST') {
+//                $postData = $request->request->get('junior_etudiantbundle_fraistype');
                 $form->bind($request);
                 if ($form->isValid()) {
+                    $idEtudiant = $user->getId();
                     $em = $this->getDoctrine()->getManager();
+                    $entityEtud = $em->getRepository('JuniorEtudiantBundle:Etudiant')->find($idEtudiant);
+                    $frais->setEtudiant($entityEtud);
                     $em->persist($frais);
                     $em->flush();
-
-                    return $this->redirect($this->generateUrl('junior_etudiant_dashboard'));
+                    $this->get('session')->getFlashBag()->add('info', 'Votre frais a bien été enregistré');
+                    return $this->redirect($this->generateUrl('junior_etudiant_listFrais'));
                 }
             }
             return $this->render('JuniorEtudiantBundle:Etudiant:newFrais.html.twig', array(
@@ -269,16 +273,16 @@ class EtudiantController extends Controller {
             ));
         }
     }
-    
+
     /*     * ************************************************
      * Actions de manipulation des ACOMPTES
      * ************************************************* */
-    
+
     public function newAcompteAction($idEtude) {
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $acompte = new Acompte();
-        
+
         if (null === $user) {
             return $this->render('JuniorEtudiantBundle::layout.html.twig');
         } else {
@@ -286,11 +290,11 @@ class EtudiantController extends Controller {
             $etude = $em->getRepository('JuniorEtudiantBundle:Etude')->findOneById($idEtude);
             $indemnite = $em->getRepository('JuniorEtudiantBundle:Indemnites')->findOneBy(array('etudiant' => $idEtudiant, 'etude' => $idEtude));
             $acompte->setIndemnite($indemnite);
-            
-             $form = $this->createForm(new AcompteType(), $acompte);
-             
-             $request = $this->getRequest();
-             
+
+            $form = $this->createForm(new AcompteType(), $acompte);
+
+            $request = $this->getRequest();
+
             if ($request->getMethod() == 'POST') {
                 $postData = $request->request->get('junior_etudiantbundle_acomptetype');
                 $montant = $postData['montantAcompte'];
@@ -303,21 +307,18 @@ class EtudiantController extends Controller {
                     $em->persist($acompte);
                     $em->flush();
                     $this->get('session')->getFlashBag()->add('info', 'Votre demande d\'acompte a été transmise');
-                }
-                else if ($indemnite->getNombreAcomptes() >= 3) {
+                } else if ($indemnite->getNombreAcomptes() >= 3) {
                     $this->get('session')->getFlashBag()->add('erreur', 'Erreur : vous avez déja demandé trois acomptes pour cette étude');
-                }
-                else if (($montant + $indemnite->getTotalAcomptes()) > ($indemnite->getNbJours() * $indemnite->getEtude()->getPrixJournee() * 0.8)) {
+                } else if (($montant + $indemnite->getTotalAcomptes()) > ($indemnite->getNbJours() * $indemnite->getEtude()->getPrixJournee() * 0.8)) {
                     $this->get('session')->getFlashBag()->add('erreur', 'Erreur : vous avez dépassé le montant autorisé pour cette étude');
-                }
-                else {
+                } else {
                     $this->get('session')->getFlashBag()->add('erreur', 'Erreur lors de la transmission de la demande');
                 }
 
                 return $this->redirect($this->generateUrl('junior_etudiant_listEtudes'));
-            } 
+            }
             return $this->render('JuniorEtudiantBundle:Etudiant:newAcompte.html.twig', array(
-            'form' => $form->createView(), 'idEtude' => $idEtude, 'etude' =>$etude
+                        'form' => $form->createView(), 'idEtude' => $idEtude, 'etude' => $etude
             ));
         }
     }
