@@ -21,6 +21,98 @@ class GestionController extends Controller {
     public function dashboardAction() {
         return $this->render('JuniorEtudiantBundle:Gestion:dashboardGestion.html.twig');
     }
+    
+    /*     * ************************************************
+     * Actions de manipulation des infos ETUDIANT
+     * ************************************************* */
+    
+    public function listEtudiantsAction() {
+        return $this->render('JuniorEtudiantBundle:Gestion:listEtudiants.html.twig');
+    }
+    
+    public function showEtudiantAction() {
+        return $this->render('JuniorEtudiantBundle:Gestion:showEtudiant.html.twig');
+    }
+    
+    public function newEtudiantAction() {
+        return $this->render('JuniorEtudiantBundle:Gestion:showEtudiant.html.twig');
+    }
+    
+    public function editEtudiantAction() {
+        return $this->render('JuniorEtudiantBundle:Gestion:editEtudiant.html.twig');
+    }
+    
+    public function deleteEtudiantAction() {
+        return $this->render('JuniorEtudiantBundle:Gestion:deleteEtudiant.html.twig');
+    }
+    
+    /*     * ************************************************
+     * Actions de manipulation des infos ACOMPTE
+     * ************************************************* */
+    
+    public function listAcomptesAction() {
+        return $this->render('JuniorEtudiantBundle:Gestion:listAcomptes.html.twig');
+    }
+    
+    public function validAcompteAction() {
+        return $this->render('JuniorEtudiantBundle:Gestion:validAcompte.html.twig');
+    }
+    
+    public function showAcompteAction() {
+        return $this->render('JuniorEtudiantBundle:Gestion:showAcompte.html.twig');
+    }
+    
+    /*     * ************************************************
+     * Actions de manipulation des infos FRAIS
+     * ************************************************* */
+    
+    public function listFraisAction() {
+        return $this->render('JuniorEtudiantBundle:Gestion:listFrais.html.twig');
+    }
+    
+    public function sortFraisAction() {
+        return $this->render('JuniorEtudiantBundle:Gestion:sortFrais.html.twig');
+    }
+    
+    public function validFraisAction() {
+        return $this->render('JuniorEtudiantBundle:Gestion:validFrais.html.twig');
+    }
+    
+    public function newRFAction() {
+        return $this->render('JuniorEtudiantBundle:Gestion:newRF.html.twig');
+    }
+    
+    public function showRFAction() {
+        return $this->render('JuniorEtudiantBundle:Gestion:showRF.html.twig');
+    }
+    
+    /*     * ************************************************
+     * Actions de manipulation des infos ETUDE
+     * ************************************************* */
+    
+    public function listEtudesAction() {
+        return $this->render('JuniorEtudiantBundle:Gestion:listEtudes.html.twig');
+    }
+    
+    public function showEtudeAction() {
+        return $this->render('JuniorEtudiantBundle:Gestion:showEtude.html.twig');
+    }
+    
+    public function newEtudeAction() {
+        return $this->render('JuniorEtudiantBundle:Gestion:newEtude.html.twig');
+    }
+    
+    public function newGroupeAction() {
+        return $this->render('JuniorEtudiantBundle:Gestion:newGroupe.html.twig');
+    }
+    
+    public function editEtudeAction() {
+        return $this->render('JuniorEtudiantBundle:Gestion:editEtude.html.twig');
+    }
+    
+    public function closeEtudeAction() {
+        return $this->render('JuniorEtudiantBundle:Gestion:closeEtude.html.twig');
+    }
 //
 //    /**************************************************
 //     * Actions de manipulation des infos etudiant

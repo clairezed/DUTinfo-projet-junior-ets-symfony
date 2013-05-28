@@ -5,6 +5,92 @@
 junior_gestion_dashboard:
     pattern:  /dashboard
     defaults: { _controller: JuniorEtudiantBundle:Gestion:dashboard }
+    
+#ETUDIANTS
+
+junior_gestion_listEtudiants:
+    pattern: /etudiants
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:listEtudiants }
+
+junior_gestion_showEtudiant:
+    pattern: /etudiant
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:showEtudiant }
+
+junior_gestion_newEtudiant:
+    pattern: /etudiant/new
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:newEtudiant }
+    
+junior_gestion_editEtudiant:
+    pattern: /etudiant/edit
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:editEtudiant }
+    
+junior_gestion_deleteEtudiant:
+    pattern: /etudiant/delete
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:deleteEtudiant }
+    
+#ACOMPTES
+    
+junior_gestion_listAcomptes:
+    pattern: /acomptes
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:listAcomptes }
+    
+junior_gestion_validAcompte:
+    pattern: /acompte/validation
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:validAcompte }
+    
+junior_gestion_showAcompte:
+    pattern: /acompte
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:showAcompte }
+    
+#FRAIS
+    
+junior_gestion_listFrais:
+    pattern: /frais
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:listFrais }
+    
+junior_gestion_sortFrais:
+    pattern: /frais/sort
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:sortFrais }
+    
+junior_gestion_validFrais:
+    pattern: /frais/validation
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:validFrais }
+    
+#REMBOURSEMENT DE FRAIS
+    
+junior_gestion_newRF:
+    pattern: /remboursementfrais/new
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:newRF }
+    
+junior_gestion_showRF:
+    pattern: /remboursementfrais
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:showRF }
+    
+#ETUDES
+    
+junior_gestion_listEtudes:
+    pattern: /etudes
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:listEtudes }
+    
+junior_gestion_showEtude:
+    pattern: /etude
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:showEtude }
+    
+junior_gestion_newEtude:
+    pattern: /etude/new
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:newEtude }
+    
+junior_gestion_newGroupe:
+    pattern: /etude/groupe/new
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:newGroupe }
+    
+junior_gestion_editEtude:
+    pattern: /etude/edit
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:editEtude }
+    
+junior_gestion_closeEtude:
+    pattern: /etude/close
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:closeEtude }
 #    
 #junior_etudiant_showEtudiant:
 #    pattern:  /{id}/info
