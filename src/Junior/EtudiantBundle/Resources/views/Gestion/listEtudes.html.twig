@@ -6,8 +6,52 @@
 
 {% block content_gestion %}
 
-<ul class="breadcrumb">
-    <li class="active"><a href="#">Dashboard</a> <span class="divider">/</span></li>
-</ul>
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Nom de l'étude</th>
+            <th>Entreprise</th>
+            <th>Statut</th>
+            <th>Detail</th>
+            <th>Clôturer</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% set cpt = 0 %}
+        {% if entreprises[0] != NULL %}
+            {% for etude in etudes %}
+                <tr>
+                    <td>{{ etude.nomEtude }}</td>
+                    <td>{{ entreprises[cpt].nomEntreprise }}</td>
+                    {% set cpt = cpt+1 %}
+                    <td>{{ etude.statutEtude }}</td>
+                    <td>   
+                        <a href="{{ path('junior_gestion_showEtude', {'idEtude': etude.id}) }}" class="btn btn-primary btn-small">
+                            <i class="icon-search icon-white"></i>
+                            Voir l'étude
+                        </a>
+                    </td>
+                    {% if etude.statutEtude == "Terminée" %}
+                        <td>
+                            <a href="#" class="btn btn-warning btn-small">
+                                <i class="icon-ban-circle icon-white"></i>
+                                Etude déjà clôturée
+                            </a>
+                        </td>
+                    {% else %}
+                        <td>
+                            <a href="{{ path('junior_gestion_closeEtude', {'idEtude': etude.id}) }}" class="btn btn-info btn-small">
+                                <i class="icon-off icon-white"></i>
+                                Clôturer cette étude
+                            </a>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        {% endif %}
+        </tbody>
+    </table>
+
+<a class="btn btn-primary" href="#" > <i class="icon-file icon-white"></i>Créer une étude</a>
 
 {% endblock %} 

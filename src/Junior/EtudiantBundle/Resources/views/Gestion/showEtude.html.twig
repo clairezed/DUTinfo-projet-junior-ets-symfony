@@ -10,4 +10,52 @@
     <li class="active"><a href="#">Dashboard</a> <span class="divider">/</span></li>
 </ul>
 
+{#
+{% set total = etude.prixJournee * nbJours %}
+#}
+
+<h2>Etude</h2>
+<div class="well">
+    <ul class="inline">
+        <li>N° : <span class="label">{{ etude.id }}</span></li>
+        <li>Titre : <span class="label">{{ etude.nomEtude }}</span></li>
+        <li>Entreprise : <span class="label">{{ entreprise.nomEntreprise }}</span></li>
+    </ul>
+    <ul class="inline">
+        <li>Durée : <span class="label"> x jours</span></li>
+        <li>Prix par jour : <span class="label">{{ etude.prixJournee }} €</span></li>
+        <li>Total : <span class="label"> total €</span></li>
+        <li>Statut : <span class="label">{{ etude.statutEtude }}</span></li>
+    </ul>
+</div>
+
+{# n'afficher les acomptes que s'il y a de acomptes à afficher#}
+{% if etudiants[0] != NULL %}
+<div>
+    {% set cpt = 0 %}
+    <h2>Etudiants</h2>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Numero</th>
+                <th>Nom</th>
+                <th>Statut</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for etudiant in etudiants %}
+                <tr>
+                    <td>{{ etudiant.id }}</td>
+                    <td>{{ etudiant.nomEtudiant }}</td>
+                    <td>{{ statuts[cpt] }}</td>
+                    {% set cpt = cpt + 1 %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <p>Aucun étudiant ne participe à cette étude<p>
+{% endif %}
+
 {% endblock %} 

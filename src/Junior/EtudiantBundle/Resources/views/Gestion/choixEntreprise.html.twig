@@ -1,0 +1,27 @@
+{% extends "JuniorEtudiantBundle:Gestion:layoutGestion.html.twig" %}
+
+{% block title %}
+{{ parent()}} - Choix d'entreprise
+{% endblock %}
+
+{% block content_gestion %}
+
+<h2>Choix d'une entreprise</h2>
+
+<div class="well">
+    <p>Choisissez une entreprise existante : </p>
+    <form method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+        <input type="submit" class="btn validButton btn-primary" value="Valider"/>
+    </form>
+</div>
+
+<div class="well">
+    <p>Ou créez une nouvelle entreprise :</p>
+    <a href="{{ path('junior_gestion_newEntreprise') }}" class="btn btn-primary">
+        <i class="icon-edit icon-white"></i>
+        Nouvelle entreprise
+    </a>
+</div>
+
+{% endblock %} 

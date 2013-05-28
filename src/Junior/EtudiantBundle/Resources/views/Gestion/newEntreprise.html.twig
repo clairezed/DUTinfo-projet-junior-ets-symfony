@@ -1,0 +1,17 @@
+{% extends "JuniorEtudiantBundle:Gestion:layoutGestion.html.twig" %}
+
+{% block title %}
+{{ parent()}} - Créer une entreprise
+{% endblock %}
+
+{% block content_gestion %}
+
+<h2>Nouvelle entreprise</h2>
+<div class="well">
+    <form method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+        <input type="submit" class="btn validButton btn-primary" value="Valider"/>
+    </form>
+</div>
+
+{% endblock %} 
