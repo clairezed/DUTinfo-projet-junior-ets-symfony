@@ -91,11 +91,47 @@ class GestionController extends Controller {
      * ************************************************* */
     
     public function listEtudesAction() {
-        return $this->render('JuniorEtudiantBundle:Gestion:listEtudes.html.twig');
+        
+        $user = $this->getUser();
+
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $cpt = 0;
+            $em = $this->getDoctrine()->getManager();
+            $listEtudes = $em->getRepository('JuniorEtudiantBundle:Etude')->findAll();
+            $listEntreprises = ARRAY(NULL);
+            
+            foreach($listEtudes as $etude) {
+                $listEntreprises[$cpt] = $etude->getConvention()->getEntreprise();
+                $cpt++;
+            }
+        }
+        return $this->render('JuniorEtudiantBundle:Gestion:listEtudes.html.twig', array('etudes' => $listEtudes, 'entreprises' => $listEntreprises));
     }
     
-    public function showEtudeAction() {
-        return $this->render('JuniorEtudiantBundle:Gestion:showEtude.html.twig');
+    public function showEtudeAction($idEtude) {
+        
+        $user = $this->getUser();
+
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $cpt = 0;
+            $em = $this->getDoctrine()->getManager();
+            $etude = $em->getRepository('JuniorEtudiantBundle:Etude')->findOneById($idEtude);
+            $entreprise = $etude->getConvention()->getEntreprise();
+            $listParticipants = $etude->getParticipants();
+//            $nbJours = $etude->getIndemnites()->getNbJours();
+            
+            foreach($listParticipants as $participant) {
+                $statuts[$cpt] = $participant->getStatutEtudiant();
+                $etudiants[$cpt] = $participant->getEtudiant();
+                $cpt++;
+            }
+        }
+        
+        return $this->render('JuniorEtudiantBundle:Gestion:showEtude.html.twig', array('etude' => $etude, 'entreprise' => $entreprise, 'etudiants' => $etudiants, 'statuts' => $statuts));
     }
     
     public function newEtudeAction() {

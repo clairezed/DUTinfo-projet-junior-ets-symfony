@@ -73,7 +73,7 @@ junior_gestion_listEtudes:
     defaults: { _controller: JuniorEtudiantBundle:Gestion:listEtudes }
     
 junior_gestion_showEtude:
-    pattern: /etude
+    pattern: /{idEtude}/etude
     defaults: { _controller: JuniorEtudiantBundle:Gestion:showEtude }
     
 junior_gestion_newEtude:
@@ -89,7 +89,7 @@ junior_gestion_editEtude:
     defaults: { _controller: JuniorEtudiantBundle:Gestion:editEtude }
     
 junior_gestion_closeEtude:
-    pattern: /etude/close
+    pattern: /{idEtude}/etude/close
     defaults: { _controller: JuniorEtudiantBundle:Gestion:closeEtude }
 #    
 #junior_etudiant_showEtudiant:

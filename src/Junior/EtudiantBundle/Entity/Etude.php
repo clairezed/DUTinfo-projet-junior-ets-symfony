@@ -327,4 +327,16 @@ class Etude
         return $this->statutEtude;
     }
     
+    public function getEtudiants()
+    {
+        $cpt = 0;
+        $listParticipants = $this->getParticipants();
+        $nomsParticipants = array(NULL);
+        foreach($listParticipants as $participant) {
+            $etudiants[$cpt] = $participant->getEtudiant();
+            $cpt++;
+        }
+        return $etudiants;
+    }
+    
 }
