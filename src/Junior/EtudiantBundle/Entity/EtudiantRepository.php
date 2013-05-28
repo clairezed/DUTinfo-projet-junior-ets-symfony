@@ -12,4 +12,20 @@ use Doctrine\ORM\EntityRepository;
  */
 class EtudiantRepository extends EntityRepository
 {
+    public function findEtudesbyStatut($statut)
+    {
+       $qb = $this->createQueryBuilder('e')
+               ->leftJoin('e.participants', 'part')
+               ->addSelect('part')
+               ->leftJoin('part.etude', 'etude')
+               ->addSelect('etude');
+       
+       $qb->where('etude.statutEtude = :statut')
+                ->setParameter('statutEtude', $statut);
+               
+        return $qb->getQuery()
+                        ->getResult();
+    }
+    
+    
 }
