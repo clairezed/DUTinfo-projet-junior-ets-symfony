@@ -91,7 +91,17 @@ junior_gestion_editEtude:
 junior_gestion_closeEtude:
     pattern: /{idEtude}/etude/close
     defaults: { _controller: JuniorEtudiantBundle:Gestion:closeEtude }
-#    
+    
+#ENTREPRISES
+    
+junior_gestion_choixEntreprise:
+    pattern: /entreprise/choix
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:choixEntreprise }
+    
+junior_gestion_newEntreprise:
+    pattern: /entreprise/new
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:newEntreprise }
+    
 #junior_etudiant_showEtudiant:
 #    pattern:  /{id}/info
 #    defaults: { _controller: JuniorEtudiantBundle:Etudiant:showEtudiant }

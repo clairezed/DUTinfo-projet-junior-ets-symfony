@@ -26,15 +26,21 @@
                     <a href="{{ path('junior_gestion_listEtudes') }}" id="etu-etudes-liste" title="liste etudes"><p>toutes les études</p></a>
                 </li>
                 <li>
-                    <a href="{{ path('junior_gestion_newEtude') }}" id="etu-etudes-liste" title="créer etude"><p>Créer une étude</p></a>
+                    <a href="{{ path('junior_gestion_choixEntreprise') }}" id="etu-etudes-liste" title="créer etude"><p>Créer une étude</p></a>
                 </li>
             </ul>
         </li>
     </ul>
 </div>
 <div id="content" class="span9">
-                {% block content_gestion %}{% endblock %}
+    <ul class="breadcrumb">
+        <li class="active"><a href="#">Dashboard</a> <span class="divider">/</span></li>
+    </ul>
+
+    <div class="container-fluid">
+        {% block content_gestion %}{% endblock %}
     </div>
+</div>
 
 {% endblock %}
 

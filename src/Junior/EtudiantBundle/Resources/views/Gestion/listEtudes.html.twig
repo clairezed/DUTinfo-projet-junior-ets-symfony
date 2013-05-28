@@ -46,22 +46,12 @@
                             </a>
                         </td>
                     {% endif %}
-                    {#
-                    <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('etudiant_show', { 'id': entity.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('etudiant_edit', { 'id': entity.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                    </td>
-                    #}
                 </tr>
             {% endfor %}
         {% endif %}
         </tbody>
     </table>
+
+<a class="btn btn-primary" href="#" > <i class="icon-file icon-white"></i>Créer une étude</a>
 
 {% endblock %} 
