@@ -104,8 +104,20 @@ class GestionController extends Controller {
         return $this->render('JuniorEtudiantBundle:Gestion:listAcomptes.html.twig', array('listAcomptesEnCours' => $listAcomptesEnCours, 'listAcomptesValides' => $listAcomptesValides));
     }
 
-    public function validAcompteAction() {
-        return $this->render('JuniorEtudiantBundle:Gestion:validAcompte.html.twig');
+    public function validAcompteAction($idAcompte) {
+        $user = $this->getUser();
+
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $acompte = $em->getRepository('JuniorEtudiantBundle:Acompte')->findOneById($idAcompte);
+            $acompte->setStatutAcompte('Validé');
+            $em->persist($acompte);
+            $em->flush();
+            $this->get('session')->getFlashBag()->add('info', 'Acompte validé');
+        }
+        return $this->redirect($this->generateUrl('junior_gestion_listAcomptes'));
     }
 
     public function showAcompteAction() {

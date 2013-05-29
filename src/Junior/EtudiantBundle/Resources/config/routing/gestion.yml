@@ -35,7 +35,7 @@ junior_gestion_listAcomptes:
     defaults: { _controller: JuniorEtudiantBundle:Gestion:listAcomptes }
     
 junior_gestion_validAcompte:
-    pattern: /acompte/validation
+    pattern: /{idAcompte}/acompte/validation
     defaults: { _controller: JuniorEtudiantBundle:Gestion:validAcompte }
     
 junior_gestion_showAcompte:
