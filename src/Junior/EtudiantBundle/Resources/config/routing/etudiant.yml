@@ -43,11 +43,6 @@ junior_etudiant_showEtude:
     pattern:  /{idEtude}/etude
     defaults: { _controller: "JuniorEtudiantBundle:Etudiant:showEtude" }
 
-junior_etudiant_selectEtude:
-    pattern:  /acompte/select
-    defaults: { _controller: "JuniorEtudiantBundle:Etudiant:selectEtude" }    
-    
-
 junior_etudiant_newAcompte:
     pattern:  /{idEtude}/acompte/new
     defaults: { _controller: "JuniorEtudiantBundle:Etudiant:newAcompte" }

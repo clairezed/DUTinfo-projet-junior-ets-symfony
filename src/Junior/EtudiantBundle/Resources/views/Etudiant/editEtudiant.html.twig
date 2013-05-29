@@ -37,16 +37,7 @@
     <form action="{{ path('junior_etudiant_updateEtudiant', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
 
         <input type="hidden" name="_method" value="PUT" />
- <div>
-            {{ form_label(edit_form.adresseEtudiant, "Adresse") }}
-                {{ form_widget(edit_form.adresseEtudiant) }}
-                {{ form_label(edit_form.telEtudiant, "Téléphone :") }}
-                {{ form_widget(edit_form.telEtudiant) }}
-                {{ form_label(edit_form.email, "Email") }}
-                {{ form_widget(edit_form.email) }}
-
-        </div>        
-
+        {{ form_widget(edit_form) }}
         <p>
             <button type="submit">Valider</button>
         </p>
