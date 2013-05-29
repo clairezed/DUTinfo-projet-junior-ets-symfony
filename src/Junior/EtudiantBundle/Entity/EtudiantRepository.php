@@ -27,5 +27,4 @@ class EtudiantRepository extends EntityRepository
                         ->getResult();
     }
     
-    
 }

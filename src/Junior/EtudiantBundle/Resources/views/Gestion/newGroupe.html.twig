@@ -6,4 +6,20 @@
 
 {% block content_gestion %}
 
+<div>
+    <h2>Nouveau groupe</h2>
+    <form method="post" {{ form_enctype(form) }}>
+        <div>
+            {{ form_label(form.participants, "Sélectionnez les participants à cette étude :") }}
+
+            {{ form_errors(form.participants) }}
+                
+            {{ form_widget(form.participants) }}
+        </div>
+        {{ form_rest(form) }}
+    <input type="submit" class="btn btn-primary validButton" value="Valider"/>
+     <a class="btn btn-danger validButton" href="{{ path('junior_gestion_listEtudes') }}">Annuler</a>
+    </form>
+</div>
+
 {% endblock %} 

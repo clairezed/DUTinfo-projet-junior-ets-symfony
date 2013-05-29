@@ -9,6 +9,7 @@ use Junior\EtudiantBundle\Entity\Convention;
 use Junior\EtudiantBundle\Form\ChoixEntrepriseType;
 use Junior\EtudiantBundle\Form\EntrepriseType;
 use Junior\EtudiantBundle\Form\EtudeType;
+use Junior\EtudiantBundle\Form\GroupeType;
 use Junior\EtudiantBundle\Form\ConventionType;
 use Junior\EtudiantBundle\Entity\Participant;
 //use Junior\EtudiantBundle\Form\EtudiantType;
@@ -140,6 +141,8 @@ class GestionController extends Controller {
             $etude = $em->getRepository('JuniorEtudiantBundle:Etude')->findOneById($idEtude);
             $entreprise = $etude->getConvention()->getEntreprise();
             $listParticipants = $etude->getParticipants();
+            $etudiants = array(NULL);
+            $statuts = array(NULL);
 //            $nbJours = $etude->getIndemnites()->getNbJours();
 
             foreach ($listParticipants as $participant) {
@@ -179,8 +182,36 @@ class GestionController extends Controller {
         return $this->render('JuniorEtudiantBundle:Gestion:newEtude.html.twig', array('form' => $form->createView()));
     }
 
-    public function newGroupeAction() {
-        return $this->render('JuniorEtudiantBundle:Gestion:newGroupe.html.twig');
+    
+    public function newGroupeAction($idEtude) {
+        $user = $this->getUser();
+
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $etude = $em->getRepository('JuniorEtudiantBundle:Etude')->findOneById($idEtude);
+            
+            $form = $this->createForm(new GroupeType());
+            $request = $this->getRequest();
+            
+            if($request->getMethod() == 'POST') {
+                $postData = $request->request->get('junior_etudiantbundle_groupetype');
+                $participants = $postData['participants'];
+                var_dump($participants);
+                foreach($participants as $participant) {
+                    $etudiant = $em->getRepository('JuniorEtudiantBundle:Etudiant')->findOneById($participant);
+                    $membre = new Participant();
+                    $membre->setEtude($etude);
+                    $membre->setEtudiant($etudiant);
+                    $membre->setStatutEtudiant("Participant");
+                    $em->persist($membre);
+                    $em->flush();
+                }
+                return $this->redirect($this->generateUrl('junior_gestion_listEtudes'));
+            }
+        }
+        return $this->render('JuniorEtudiantBundle:Gestion:newGroupe.html.twig', array('form' => $form->createView()));
     }
 
     public function editEtudeAction() {
