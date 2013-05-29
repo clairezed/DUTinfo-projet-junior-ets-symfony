@@ -6,4 +6,34 @@
 
 {% block content_gestion %}
 
+<div>
+    <h2>Nouvelle étude</h2>
+    <form method="post" {{ form_enctype(form) }}>
+        <div>
+            {{ form_label(form.nomEtude, "Nom de l'étude :") }}
+
+            {{ form_errors(form.nomEtude) }}
+                
+            {{ form_widget(form.nomEtude) }}
+        </div>
+        <div>
+            {{ form_label(form.prixJournee, "Prix à la journée :") }}
+
+            {{ form_errors(form.prixJournee) }}
+                
+            {{ form_widget(form.prixJournee) }}
+        </div>
+        <div>
+            {{ form_label(form.statutEtude, "Statut de l'étude :") }}
+
+            {{ form_errors(form.statutEtude) }}
+                
+            {{ form_widget(form.statutEtude) }}
+        </div>
+        {{ form_rest(form) }}
+    <input type="submit" class="btn btn-primary validButton" value="Valider"/>
+     <a class="btn btn-danger validButton" href="{{ path('junior_gestion_listEtudes') }}">Annuler</a>
+    </form>
+</div>
+
 {% endblock %} 

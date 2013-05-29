@@ -5,8 +5,11 @@ namespace Junior\EtudiantBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Junior\EtudiantBundle\Entity\Etudiant;
 use Junior\EtudiantBundle\Entity\Etude;
+use Junior\EtudiantBundle\Entity\Convention;
 use Junior\EtudiantBundle\Form\ChoixEntrepriseType;
 use Junior\EtudiantBundle\Form\EntrepriseType;
+use Junior\EtudiantBundle\Form\EtudeType;
+use Junior\EtudiantBundle\Form\ConventionType;
 use Junior\EtudiantBundle\Entity\Participant;
 //use Junior\EtudiantBundle\Form\EtudiantType;
 use JMS\SecurityExtraBundle\Annotation\Secure;
@@ -136,8 +139,31 @@ class GestionController extends Controller {
         return $this->render('JuniorEtudiantBundle:Gestion:showEtude.html.twig', array('etude' => $etude, 'entreprise' => $entreprise, 'etudiants' => $etudiants, 'statuts' => $statuts));
     }
     
-    public function newEtudeAction() {
-        return $this->render('JuniorEtudiantBundle:Gestion:newEtude.html.twig');
+    public function newEtudeAction($idConvention) {
+        $user = $this->getUser();
+
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $convention = $em->getRepository('JuniorEtudiantBundle:Convention')->findOneById($idConvention);
+            $etude = new Etude();
+            $etude->setConvention($convention);
+            
+            $form = $this->createForm(new EtudeType(), $etude);
+            $request = $this->getRequest();
+            
+            if(($request->getMethod() == 'POST')) {
+                $form->bind($request);
+                if($form->isValid()) {
+                    $em->persist($etude);
+                    $em->flush();
+                    $idEtude = $etude->getId();
+                    return $this->redirect($this->generateUrl('junior_gestion_newGroupe', array('idEtude' => $idEtude)));
+                }
+            }
+        }   
+        return $this->render('JuniorEtudiantBundle:Gestion:newEtude.html.twig', array('form' => $form->createView()));
     }
     
     public function newGroupeAction() {
@@ -169,8 +195,8 @@ class GestionController extends Controller {
             if(($request->getMethod() == 'POST')) {
                 $postData = $request->request->get('junior_etudiantbundle_choixentreprisetype');
                 $idEntreprise = $postData['entreprise'];
-                $entreprise = $em->getRepository('JuniorEtudiantBundle:Entreprise')->findOneById($idEntreprise);
-                return $this->redirect($this->generateUrl('junior_gestion_newEtude', array('idEntreprise' => $idEntreprise)));
+                //$entreprise = $em->getRepository('JuniorEtudiantBundle:Entreprise')->findOneById($idEntreprise);
+                return $this->redirect($this->generateUrl('junior_gestion_newConvention', array('idEntreprise' => $idEntreprise)));
             }
         }
         return $this->render('JuniorEtudiantBundle:Gestion:choixEntreprise.html.twig', array('form' => $form->createView()));
@@ -185,6 +211,37 @@ class GestionController extends Controller {
             $form = $this->createForm(new EntrepriseType());
         }
         return $this->render('JuniorEtudiantBundle:Gestion:newEntreprise.html.twig', array('form' => $form->createView()));
+    }
+    
+    /*     * ************************************************
+     * Actions de manipulation des infos ENTREPRISE
+     * ************************************************* */
+    
+    public function newConventionAction($idEntreprise) {
+        $user = $this->getUser();
+
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $entreprise = $em->getRepository('JuniorEtudiantBundle:Entreprise')->findOneById($idEntreprise);
+            $convention = new Convention();
+            $convention->setEntreprise($entreprise);
+            
+            $form = $this->createForm(new ConventionType(), $convention);
+            $request = $this->getRequest();
+            
+            if ($request->getMethod() == 'POST') {
+                $form->bind($request);
+                if($form->isValid()) {
+                    $em->persist($convention);
+                    $em->flush();
+                    $idConvention = $convention->getId();
+                    return $this->redirect($this->generateUrl('junior_gestion_newEtude', array('idConvention' => $idConvention)));
+                }
+            }
+        }
+        return $this->render('JuniorEtudiantBundle:Gestion:newConvention.html.twig', array('form' => $form->createView()));
     }
 //
 //    /**************************************************
