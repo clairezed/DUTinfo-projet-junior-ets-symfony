@@ -33,7 +33,12 @@ class GestionController extends Controller {
      * ************************************************* */
     
     public function listEtudiantsAction() {
-        return $this->render('JuniorEtudiantBundle:Gestion:listEtudiants.html.twig');
+        $em = $this->getDoctrine()->getEntityManager();
+        $list_etudiant = $em->getRepository('JuniorEtudiantBundle:Etudiant')->findAll();
+        
+        return $this->render('JuniorEtudiantBundle:Gestion:listEtudiants.html.twig', array (
+            'list_etudiant' => $list_etudiant,
+        ));
     }
     
     public function showEtudiantAction() {

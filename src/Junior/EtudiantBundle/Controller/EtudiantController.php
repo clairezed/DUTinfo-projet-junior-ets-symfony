@@ -9,6 +9,7 @@ use Junior\EtudiantBundle\Entity\Acompte;
 use Junior\EtudiantBundle\Entity\Participant;
 use Junior\EtudiantBundle\Entity\Frais;
 use Junior\EtudiantBundle\Form\EtudiantType;
+use Junior\EtudiantBundle\Form\EtudeType;
 use Junior\EtudiantBundle\Form\AcompteType;
 use Junior\EtudiantBundle\Form\FraisType;
 use JMS\SecurityExtraBundle\Annotation\Secure;
@@ -108,7 +109,7 @@ class EtudiantController extends Controller {
                 throw $this->createNotFoundException('Unable to find Etudiant entity.');
             }
 
-            $editForm = $this->createForm(new EtudiantType(), $entity);
+            $editForm = $this->createForm(new EtudiantType($id), $entity);
 
             return $this->render('JuniorEtudiantBundle:Etudiant:editEtudiant.html.twig', array(
                         'entity' => $entity,
@@ -138,7 +139,7 @@ class EtudiantController extends Controller {
                 throw $this->createNotFoundException('Unable to find Etudiant entity.');
             }
 
-            $editForm = $this->createForm(new EtudiantType(), $entity);
+            $editForm = $this->createForm(new EtudiantType($id), $entity);
             $editForm->bind($request);
 
             if ($editForm->isValid()) {
@@ -299,11 +300,34 @@ class EtudiantController extends Controller {
         }
     }
 
+    public function selectEtudeAction() {
+
+        $user = $this->getUser();
+
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $idEtudiant = $user->getId();
+            $form2 = $this->createForm(new EtudiantType($idEtudiant), $user);
+            $request = $this->get('request');
+            
+            if ($request->getMethod() == 'POST') {
+                $postData = $request->request->get('junior_etudiantbundle_etudianttype');
+                $idEtude = (int)$postData['etudes'];
+                return $this->redirect($this->generateUrl('junior_etudiant_newAcompte', array('idEtude' => $idEtude)));
+            }
+        }
+        return $this->render('JuniorEtudiantBundle:Etudiant:selectEtude.html.twig', array(
+                    'form2' => $form2->createView(),
+        ));
+    }
+
     /*     * ************************************************
      * Actions de manipulation des ACOMPTES
      * ************************************************* */
 
-    public function newAcompteAction($idEtude) {
+    public
+            function newAcompteAction($idEtude) {
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $acompte = new Acompte();
