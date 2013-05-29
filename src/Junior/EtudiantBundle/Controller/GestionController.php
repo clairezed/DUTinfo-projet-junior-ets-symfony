@@ -42,10 +42,10 @@ class GestionController extends Controller {
 
     public function showEtudiantAction($idEtudiant) {
         $em = $this->getDoctrine()->getEntityManager();
-        $etudiant = $em->getRepository('JuniorEtudiantBundle:Etudiant')->findOneBy($idEtudiant);
-        if ($etudiant === null) {
-            throw $this->createNotFoundException('Oups, y a un soucis pour trouver l\étudiant [id=' . $id . '].');
-        }
+        $etudiant = $em->getRepository('JuniorEtudiantBundle:Etudiant')->find($idEtudiant);
+//        if ($etudiant === null) {
+//            throw $this->createNotFoundException('Oups, y a un soucis pour trouver l\étudiant [id=' . $idEtudiant . '].');
+//        }
 
 
         return $this->render('JuniorEtudiantBundle:Gestion:showEtudiant.html.twig', array(
@@ -54,7 +54,7 @@ class GestionController extends Controller {
     }
 
     public function newEtudiantAction() {
-        return $this->render('JuniorEtudiantBundle:Gestion:showEtudiant.html.twig');
+        return $this->render('JuniorEtudiantBundle:Gestion:newEtudiant.html.twig');
     }
 
     public function editEtudiantAction() {
@@ -152,7 +152,8 @@ class GestionController extends Controller {
             }
         }
 
-        return $this->render('JuniorEtudiantBundle:Gestion:showEtude.html.twig', array('etude' => $etude, 'entreprise' => $entreprise, 'etudiants' => $etudiants, 'statuts' => $statuts));
+        return $this->render('JuniorEtudiantBundle:Gestion:showEtude.html.twig', array(
+            'etude' => $etude, 'entreprise' => $entreprise, 'etudiants' => $etudiants, 'statuts' => $statuts));
     }
 
     public function newEtudeAction($idConvention) {

@@ -5,5 +5,37 @@
 {% endblock %}
 
 {% block content_gestion %}
-
+ <table class="table table-bordered table-condensed">
+        <tbody>
+            <tr>
+                <th>N° Etudiant</th>
+                <td>{{ etudiant.numEtudiant }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ etudiant.nomEtudiant }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ etudiant.adresseEtudiant }}</td>
+            </tr>
+            <tr>
+                <th>N° SS</th>
+                <td>{{ etudiant.numSecu }}</td>
+            </tr>
+            <tr>
+                <th>Date de naissance</th>
+                <td>{{ etudiant.dateNaissance|date("d/m/Y") }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ etudiant.telEtudiant }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ etudiant.email }}</td>
+            </tr>
+            
+        </tbody>
+    </table>
 {% endblock %} 
