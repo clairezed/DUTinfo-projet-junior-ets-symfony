@@ -6,4 +6,55 @@
 
 {% block content_gestion %}
 
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>N° Etudiant</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Nombre d'études en cours</th>
+            <th>Détail</th>
+            <th>Editer</th>
+            <th>Supprimer</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        {% if list_etudiant[0] == NULL %}
+            <p> Aucun étudiant dans la base de données</p>
+                    {% else %}
+            {% for etudiant in list_etudiant %}
+                <tr>
+                    <td>{{ etudiant.numEtudiant }}</td>
+                    <td>{{ etudiant.nomEtudiant }}</td>
+                    <td>{{ etudiant.nomEtudiant }}</td>
+                    <td>{{ etudiant.participants | length }}</td>
+                    <td>   
+                        <a href="{{ path('junior_gestion_showEtudiant', {'idEtudiant': etudiant.id}) }}" class="btn btn-primary btn-small">
+                            <i class="icon-search icon-white"></i>
+                            Voir détail
+                        </a>
+                    </td>
+                        <td>
+                            <a href="{{ path('junior_gestion_editEtudiant', {'idEtudiant': etudiant.id}) }}" class="btn btn-info btn-small">
+                                <i class="icon-off icon-white"></i>
+                                Modifier
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ path('junior_gestion_editEtudiant', {'idEtudiant': etudiant.id}) }}" class="btn btn-danger btn-small">
+                                <i class="icon-trash icon-white"></i>
+                                Supprimer
+                            </a>
+                        </td>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+                    {% endif %}
+
+
+<a class="btn btn-primary" href="{{ path('junior_gestion_newEtudiant') }}" > <i class="icon-file icon-white"></i>Créer un étudiant</a>
+
 {% endblock %} 
