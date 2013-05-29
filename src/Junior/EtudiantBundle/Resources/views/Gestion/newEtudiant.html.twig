@@ -5,6 +5,44 @@
 {% endblock %}
 
 {% block content_gestion %}
-<p> Creation etudiant </p>
+
+<div>
+    <h2>Nouvelle étudiant</h2>
+    <form method="post" {{ form_enctype(form) }}>
+        <div>
+            {{ form_label(form.numEtudiant, "N° étudiant :") }}
+
+            {{ form_errors(form.numEtudiant) }}
+                
+            {{ form_widget(form.numEtudiant) }}
+        </div>
+        <div>
+            {{ form_label(form.nomEtudiant, "Nom :") }}
+
+            {{ form_errors(form.nomEtudiant) }}
+                
+            {{ form_widget(form.nomEtudiant) }}
+        </div>
+             <div>
+            {{ form_label(form.dateNaissance, "Date de naissace :") }}
+
+            {{ form_errors(form.dateNaissance) }}
+                
+            {{ form_widget(form.dateNaissance) }}
+        </div>
+        <div>
+            {{ form_label(form.adresseEtudiant, "Adresse :") }}
+
+            {{ form_errors(form.adresseEtudiant) }}
+                
+            {{ form_widget(form.adresseEtudiant) }}
+        </div>
+        {{ form_rest(form) }}
+    <input type="submit" class="btn btn-primary validButton" value="Valider"/>
+     <a class="btn btn-danger validButton" href="{{ path('junior_gestion_listEtudiants') }}">Annuler</a>
+    </form>
+</div>
+
+
 
 {% endblock %} 

@@ -13,7 +13,7 @@ junior_gestion_listEtudiants:
     defaults: { _controller: JuniorEtudiantBundle:Gestion:listEtudiants }
 
 junior_gestion_showEtudiant:
-    pattern: /etudiant/{idEtudiant}
+    pattern: /{idEtudiant}/etudiant
     defaults: { _controller: JuniorEtudiantBundle:Gestion:showEtudiant }
 
 junior_gestion_newEtudiant:
