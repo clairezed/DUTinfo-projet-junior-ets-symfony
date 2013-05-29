@@ -5,8 +5,10 @@ namespace Junior\EtudiantBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Junior\EtudiantBundle\Entity\Etudiant;
 use Junior\EtudiantBundle\Entity\Etude;
+use Junior\EtudiantBundle\Entity\Entreprise;
 use Junior\EtudiantBundle\Entity\Convention;
 use Junior\EtudiantBundle\Form\ChoixEntrepriseType;
+use Junior\EtudiantBundle\Form\ChoixResponsableType;
 use Junior\EtudiantBundle\Form\EntrepriseType;
 use Junior\EtudiantBundle\Form\EtudeType;
 use Junior\EtudiantBundle\Form\GroupeType;
@@ -198,7 +200,6 @@ class GestionController extends Controller {
             if($request->getMethod() == 'POST') {
                 $postData = $request->request->get('junior_etudiantbundle_groupetype');
                 $participants = $postData['participants'];
-                var_dump($participants);
                 foreach($participants as $participant) {
                     $etudiant = $em->getRepository('JuniorEtudiantBundle:Etudiant')->findOneById($participant);
                     $membre = new Participant();
@@ -208,19 +209,31 @@ class GestionController extends Controller {
                     $em->persist($membre);
                     $em->flush();
                 }
-                return $this->redirect($this->generateUrl('junior_gestion_choixResponsable'), array('idEtude' => $idEtude));
+                return $this->redirect($this->generateUrl('junior_gestion_choixResponsable', array('idEtude' => $idEtude)));
             }
         }
         return $this->render('JuniorEtudiantBundle:Gestion:newGroupe.html.twig', array('form' => $form->createView()));
     }
     
-    public function choixReponsableAction() {
+    public function choixResponsableAction($idEtude) {
         $user = $this->getUser();
 
         if (null === $user) {
             return $this->render('JuniorEtudiantBundle::layout.html.twig');
         } else {
+            $em = $this->getDoctrine()->getManager();
+            $form = $this->createForm(new ChoixResponsableType($idEtude));
+            $request = $this->getRequest();
             
+            if($request->getMethod() == 'POST') {
+                $postData = $request->request->get('junior_etudiantbundle_choixresponsabletype');
+                $idEtudiant = $postData['participants'];
+                $participant = $em->getRepository('JuniorEtudiantBundle:Participant')->findOneBy(array('etudiant' => $idEtudiant, 'etude' => $idEtude));
+                $participant->setStatutEtudiant("Responsable");
+                $em->persist($participant);
+                $em->flush();
+                return $this->redirect($this->generateUrl('junior_gestion_listEtudes'));
+            }
         }
         return $this->render('JuniorEtudiantBundle:Gestion:choixResponsable.html.twig', array('form' => $form->createView()));
     }
@@ -229,8 +242,21 @@ class GestionController extends Controller {
         return $this->render('JuniorEtudiantBundle:Gestion:editEtude.html.twig');
     }
 
-    public function closeEtudeAction() {
-        return $this->render('JuniorEtudiantBundle:Gestion:closeEtude.html.twig');
+    public function closeEtudeAction($idEtude) {
+        $user = $this->getUser();
+
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $etude = $em->getRepository('JuniorEtudiantBundle:Etude')->findOneById($idEtude);
+            $etude->setStatutEtude("Terminée");
+            $em->persist($etude);
+            $em->flush();
+            $this->get('session')->getFlashBag()->add('info', 'Etude clôturée');
+        }
+        //return $this->redirect('JuniorEtudiantBundle:Gestion:listEtudes.html.twig');
+        return $this->redirect($this->generateUrl('junior_gestion_listEtudes'));
     }
 
     /*     * ************************************************
@@ -263,7 +289,21 @@ class GestionController extends Controller {
         if (null === $user) {
             return $this->render('JuniorEtudiantBundle::layout.html.twig');
         } else {
-            $form = $this->createForm(new EntrepriseType());
+            $em = $this->getDoctrine()->getManager();
+            $entreprise = new Entreprise();
+            $form = $this->createForm(new EntrepriseType(), $entreprise);
+            $request = $this->getRequest();
+            
+            if (($request->getMethod() == 'POST')) {
+                $form->bind($request);
+                if($form->isValid()) {
+                    $em->persist($entreprise);
+                    $em->flush();
+                    $idEntreprise = $entreprise->getId();
+                    return $this->redirect($this->generateUrl('junior_gestion_newConvention', array('idEntreprise' => $idEntreprise)));
+                }
+            }
+            
         }
         return $this->render('JuniorEtudiantBundle:Gestion:newEntreprise.html.twig', array('form' => $form->createView()));
     }
