@@ -349,6 +349,7 @@ class EtudiantController extends Controller {
                 $montant = $postData['montantAcompte'];
                 $form->bind($request);
                 if ($form->isValid() && $indemnite->getNombreAcomptes() < 3 && (($montant + $indemnite->getTotalAcomptes()) <= ($indemnite->getNbJours() * $indemnite->getEtude()->getPrixJournee() * 0.8))) {
+                    var_dump($indemnite->getNombreAcomptes());
                     $acompte->setIndemnite($indemnite);
                     $acompte->setDateAcompte(new \Datetime());
                     $acompte->setStatutAcompte('En attente');
@@ -489,4 +490,3 @@ class EtudiantController extends Controller {
 //        ;
 //    }
 }
-
