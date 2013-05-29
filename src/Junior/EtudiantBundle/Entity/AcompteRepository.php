@@ -28,5 +28,24 @@ class AcompteRepository extends EntityRepository
                         ->getResult();
     }
     
+    public function findAllAcomptesEnCours() {
+        $qb = $this->createQueryBuilder('acompte');
+        
+        $qb->where('acompte.statutAcompte = :statut')
+                ->setParameter('statut', 'En attente');
+        
+        return $qb->getQuery()
+                        ->getResult();
+    }
+    
+    public function findAllAcomptesValides() {
+        $qb = $this->createQueryBuilder('acompte');
+        
+        $qb->where('acompte.statutAcompte = :statut')
+                ->setParameter('statut', 'Validé');
+        
+        return $qb->getQuery()
+                        ->getResult();
+    }
     
 }
