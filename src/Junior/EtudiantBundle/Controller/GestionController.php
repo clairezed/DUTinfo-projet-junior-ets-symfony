@@ -7,10 +7,11 @@ use Junior\EtudiantBundle\Entity\Etudiant;
 use Junior\EtudiantBundle\Entity\Etude;
 use Junior\EtudiantBundle\Entity\Entreprise;
 use Junior\EtudiantBundle\Entity\Convention;
+use Junior\EtudiantBundle\Form\NewEtudiantType;
+use Junior\EtudiantBundle\Form\EtudeType;
 use Junior\EtudiantBundle\Form\ChoixEntrepriseType;
 use Junior\EtudiantBundle\Form\ChoixResponsableType;
 use Junior\EtudiantBundle\Form\EntrepriseType;
-use Junior\EtudiantBundle\Form\EtudeType;
 use Junior\EtudiantBundle\Form\GroupeType;
 use Junior\EtudiantBundle\Form\ConventionType;
 use Junior\EtudiantBundle\Entity\Participant;
@@ -44,19 +45,38 @@ class GestionController extends Controller {
 
     public function showEtudiantAction($idEtudiant) {
         $em = $this->getDoctrine()->getEntityManager();
-        $etudiant = $em->getRepository('JuniorEtudiantBundle:Etudiant')->findOneBy($idEtudiant);
+        $etudiant = $em->getRepository('JuniorEtudiantBundle:Etudiant')->find($idEtudiant);
         if ($etudiant === null) {
-            throw $this->createNotFoundException('Oups, y a un soucis pour trouver l\étudiant [id=' . $id . '].');
+            throw $this->createNotFoundException('Oups, y a un soucis pour trouver l\étudiant [id=' . $idEtudiant . '].');
         }
-
-
         return $this->render('JuniorEtudiantBundle:Gestion:showEtudiant.html.twig', array(
                     'etudiant' => $etudiant,
         ));
     }
 
     public function newEtudiantAction() {
-        return $this->render('JuniorEtudiantBundle:Gestion:showEtudiant.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $etudiant = new Etudiant();
+
+        $form = $this->createForm(new NewEtudiantType(), $etudiant);
+        $request = $this->getRequest();
+
+        if (($request->getMethod() == 'POST')) {
+            $form->bind($request);
+            if ($form->isValid()) {
+                $etudiant->setEnabled(true);
+                $etudiant->setUsername($etudiant->getNumEtudiant());
+                $etudiant->setPlainPassword('secret');
+                $etudiant->setRoles(array('ROLE_ETUDIANT'));
+                $em->persist($etudiant);
+                $em->flush();
+                return $this->redirect($this->generateUrl('junior_gestion_listEtudiants'));
+            }
+        }
+        return $this->render('JuniorEtudiantBundle:Gestion:newEtudiant.html.twig', array(
+                                    'form' => $form->createView(),
+                                        )
+                );
     }
 
     public function editEtudiantAction() {
@@ -154,7 +174,8 @@ class GestionController extends Controller {
             }
         }
 
-        return $this->render('JuniorEtudiantBundle:Gestion:showEtude.html.twig', array('etude' => $etude, 'entreprise' => $entreprise, 'etudiants' => $etudiants, 'statuts' => $statuts));
+        return $this->render('JuniorEtudiantBundle:Gestion:showEtude.html.twig', array(
+                    'etude' => $etude, 'entreprise' => $entreprise, 'etudiants' => $etudiants, 'statuts' => $statuts));
     }
 
     public function newEtudeAction($idConvention) {
@@ -184,7 +205,6 @@ class GestionController extends Controller {
         return $this->render('JuniorEtudiantBundle:Gestion:newEtude.html.twig', array('form' => $form->createView()));
     }
 
-    
     public function newGroupeAction($idEtude) {
         $user = $this->getUser();
 
@@ -193,14 +213,15 @@ class GestionController extends Controller {
         } else {
             $em = $this->getDoctrine()->getManager();
             $etude = $em->getRepository('JuniorEtudiantBundle:Etude')->findOneById($idEtude);
-            
+
             $form = $this->createForm(new GroupeType());
             $request = $this->getRequest();
-            
-            if($request->getMethod() == 'POST') {
+
+            if ($request->getMethod() == 'POST') {
                 $postData = $request->request->get('junior_etudiantbundle_groupetype');
                 $participants = $postData['participants'];
-                foreach($participants as $participant) {
+				
+                foreach ($participants as $participant) {
                     $etudiant = $em->getRepository('JuniorEtudiantBundle:Etudiant')->findOneById($participant);
                     $membre = new Participant();
                     $membre->setEtude($etude);

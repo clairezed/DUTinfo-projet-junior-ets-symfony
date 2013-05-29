@@ -7,30 +7,30 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Junior\EtudiantBundle\Entity\EtudeRepository;
 
-class EtudiantType extends AbstractType {
+class NewEtudiantType extends AbstractType {
 
-    public function __construct($id) {
-        $this->id = $id;
-    }
-    
+//    public function __construct($id) {
+//        $this->id = $id;
+//    }
+//    
     
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        $id = $this->id;
         $builder
-                ->add('numEtudiant', 'number')
+                ->add('numEtudiant', 'text')
                 ->add('nomEtudiant', 'text')
                 ->add('numSecu', 'number')
                 ->add('adresseEtudiant', 'text')
                 ->add('telEtudiant', 'number')
                 ->add('email', 'email')
-                ->add('etudes', 'entity', array(
-                    'class' => 'JuniorEtudiantBundle:Etude',
-//                    'multiple' => false,
-//                    'property' => 'nomEtude',
-                    'query_builder' => function(EtudeRepository $er) use ($id){
-                        return $er->findEtudesbyStudentAndStatut($id, 'En cours');
-                    }
-                ))
+                ->add('dateNaissance', 'date')
+//                ->add('etudes', 'entity', array(
+//                    'class' => 'JuniorEtudiantBundle:Etude',
+////                    'multiple' => false,
+////                    'property' => 'nomEtude',
+//                    'query_builder' => function(EtudeRepository $er) use ($id){
+//                        return $er->findEtudesbyStudentAndStatut($id, 'En cours');
+//                    }
+//                ))
 
                 
         ;
