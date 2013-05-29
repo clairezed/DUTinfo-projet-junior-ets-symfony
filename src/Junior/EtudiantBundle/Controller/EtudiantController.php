@@ -322,22 +322,29 @@ class EtudiantController extends Controller {
             if ($request->getMethod() == 'POST') {
 //                $data = $form2->getData();
 //                $etude = $data['etudes'];
-                            $em = $this->getDoctrine()->getManager();
-                $etude1 = $form2["etudes"]->getData();
-                $etude = $em->getRepository('JuniorEtudiantBundle:Etude')->findByNomEtude($etude1);
-                $idEtude = $etude->getId();
-                
+
+                $postData = $request->request->get('junior_etudiantbundle_etudianttype');
+                $idEtude = (int)$postData['etudes'];
+                var_dump($idEtude);
+
+//                            $em = $this->getDoctrine()->getManager();
+//                $etude1 = $form2["etudes"]->getData();
+//               
+//                $etude = $etude1[0];
+//                $etude = $em->getRepository('JuniorEtudiantBundle:Etude')->findByNomEtude($etude1);
+//                $idEtude = $etude->getId();
+//                var_dump($idEtude);
+
 //                $idEtude = $postData['id'];
 //                $form->bind($request);
 //                $form2->bind($request);
 //
 //                if ($form->isValid()) {
 //                    $etude->setEtudiant($entityEtud);
-
 //                    $em->persist($frais);
 //                    $em->flush();
 //                    $this->get('session')->getFlashBag()->add('info', 'Votre frais a bien été enregistré');
-                    return $this->redirect($this->generateUrl('junior_etudiant_newAcompte', array('id' => $idEtude)));
+                return $this->redirect($this->generateUrl('junior_etudiant_newAcompte', array('idEtude' => $idEtude)));
 //                }
             }
         }
