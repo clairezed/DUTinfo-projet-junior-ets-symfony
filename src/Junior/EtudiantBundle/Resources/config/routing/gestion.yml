@@ -77,7 +77,7 @@ junior_gestion_showEtude:
     defaults: { _controller: JuniorEtudiantBundle:Gestion:showEtude }
     
 junior_gestion_newEtude:
-    pattern: /etude/new
+    pattern: /{idConvention}/etude/new
     defaults: { _controller: JuniorEtudiantBundle:Gestion:newEtude }
     
 junior_gestion_newGroupe:
@@ -101,6 +101,12 @@ junior_gestion_choixEntreprise:
 junior_gestion_newEntreprise:
     pattern: /entreprise/new
     defaults: { _controller: JuniorEtudiantBundle:Gestion:newEntreprise }
+    
+#CONVENTIONS
+
+junior_gestion_newConvention:
+    pattern: /{idEntreprise}/convention/new
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:newConvention }
     
 #junior_etudiant_showEtudiant:
 #    pattern:  /{id}/info

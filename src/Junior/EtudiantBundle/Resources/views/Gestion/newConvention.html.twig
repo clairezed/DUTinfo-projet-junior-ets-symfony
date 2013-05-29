@@ -1,0 +1,25 @@
+{% extends "JuniorEtudiantBundle:Gestion:layoutGestion.html.twig" %}
+
+{% block title %}
+{{ parent()}} - Créer une convention
+{% endblock %}
+
+{% block content_gestion %}
+
+<div>
+    <h2>Nouvelle convention</h2>
+    <form method="post" {{ form_enctype(form) }}>
+        <div>
+            {{ form_label(form.dateConvention, "Date de signature de la convention :") }}
+
+            {{ form_errors(form.dateConvention) }}
+                
+            {{ form_widget(form.dateConvention) }}
+        </div>
+        {{ form_rest(form) }}
+    <input type="submit" class="btn btn-primary validButton" value="Valider"/>
+     <a class="btn btn-danger validButton" href="{{ path('junior_gestion_listEtudes') }}">Annuler</a>
+    </form>
+</div>
+
+{% endblock %} 
