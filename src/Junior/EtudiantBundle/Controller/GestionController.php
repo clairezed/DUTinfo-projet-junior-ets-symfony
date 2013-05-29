@@ -208,10 +208,21 @@ class GestionController extends Controller {
                     $em->persist($membre);
                     $em->flush();
                 }
-                return $this->redirect($this->generateUrl('junior_gestion_listEtudes'));
+                return $this->redirect($this->generateUrl('junior_gestion_choixResponsable'), array('idEtude' => $idEtude));
             }
         }
         return $this->render('JuniorEtudiantBundle:Gestion:newGroupe.html.twig', array('form' => $form->createView()));
+    }
+    
+    public function choixReponsableAction() {
+        $user = $this->getUser();
+
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            
+        }
+        return $this->render('JuniorEtudiantBundle:Gestion:choixResponsable.html.twig', array('form' => $form->createView()));
     }
 
     public function editEtudeAction() {

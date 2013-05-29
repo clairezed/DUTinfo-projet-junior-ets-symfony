@@ -84,6 +84,10 @@ junior_gestion_newGroupe:
     pattern: /{idEtude}/etude/groupe/new
     defaults: { _controller: JuniorEtudiantBundle:Gestion:newGroupe }
     
+junior_gestion_choixResponsable:
+    pattern: /{idEtude}/etude/groupe/choix
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:choixResponsable }
+    
 junior_gestion_editEtude:
     pattern: /etude/edit
     defaults: { _controller: JuniorEtudiantBundle:Gestion:editEtude }
