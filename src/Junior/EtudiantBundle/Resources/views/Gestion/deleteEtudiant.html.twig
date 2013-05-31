@@ -6,4 +6,25 @@
 
 {% block content_gestion %}
 
+<h2>Supprimer un étudiant</h2>
+<p>
+    Vous êtes sur le point de supprimer l'étudiant "{{etudiant.nomEtudiant }}" - {{etudiant.numEtudiant }}. 
+</p>
+{# On met l'id de l'article dans la route de l'action du
+formulaire #}
+<form action="{{ path('junior_gestion_deleteEtudiant', {'idEtudiant': etudiant.id}) }}"
+      method="post">
+    <a href="{{ path('junior_gestion_listEtudiants') }}"
+       class="btn">
+        <i class="icon-chevron-left"></i>
+        Retour à la liste
+    </a>
+    {{ form_rest(form) }}
+    <input type="submit" value="Supprimer" class="btn btn-danger" />
+
+</form>
+
+
+
+
 {% endblock %} 

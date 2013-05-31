@@ -7,6 +7,7 @@ use Junior\EtudiantBundle\Entity\Etudiant;
 use Junior\EtudiantBundle\Entity\Etude;
 use Junior\EtudiantBundle\Entity\Entreprise;
 use Junior\EtudiantBundle\Entity\Convention;
+use Junior\EtudiantBundle\Form\EtudiantType;
 use Junior\EtudiantBundle\Form\NewEtudiantType;
 use Junior\EtudiantBundle\Form\EtudeType;
 use Junior\EtudiantBundle\Form\ChoixEntrepriseType;
@@ -70,21 +71,81 @@ class GestionController extends Controller {
                 $etudiant->setRoles(array('ROLE_ETUDIANT'));
                 $em->persist($etudiant);
                 $em->flush();
-                return $this->redirect($this->generateUrl('junior_gestion_listEtudiants'));
+                return $this->redirect($this->generateUrl('junior_gestion_showEtudiant', array(
+                                    'idEtudiant' => $etudiant->getId(),
+                )));
             }
         }
         return $this->render('JuniorEtudiantBundle:Gestion:newEtudiant.html.twig', array(
-                                    'form' => $form->createView(),
-                                        )
-                );
+                    'form' => $form->createView(),
+                        )
+        );
     }
 
-    public function editEtudiantAction() {
-        return $this->render('JuniorEtudiantBundle:Gestion:editEtudiant.html.twig');
+    public function editEtudiantAction($idEtudiant) {
+        $em = $this->getDoctrine()->getManager();
+        $etudiant = $em->getRepository('JuniorEtudiantBundle:Etudiant')->find($idEtudiant);
+
+        if (!$etudiant) {
+            throw $this->createNotFoundException('Unable to find Etudiant entity.');
+        }
+
+        $form = $this->createForm(new EtudiantType($etudiant), $etudiant);
+        $request = $this->getRequest();
+
+        if (($request->getMethod() == 'POST')) {
+            $form->bind($request);
+            if ($form->isValid()) {
+                $em->persist($etudiant);
+                $em->flush();
+                $this->get('session')->getFlashBag()->add('info', 'L\'étudiant a bien été modifié');
+
+                return $this->redirect($this->generateUrl('junior_gestion_showEtudiant', array(
+                                    'idEtudiant' => $etudiant->getId(),
+                )));
+            }
+        }
+//        else {
+//            $this->get('session')->getFlashBag()->add('info', 'Ya un problème mec');
+//        }
+        return $this->render('JuniorEtudiantBundle:Gestion:editEtudiant.html.twig', array(
+                    'form' => $form->createView(),
+                    'etudiant' => $etudiant,
+                        )
+        );
     }
 
-    public function deleteEtudiantAction() {
-        return $this->render('JuniorEtudiantBundle:Gestion:deleteEtudiant.html.twig');
+    public function deleteEtudiantAction($idEtudiant) {
+
+// On crée un formulaire vide, qui ne contiendra que le champ CSRF
+// Cela permet de protéger la suppression d'article contre cette faille
+
+        $em = $this->getDoctrine()->getManager();
+        $etudiant = $em->getRepository('JuniorEtudiantBundle:Etudiant')->find($idEtudiant);
+
+        $form = $this->createFormBuilder()->getForm();
+        $request = $this->getRequest();
+        if ($request->getMethod() == 'POST') {
+            $form->bind($request);
+            if ($form->isValid()) {
+// On supprime l'article
+                $em = $this->getDoctrine()->getManager();
+                $em->remove($etudiant);
+                $em->flush();
+// On définit un message flash
+                $this->get('session')->getFlashBag()->add('info', 'Etudiant
+bien supprimé');
+// Puis on redirige vers l'accueil
+                return $this->redirect($this->generateUrl('junior_gestion_listEtudiants'));
+//                    return $this->redirect(JuniorEtudiantBundle:Gestion:listEtudiants.html.twig);
+            }
+        }
+// Si la requête est en GET, on affiche une page de confirmation avant de supprimer
+        return $this->render('JuniorEtudiantBundle:Gestion:deleteEtudiant.html.twig', array(
+                    'etudiant' => $etudiant,
+                    'form' => $form->createView(),
+                    'idEtudiant' => $etudiant->getId(),
+        ));
     }
 
     /*     * ************************************************
@@ -241,7 +302,7 @@ class GestionController extends Controller {
             if ($request->getMethod() == 'POST') {
                 $postData = $request->request->get('junior_etudiantbundle_groupetype');
                 $participants = $postData['participants'];
-				
+
                 foreach ($participants as $participant) {
                     $etudiant = $em->getRepository('JuniorEtudiantBundle:Etudiant')->findOneById($participant);
                     $membre = new Participant();
@@ -256,7 +317,7 @@ class GestionController extends Controller {
         }
         return $this->render('JuniorEtudiantBundle:Gestion:newGroupe.html.twig', array('form' => $form->createView()));
     }
-    
+
     public function choixResponsableAction($idEtude) {
         $user = $this->getUser();
 
@@ -266,8 +327,8 @@ class GestionController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $form = $this->createForm(new ChoixResponsableType($idEtude));
             $request = $this->getRequest();
-            
-            if($request->getMethod() == 'POST') {
+
+            if ($request->getMethod() == 'POST') {
                 $postData = $request->request->get('junior_etudiantbundle_choixresponsabletype');
                 $idEtudiant = $postData['participants'];
                 $participant = $em->getRepository('JuniorEtudiantBundle:Participant')->findOneBy(array('etudiant' => $idEtudiant, 'etude' => $idEtude));
@@ -335,17 +396,16 @@ class GestionController extends Controller {
             $entreprise = new Entreprise();
             $form = $this->createForm(new EntrepriseType(), $entreprise);
             $request = $this->getRequest();
-            
+
             if (($request->getMethod() == 'POST')) {
                 $form->bind($request);
-                if($form->isValid()) {
+                if ($form->isValid()) {
                     $em->persist($entreprise);
                     $em->flush();
                     $idEntreprise = $entreprise->getId();
                     return $this->redirect($this->generateUrl('junior_gestion_newConvention', array('idEntreprise' => $idEntreprise)));
                 }
             }
-            
         }
         return $this->render('JuniorEtudiantBundle:Gestion:newEntreprise.html.twig', array('form' => $form->createView()));
     }

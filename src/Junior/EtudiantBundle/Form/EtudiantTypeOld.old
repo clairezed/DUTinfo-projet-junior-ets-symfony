@@ -21,9 +21,9 @@ class EtudiantType extends AbstractType {
                 ->add('nomEtudiant', 'text')
                 ->add('numSecu', 'number')
                 ->add('adresseEtudiant', 'text')
+                ->add('dateNaissance', 'date')
                 ->add('telEtudiant', 'number')
                 ->add('email', 'email')
-                ->add('dateNaissance', 'date')
 //                ->add('etudes', 'entity', array(
 //                    'class' => 'JuniorEtudiantBundle:Etude',
 ////                    'multiple' => false,
