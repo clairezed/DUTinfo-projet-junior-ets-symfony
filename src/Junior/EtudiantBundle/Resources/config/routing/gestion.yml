@@ -25,7 +25,7 @@ junior_gestion_editEtudiant:
     defaults: { _controller: JuniorEtudiantBundle:Gestion:editEtudiant }
     
 junior_gestion_deleteEtudiant:
-    pattern: /etudiant/delete
+    pattern: /etudiant/delete/{idEtudiant}
     defaults: { _controller: JuniorEtudiantBundle:Gestion:deleteEtudiant }
     
 #ACOMPTES
