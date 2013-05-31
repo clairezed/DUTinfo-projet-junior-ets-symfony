@@ -137,21 +137,27 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
 
         $dspr_e = new Etude();
         $dspr_e->setNomEtude('La réception de la politique familiale impériale dans les mondes de la Bordure Extérieure');
-        $dspr_e->setPrixJournee('150');
+        $dspr_e->setPrixJournee('300');
         $dspr_e->setConvention($dspr_c);
         $dspr_e->setStatutEtude('En cours');
+        $dspr_e->setDateFinPrevue(new \DateTime('2013/09/07'));
+        $dspr_e->setNbJoursEtude('30');
 
         $uc_e = new Etude();
         $uc_e->setNomEtude('Projection prévisionnelle de propagation d\'un virus mutagène');
-        $uc_e->setPrixJournee('210.5');
+        $uc_e->setPrixJournee('200');
         $uc_e->setConvention($uc_c);
         $uc_e->setStatutEtude('En cours');
+        $uc_e->setDateFinPrevue(new \DateTime('2013/08/12'));
+        $uc_e->setNbJoursEtude('15');
         
         $dspr_e2 = new Etude();
         $dspr_e2->setNomEtude('L\'impact relations publiques longue durée de la destruction d\'une planète');
-        $dspr_e2->setPrixJournee('200');
+        $dspr_e2->setPrixJournee('300');
         $dspr_e2->setConvention($dspr_c2);
         $dspr_e2->setStatutEtude('Terminée');
+        $dspr_e2->setDateFinPrevue(new \DateTime('2013/12/23'));
+        $dspr_e2->setNbJoursEtude('25');
 
         $manager->persist($dspr_e);
         $manager->persist($uc_e);

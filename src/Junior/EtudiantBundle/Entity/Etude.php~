@@ -14,7 +14,7 @@ class Etude
 {
     
     /**
-     * @ORM\OneToOne(targetEntity="Junior\EtudiantBundle\Entity\Facture", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Junior\EtudiantBundle\Entity\Facture", mappedBy="etude")
      */
     private $facture;
     
@@ -60,6 +60,20 @@ class Etude
      * @ORM\Column(name="prixJournee", type="float")
      */
     private $prixJournee;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="nbJoursEtude", type="float")
+     */
+    private $nbJoursEtude;
+    
+    /**
+     * @var date
+     *
+     * @ORM\Column(name="dateFinPrevue", type="date")
+     */
+    private $dateFinPrevue;
     
     /**
      * @var string
@@ -303,4 +317,40 @@ class Etude
     public function __toString() {
         return $this->nomEtude;
     }
+
+    /**
+     * Set statutEtude
+     *
+     * @param string $statutEtude
+     * @return Etude
+     */
+    public function setStatutEtude($statutEtude)
+    {
+        $this->statutEtude = $statutEtude;
+
+        return $this;
+    }
+
+    /**
+     * Get statutEtude
+     *
+     * @return string 
+     */
+    public function getStatutEtude()
+    {
+        return $this->statutEtude;
+    }
+    
+    public function getEtudiants()
+    {
+        $cpt = 0;
+        $listParticipants = $this->getParticipants();
+        $nomsParticipants = array(NULL);
+        foreach($listParticipants as $participant) {
+            $etudiants[$cpt] = $participant->getEtudiant();
+            $cpt++;
+        }
+        return $etudiants;
+    }
+    
 }

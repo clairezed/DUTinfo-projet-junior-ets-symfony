@@ -43,5 +43,41 @@ class EtudeRepository extends EntityRepository
         
         return $qb;
     }
+    
+    public function findRFbyEtude($etude, $listRF) {
+        $rfEtude = array(NULL);
+        $cpt = 0;
+        $bool = "false";
+        foreach($listRF as $rf) {
+            $listFrais = $rf->getFrais();
+            foreach($listFrais as $frais) {
+                if($frais->getEtude() == $etude) {
+                    $bool = "true";
+                }
+            }
+            if($bool == "true") {
+                $rfEtude[$cpt] = $rf;
+                $bool = "false";
+                $cpt++;
+            }
+        }
+        return $rfEtude;
+    }
+    
+    public function findMontantRFbyEtude($etude, $rf) {
+        $montantRF = 0;
+        $bool = "false";
+        $listFrais = $rf->getFrais();
+        foreach($listFrais as $frais) {
+            if($frais->getEtude() == $etude) {
+                $bool = "true";
+            }
+        }
+        if($bool == "true") {
+            $montantRF += $frais->getMontantFrais();
+            $bool = "false";
+        }
+        return $montantRF;
+    }
 
 }

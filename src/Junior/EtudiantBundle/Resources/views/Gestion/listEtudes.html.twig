@@ -47,7 +47,7 @@
                         </td>
                     {% else %}
                         <td>
-                            <a href="{{ path('junior_gestion_closeEtude', {'idEtude': etude.id}) }}" onclick="return(confirm('Etes-vous sûr de vouloir clôturer cette étude?'));" class="btn btn-info btn-small">
+                            <a href="{{ path('junior_gestion_newFacture', {'idEtude': etude.id}) }}" onclick="return(confirm('Etes-vous sûr de vouloir clôturer cette étude?'));" class="btn btn-info btn-small">
                                 <i class="icon-off icon-white"></i>
                                 Clôturer cette étude
                             </a>

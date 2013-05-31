@@ -12,6 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Facture
 {
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Junior\EtudiantBundle\Entity\Etude", inversedBy="facture")
+     */
+    private $etude;
+    
     /**
      * @var integer
      *
@@ -38,6 +44,11 @@ class Facture
     {
         return $this->id;
     }
+    
+    public function __construct()
+    {
+        $this->dateFacture = new \Datetime();
+    }
 
    
 
@@ -62,5 +73,28 @@ class Facture
     public function getDateFacture()
     {
         return $this->dateFacture;
+    }
+
+    /**
+     * Set etude
+     *
+     * @param \Junior\EtudiantBundle\Entity\Etude $etude
+     * @return Facture
+     */
+    public function setEtude(\Junior\EtudiantBundle\Entity\Etude $etude = null)
+    {
+        $this->etude = $etude;
+        $etude->setFacture($this);
+        return $this;
+    }
+
+    /**
+     * Get etude
+     *
+     * @return \Junior\EtudiantBundle\Entity\Etude 
+     */
+    public function getEtude()
+    {
+        return $this->etude;
     }
 }

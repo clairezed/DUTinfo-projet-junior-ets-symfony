@@ -5,6 +5,7 @@ namespace Junior\EtudiantBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Junior\EtudiantBundle\Entity\Etudiant;
 use Junior\EtudiantBundle\Entity\Etude;
+use Junior\EtudiantBundle\Entity\Facture;
 use Junior\EtudiantBundle\Entity\Entreprise;
 use Junior\EtudiantBundle\Entity\Convention;
 use Junior\EtudiantBundle\Form\NewEtudiantType;
@@ -379,6 +380,33 @@ class GestionController extends Controller {
             }
         }
         return $this->render('JuniorEtudiantBundle:Gestion:newConvention.html.twig', array('form' => $form->createView()));
+    }
+    
+    /*     * ************************************************
+     * Actions de manipulation des infos FACTURE
+     * ************************************************* */
+    
+    public function newFactureAction($idEtude) {
+        $user = $this->getUser();
+
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $cpt = 0;
+            $em = $this->getDoctrine()->getManager();
+            $etude = $em->getRepository('JuniorEtudiantBundle:Etude')->findOneById($idEtude);
+            $rf = $em->getRepository('JuniorEtudiantBundle:RemboursementFrais')->findAll();
+            $listRF = $em->getRepository('JuniorEtudiantBundle:Etude')->findRFbyEtude($etude, $rf);
+            $montantRF[0] = array(NULL);
+            foreach($listRF as $rf) {
+                $montantRF[$cpt] = $em->getRepository('JuniorEtudiantBundle:Etude')->findMontantRFbyEtude($etude, $rf);
+                $cpt++;
+            }
+            $facture = new Facture();
+            $facture->setEtude($etude);
+            
+            return $this->render('JuniorEtudiantBundle:Gestion:newFacture.html.twig', array('facture' => $facture, 'listRF' => $listRF, 'montantRF' => $montantRF));
+        }
     }
 
 //
