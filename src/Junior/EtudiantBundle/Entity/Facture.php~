@@ -33,6 +33,34 @@ class Facture
      * @ORM\Column(name="dateFacture", type="date")
      */
     private $dateFacture;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="montantHT", type="float")
+     */
+    private $montantHT;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="montantTTC", type="float")
+     */
+    private $montantTTC;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="montantTVA", type="float")
+     */
+    private $montantTVA;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="coutEtude", type="float")
+     */
+    private $coutEtude;
 
 
     /**

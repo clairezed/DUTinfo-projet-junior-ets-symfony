@@ -40,9 +40,9 @@
                     </td>
                     {% if etude.statutEtude == "Terminée" %}
                         <td>
-                            <a href="#" class="btn btn-warning btn-small">
-                                <i class="icon-ban-circle icon-white"></i>
-                                Etude déjà clôturée
+                            <a href="{{ path('junior_gestion_showFacture', {'idEtude': etude.id}) }}" class="btn btn-warning btn-small">
+                                <i class="icon-file icon-white"></i>
+                                Consulter la facture
                             </a>
                         </td>
                     {% else %}

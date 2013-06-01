@@ -33,6 +33,34 @@ class Facture
      * @ORM\Column(name="dateFacture", type="date")
      */
     private $dateFacture;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="montantHT", type="float")
+     */
+    private $montantHT;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="montantTTC", type="float")
+     */
+    private $montantTTC;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="montantTVA", type="float")
+     */
+    private $montantTVA;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="coutEtude", type="float")
+     */
+    private $coutEtude;
 
 
     /**
@@ -96,5 +124,97 @@ class Facture
     public function getEtude()
     {
         return $this->etude;
+    }
+
+    /**
+     * Set montantHT
+     *
+     * @param float $montantHT
+     * @return Facture
+     */
+    public function setMontantHT($montantHT)
+    {
+        $this->montantHT = $montantHT;
+
+        return $this;
+    }
+
+    /**
+     * Get montantHT
+     *
+     * @return float 
+     */
+    public function getMontantHT()
+    {
+        return $this->montantHT;
+    }
+
+    /**
+     * Set montantTTC
+     *
+     * @param float $montantTTC
+     * @return Facture
+     */
+    public function setMontantTTC($montantTTC)
+    {
+        $this->montantTTC = $montantTTC;
+
+        return $this;
+    }
+
+    /**
+     * Get montantTTC
+     *
+     * @return float 
+     */
+    public function getMontantTTC()
+    {
+        return $this->montantTTC;
+    }
+
+    /**
+     * Set montantTVA
+     *
+     * @param float $montantTVA
+     * @return Facture
+     */
+    public function setMontantTVA($montantTVA)
+    {
+        $this->montantTVA = $montantTVA;
+
+        return $this;
+    }
+
+    /**
+     * Get montantTVA
+     *
+     * @return float 
+     */
+    public function getMontantTVA()
+    {
+        return $this->montantTVA;
+    }
+
+    /**
+     * Set coutEtude
+     *
+     * @param float $coutEtude
+     * @return Facture
+     */
+    public function setCoutEtude($coutEtude)
+    {
+        $this->coutEtude = $coutEtude;
+
+        return $this;
+    }
+
+    /**
+     * Get coutEtude
+     *
+     * @return float 
+     */
+    public function getCoutEtude()
+    {
+        return $this->coutEtude;
     }
 }

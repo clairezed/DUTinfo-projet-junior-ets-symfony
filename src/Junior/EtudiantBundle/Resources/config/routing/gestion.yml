@@ -118,6 +118,14 @@ junior_gestion_newFacture:
     pattern: /{idEtude}/facture/new
     defaults: { _controller: JuniorEtudiantBundle:Gestion:newFacture }
     
+junior_gestion_cancelFacture:
+    pattern: /{idFacture}/facture/cancel
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:cancelFacture }
+    
+junior_gestion_showFacture:
+    pattern: /{idEtude}/facture/show
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:showFacture }
+    
 #junior_etudiant_showEtudiant:
 #    pattern:  /{id}/info
 #    defaults: { _controller: JuniorEtudiantBundle:Etudiant:showEtudiant }

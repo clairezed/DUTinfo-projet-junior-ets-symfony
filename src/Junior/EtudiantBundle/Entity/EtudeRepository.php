@@ -72,10 +72,10 @@ class EtudeRepository extends EntityRepository
             if($frais->getEtude() == $etude) {
                 $bool = "true";
             }
-        }
-        if($bool == "true") {
-            $montantRF += $frais->getMontantFrais();
-            $bool = "false";
+            if($bool == "true") {
+                $montantRF += $frais->getMontantFrais();
+                $bool = "false";
+            }
         }
         return $montantRF;
     }

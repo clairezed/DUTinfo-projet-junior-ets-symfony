@@ -6,17 +6,20 @@
 
 {% block content_gestion %}
 
+{% set total = etude.nbJoursEtude * etude.prixJournee %}
+
 <h2>Etude</h2>
 <div class="well">
     <ul class="inline">
         <li>N° : <span class="label">{{ etude.id }}</span></li>
         <li>Titre : <span class="label">{{ etude.nomEtude }}</span></li>
         <li>Entreprise : <span class="label">{{ entreprise.nomEntreprise }}</span></li>
+        <li>Date de fin prévue : <span class="label">{{ etude.dateFinPrevue|date("d/m/Y") }}</span></li>
     </ul>
     <ul class="inline">
-        <li>Durée : <span class="label"> x jours</span></li>
+        <li>Durée : <span class="label">{{ etude.nbJoursEtude }}</span></li>
         <li>Prix par jour : <span class="label">{{ etude.prixJournee }} €</span></li>
-        <li>Total : <span class="label"> total €</span></li>
+        <li>Total : <span class="label">{{ total }} €</span></li>
         <li>Statut : <span class="label">{{ etude.statutEtude }}</span></li>
     </ul>
 </div>

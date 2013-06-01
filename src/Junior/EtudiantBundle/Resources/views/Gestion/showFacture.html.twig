@@ -6,11 +6,6 @@
 
 {% block content_gestion %}
 
-{#
-{% set prixTotal = facture.etude.nbJoursEtude * facture.etude.prixJournee %}
-{% set totalRF = 0 %}
-#}
-
 <div class="well">
     <ul>
         <li>N° FACTURE : {{facture.id}}</li>
@@ -71,12 +66,6 @@
     </div>
 </div>
 
-{#
-{% set totalHT = prixTotal + totalRF%}
-{% set montantTVA = totalHT * 19.6/100 %}
-{% set totalTVA = totalHT + montantTVA %}
-#}
-
 <div class="well">
     <ul>
         <li>Montant facture H.T : {{facture.montantHT}} €</li>
@@ -85,14 +74,9 @@
     </ul>
 </div>
 
-<a href="{{ path('junior_gestion_closeEtude', {'idEtude': facture.etude.id}) }}" class="btn btn-info btn-small validButton">
-    <i class="icon-check icon-white"></i>
-    Valider
-</a>
-
-<a href="{{ path('junior_gestion_cancelFacture', {'idFacture': facture.id}) }}" class="btn btn-danger btn-small validButton">
+<a href="{{ path('junior_gestion_listEtudes') }}" class="btn btn-info btn-small validButton">
     <i class="icon-chevron-left icon-white"></i>
-    Annuler
+    Retour à la liste des études
 </a>
 
 {% endblock %} 

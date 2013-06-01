@@ -163,6 +163,16 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $manager->persist($uc_e);
         $manager->persist($dspr_e2);
         $manager->flush();
+        
+        $dspr_e2f = new Facture();
+        $dspr_e2f->setEtude($dspr_e2);
+        $dspr_e2f->setCoutEtude('7500');
+        $dspr_e2f->setMontantHT('7500');
+        $dspr_e2f->setMontantTVA('1470');
+        $dspr_e2f->setMontantTTC('8970');
+        
+        $manager->persist($dspr_e2f);
+        $manager->flush();
 
         $p1 = new Participant();
         $p1->setEtude($uc_e);
