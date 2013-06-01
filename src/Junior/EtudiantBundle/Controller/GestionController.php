@@ -29,7 +29,17 @@ class GestionController extends Controller {
      * 
      */
     public function dashboardAction() {
-        return $this->render('JuniorEtudiantBundle:Gestion:dashboardGestion.html.twig');
+        $user = $this->getUser();
+
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $listEtudes = $em->getRepository('JuniorEtudiantBundle:Etude')->findAll();
+            $listAcomptesEnCours = $em->getRepository('JuniorEtudiantBundle:Acompte')->findAllAcomptesEnCours();
+        }
+        
+        return $this->render('JuniorEtudiantBundle:Gestion:dashboardGestion.html.twig', array('listEtudes' => $listEtudes, 'listAcomptesEnCours' => $listAcomptesEnCours));
     }
 
     /*     * ************************************************
