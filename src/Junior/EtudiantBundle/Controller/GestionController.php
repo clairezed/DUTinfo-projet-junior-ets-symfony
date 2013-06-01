@@ -533,6 +533,48 @@ bien supprimé');
             return $this->render('JuniorEtudiantBundle:Gestion:showFacture.html.twig', array('facture' => $facture, 'listRF' => $listRF, 'montantRF' => $montantRF));
         }
     }
+    
+    /*     * ************************************************
+     * Actions de manipulation des infos INDEMNITES
+     * ************************************************* */
+    
+    public function selectEtudiantIndemnitesAction($idEtude) {
+        $user = $this->getUser();
+
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $form = $this->createForm(new ChoixResponsableType($idEtude));
+            $request = $this->getRequest();
+
+            if ($request->getMethod() == 'POST') {
+                $postData = $request->request->get('junior_etudiantbundle_choixresponsabletype');
+                $idEtudiant = $postData['participants'];
+                
+                return $this->redirect($this->generateUrl('junior_gestion_showIndemnites', array('idEtudiant' => $idEtudiant, 'idEtude' => $idEtude)));
+            }
+            return $this->render('JuniorEtudiantBundle:Gestion:selectEtudiantIndemnites.html.twig', array('form' => $form->createView()));
+        }
+    }
+    
+    public function showIndemnitesAction($idEtudiant, $idEtude) {
+        $user = $this->getUser();
+
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $etudiant = $em->getRepository('JuniorEtudiantBundle:Etudiant')->findOneById($idEtudiant);
+            $indemnites = $em->getRepository('JuniorEtudiantBundle:Indemnites')->findOneBy(array('etudiant' => $idEtudiant, 'etude' => $idEtude));
+            $statut = $em->getRepository('JuniorEtudiantBundle:Participant')->findOneBy(array('etudiant' => $idEtudiant, 'etude' => $idEtude))->getStatutEtudiant();
+            $montantsAcomptes = $em->getRepository('JuniorEtudiantBundle:Indemnites')->findMontantsAcomptesByIndemnites($indemnites);
+            $totalAcomptes = $em->getRepository('JuniorEtudiantBundle:Indemnites')->findTotalAcomptesByIndemnites($indemnites);
+            $acomptes = $indemnites->getAcomptes();
+            
+            return $this->render('JuniorEtudiantBundle:Gestion:showIndemnites.html.twig', array('etudiant' => $etudiant, 'indemnites' => $indemnites, 'montantsAcomptes' => $montantsAcomptes, 'acomptes' => $acomptes, 'totalAcomptes' => $totalAcomptes, 'statut' => $statut));
+        }
+    }
 
 //
 //    /**************************************************
