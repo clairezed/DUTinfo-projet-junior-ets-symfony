@@ -13,7 +13,9 @@ class EtudeType extends AbstractType
         $builder
             ->add('nomEtude')
             ->add('prixJournee')
-            ->add('statutEtude')
+            ->add('nbJoursEtude')
+            ->add('dateFinPrevue')
+            //->add('statutEtude')
             //->add('facture')
             //->add('convention')
         ;

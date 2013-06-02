@@ -52,6 +52,13 @@ class Indemnites
      * @ORM\Column(name="retenue", type="float")
      */
     private $retenue;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="indemniteJournee", type="float")
+     */
+    private $indemniteJournee;
 
 
     /**
@@ -194,5 +201,24 @@ class Indemnites
     public function getAcomptes()
     {
         return $this->acomptes;
+    }
+    
+    public function getNombreAcomptes()
+    {
+        $listeAcomptes = $this->getAcomptes();
+        $nbAcomptes = 0;
+        foreach($listeAcomptes as $acompte) {
+            $nbAcomptes = $nbAcomptes + 1;
+        }
+        return $nbAcomptes;
+    }
+    
+    public function getTotalAcomptes() {
+        $listeAcomptes = $this->getAcomptes();
+        $total = 0;
+        foreach($listeAcomptes as $acompte) {
+            $total = $total + $acompte->getMontantAcompte();
+        }
+        return $total;
     }
 }

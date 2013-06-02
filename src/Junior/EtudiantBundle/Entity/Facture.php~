@@ -12,6 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Facture
 {
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Junior\EtudiantBundle\Entity\Etude", inversedBy="facture")
+     */
+    private $etude;
+    
     /**
      * @var integer
      *
@@ -27,6 +33,34 @@ class Facture
      * @ORM\Column(name="dateFacture", type="date")
      */
     private $dateFacture;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="montantHT", type="float")
+     */
+    private $montantHT;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="montantTTC", type="float")
+     */
+    private $montantTTC;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="montantTVA", type="float")
+     */
+    private $montantTVA;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="coutEtude", type="float")
+     */
+    private $coutEtude;
 
 
     /**
@@ -38,6 +72,57 @@ class Facture
     {
         return $this->id;
     }
+    
+    public function __construct()
+    {
+        $this->dateFacture = new \Datetime();
+    }
 
    
+
+    /**
+     * Set dateFacture
+     *
+     * @param \DateTime $dateFacture
+     * @return Facture
+     */
+    public function setDateFacture($dateFacture)
+    {
+        $this->dateFacture = $dateFacture;
+    
+        return $this;
+    }
+
+    /**
+     * Get dateFacture
+     *
+     * @return \DateTime 
+     */
+    public function getDateFacture()
+    {
+        return $this->dateFacture;
+    }
+
+    /**
+     * Set etude
+     *
+     * @param \Junior\EtudiantBundle\Entity\Etude $etude
+     * @return Facture
+     */
+    public function setEtude(\Junior\EtudiantBundle\Entity\Etude $etude = null)
+    {
+        $this->etude = $etude;
+        $etude->setFacture($this);
+        return $this;
+    }
+
+    /**
+     * Get etude
+     *
+     * @return \Junior\EtudiantBundle\Entity\Etude 
+     */
+    public function getEtude()
+    {
+        return $this->etude;
+    }
 }

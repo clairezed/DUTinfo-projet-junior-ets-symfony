@@ -24,12 +24,28 @@
             {{ form_widget(form.prixJournee) }}
         </div>
         <div>
+            {{ form_label(form.nbJoursEtude, "Nombre de jours d'étude :") }}
+
+            {{ form_errors(form.nbJoursEtude) }}
+                
+            {{ form_widget(form.nbJoursEtude) }}
+        </div>
+        <div>
+            {{ form_label(form.dateFinPrevue, "Date de fin prévue :") }}
+
+            {{ form_errors(form.dateFinPrevue) }}
+                
+            {{ form_widget(form.dateFinPrevue) }}
+        </div>
+        {#
+        <div>
             {{ form_label(form.statutEtude, "Statut de l'étude :") }}
 
             {{ form_errors(form.statutEtude) }}
                 
             {{ form_widget(form.statutEtude) }}
         </div>
+        #}
         {{ form_rest(form) }}
     <input type="submit" class="btn btn-primary validButton" value="Valider"/>
      <a class="btn btn-danger validButton" href="{{ path('junior_gestion_listEtudes') }}">Annuler</a>

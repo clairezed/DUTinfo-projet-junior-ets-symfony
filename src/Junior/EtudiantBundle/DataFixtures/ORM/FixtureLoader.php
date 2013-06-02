@@ -137,25 +137,41 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
 
         $dspr_e = new Etude();
         $dspr_e->setNomEtude('La réception de la politique familiale impériale dans les mondes de la Bordure Extérieure');
-        $dspr_e->setPrixJournee('150');
+        $dspr_e->setPrixJournee('300');
         $dspr_e->setConvention($dspr_c);
         $dspr_e->setStatutEtude('En cours');
+        $dspr_e->setDateFinPrevue(new \DateTime('2013/09/07'));
+        $dspr_e->setNbJoursEtude('30');
 
         $uc_e = new Etude();
         $uc_e->setNomEtude('Projection prévisionnelle de propagation d\'un virus mutagène');
-        $uc_e->setPrixJournee('210.5');
+        $uc_e->setPrixJournee('200');
         $uc_e->setConvention($uc_c);
         $uc_e->setStatutEtude('En cours');
+        $uc_e->setDateFinPrevue(new \DateTime('2013/08/12'));
+        $uc_e->setNbJoursEtude('15');
         
         $dspr_e2 = new Etude();
         $dspr_e2->setNomEtude('L\'impact relations publiques longue durée de la destruction d\'une planète');
-        $dspr_e2->setPrixJournee('200');
+        $dspr_e2->setPrixJournee('300');
         $dspr_e2->setConvention($dspr_c2);
         $dspr_e2->setStatutEtude('Terminée');
+        $dspr_e2->setDateFinPrevue(new \DateTime('2013/12/23'));
+        $dspr_e2->setNbJoursEtude('25');
 
         $manager->persist($dspr_e);
         $manager->persist($uc_e);
         $manager->persist($dspr_e2);
+        $manager->flush();
+        
+        $dspr_e2f = new Facture();
+        $dspr_e2f->setEtude($dspr_e2);
+        $dspr_e2f->setCoutEtude('7500');
+        $dspr_e2f->setMontantHT('7500');
+        $dspr_e2f->setMontantTVA('1470');
+        $dspr_e2f->setMontantTTC('8970');
+        
+        $manager->persist($dspr_e2f);
         $manager->flush();
 
         $p1 = new Participant();
@@ -289,48 +305,56 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $i1->setEtudiant($dupont);
         $i1->setNbJours('75');
         $i1->setRetenue('5');
+        $i1->setIndemniteJournee('50');
 
         $i2 = new Indemnites();
         $i2->setEtude($uc_e);
         $i2->setEtudiant($durand);
         $i2->setNbJours('75');
         $i2->setRetenue('5');
+        $i2->setIndemniteJournee('50');
 
         $i3 = new Indemnites();
         $i3->setEtude($uc_e);
         $i3->setEtudiant($duchmol);
         $i3->setNbJours('75');
         $i3->setRetenue('5');
+        $i3->setIndemniteJournee('50');
 
         $i4 = new Indemnites();
         $i4->setEtude($dspr_e);
         $i4->setEtudiant($duchmol);
         $i4->setNbJours('120');
         $i4->setRetenue('6');
+        $i4->setIndemniteJournee('60');
 
         $i5 = new Indemnites();
         $i5->setEtude($dspr_e);
         $i5->setEtudiant($durand);
         $i5->setNbJours('120');
         $i5->setRetenue('6');
+        $i5->setIndemniteJournee('60');
 
         $i6 = new Indemnites();
         $i6->setEtude($dspr_e);
         $i6->setEtudiant($dupont);
         $i6->setNbJours('120');
         $i6->setRetenue('6');
+        $i6->setIndemniteJournee('60');
         
         $i7 = new Indemnites();
         $i7->setEtude($dspr_e2);
         $i7->setEtudiant($dupont);
         $i7->setNbJours('40');
         $i7->setRetenue('4');
+        $i7->setIndemniteJournee('50');
 
         $i8 = new Indemnites();
         $i8->setEtude($dspr_e2);
         $i8->setEtudiant($durand);
         $i8->setNbJours('40');
         $i8->setRetenue('4');
+        $i8->setIndemniteJournee('50');
         
         $manager->persist($i1);
         $manager->persist($i2);

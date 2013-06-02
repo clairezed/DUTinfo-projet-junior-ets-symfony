@@ -5,6 +5,7 @@ namespace Junior\EtudiantBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Junior\EtudiantBundle\Entity\Etudiant;
 use Junior\EtudiantBundle\Entity\Etude;
+use Junior\EtudiantBundle\Entity\Facture;
 use Junior\EtudiantBundle\Entity\Entreprise;
 use Junior\EtudiantBundle\Entity\Convention;
 use Junior\EtudiantBundle\Entity\Participant;
@@ -28,7 +29,17 @@ class GestionController extends Controller {
      * 
      */
     public function dashboardAction() {
-        return $this->render('JuniorEtudiantBundle:Gestion:dashboardGestion.html.twig');
+        $user = $this->getUser();
+
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $listEtudes = $em->getRepository('JuniorEtudiantBundle:Etude')->findAll();
+            $listAcomptesEnCours = $em->getRepository('JuniorEtudiantBundle:Acompte')->findAllAcomptesEnCours();
+        }
+        
+        return $this->render('JuniorEtudiantBundle:Gestion:dashboardGestion.html.twig', array('listEtudes' => $listEtudes, 'listAcomptesEnCours' => $listAcomptesEnCours));
     }
 
     /*     * ************************************************
@@ -278,6 +289,7 @@ bien supprimé');
             $convention = $em->getRepository('JuniorEtudiantBundle:Convention')->findOneById($idConvention);
             $etude = new Etude();
             $etude->setConvention($convention);
+            $etude->setStatutEtude('En cours');
 
             $form = $this->createForm(new EtudeType(), $etude);
             $request = $this->getRequest();
@@ -359,11 +371,11 @@ bien supprimé');
         if (null === $user) {
             return $this->render('JuniorEtudiantBundle::layout.html.twig');
         } else {
-            $em = $this->getDoctrine()->getManager();
-            $etude = $em->getRepository('JuniorEtudiantBundle:Etude')->findOneById($idEtude);
-            $etude->setStatutEtude("Terminée");
-            $em->persist($etude);
-            $em->flush();
+//            $em = $this->getDoctrine()->getManager();
+//            $etude = $em->getRepository('JuniorEtudiantBundle:Etude')->findOneById($idEtude);
+//            $etude->setStatutEtude("Terminée");
+//            $em->persist($etude);
+//            $em->flush();
             $this->get('session')->getFlashBag()->add('info', 'Etude clôturée');
         }
         //return $this->redirect('JuniorEtudiantBundle:Gestion:listEtudes.html.twig');
@@ -447,6 +459,139 @@ bien supprimé');
             }
         }
         return $this->render('JuniorEtudiantBundle:Gestion:newConvention.html.twig', array('form' => $form->createView()));
+    }
+    
+    /*     * ************************************************
+     * Actions de manipulation des infos FACTURE
+     * ************************************************* */
+    
+    public function newFactureAction($idEtude) {
+        $user = $this->getUser();
+
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $cpt = 0;
+            $em = $this->getDoctrine()->getManager();
+            $etude = $em->getRepository('JuniorEtudiantBundle:Etude')->findOneById($idEtude);
+            $rf = $em->getRepository('JuniorEtudiantBundle:RemboursementFrais')->findAll();
+            $listRF = $em->getRepository('JuniorEtudiantBundle:Etude')->findRFbyEtude($etude, $rf);
+            $montantRF[0] = array(NULL);
+            $totalRF = 0;
+            
+            if($listRF[0] != NULL) {
+                foreach($listRF as $rf) {
+                    $montantRF[$cpt] = $em->getRepository('JuniorEtudiantBundle:Etude')->findMontantRFbyEtude($etude, $rf);
+                    $totalRF += $montantRF[$cpt];
+                    $cpt++;
+                }   
+            }
+            
+            $coutEtude = $etude->getPrixJournee() * $etude->getNbJoursEtude();
+            $montantHT = $coutEtude + $totalRF;
+            $montantTVA = $montantHT * 19.6/100;
+            $montantTTC = $montantHT + $montantTVA;
+            
+            $facture = new Facture();
+            $facture->setEtude($etude);
+            $facture->setCoutEtude($coutEtude);
+            $facture->setMontantHT($montantHT);
+            $facture->setMontantTVA($montantTVA);
+            $facture->setMontantTTC($montantTTC);
+            $etude->setStatutEtude('Terminée');
+            $em->persist($facture);
+            $em->persist($etude);
+            $em->flush();
+            
+            return $this->render('JuniorEtudiantBundle:Gestion:newFacture.html.twig', array('facture' => $facture, 'listRF' => $listRF, 'montantRF' => $montantRF));
+        }
+    }
+    
+    public function cancelFactureAction($idFacture) {
+        $user = $this->getUser();
+
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $facture = $em->getRepository('JuniorEtudiantBundle:Facture')->findOneById($idFacture);
+            $etude = $facture->getEtude();
+            $etude->setStatutEtude('En cours');
+            
+            $em->remove($facture);
+            $em->persist($etude);
+            $em->flush();
+            
+            return $this->redirect($this->generateUrl('junior_gestion_listEtudes'));
+        }
+    }
+    
+    public function showFactureAction($idEtude) {
+        $user = $this->getUser();
+
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $etude = $em->getRepository('JuniorEtudiantBundle:Etude')->findOneById($idEtude);
+            $facture = $etude->getFacture();
+            
+            $rf = $em->getRepository('JuniorEtudiantBundle:RemboursementFrais')->findAll();
+            $listRF = $em->getRepository('JuniorEtudiantBundle:Etude')->findRFbyEtude($etude, $rf);
+            $montantRF[0] = array(NULL);
+            $cpt = 0;
+            
+            if($listRF[0] != NULL) {
+                foreach($listRF as $rf) {
+                    $montantRF[$cpt] = $em->getRepository('JuniorEtudiantBundle:Etude')->findMontantRFbyEtude($etude, $rf);
+                    $cpt++;
+                }
+            }
+
+            return $this->render('JuniorEtudiantBundle:Gestion:showFacture.html.twig', array('facture' => $facture, 'listRF' => $listRF, 'montantRF' => $montantRF));
+        }
+    }
+    
+    /*     * ************************************************
+     * Actions de manipulation des infos INDEMNITES
+     * ************************************************* */
+    
+    public function selectEtudiantIndemnitesAction($idEtude) {
+        $user = $this->getUser();
+
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $form = $this->createForm(new ChoixResponsableType($idEtude));
+            $request = $this->getRequest();
+
+            if ($request->getMethod() == 'POST') {
+                $postData = $request->request->get('junior_etudiantbundle_choixresponsabletype');
+                $idEtudiant = $postData['participants'];
+                
+                return $this->redirect($this->generateUrl('junior_gestion_showIndemnites', array('idEtudiant' => $idEtudiant, 'idEtude' => $idEtude)));
+            }
+            return $this->render('JuniorEtudiantBundle:Gestion:selectEtudiantIndemnites.html.twig', array('form' => $form->createView()));
+        }
+    }
+    
+    public function showIndemnitesAction($idEtudiant, $idEtude) {
+        $user = $this->getUser();
+
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $etudiant = $em->getRepository('JuniorEtudiantBundle:Etudiant')->findOneById($idEtudiant);
+            $indemnites = $em->getRepository('JuniorEtudiantBundle:Indemnites')->findOneBy(array('etudiant' => $idEtudiant, 'etude' => $idEtude));
+            $statut = $em->getRepository('JuniorEtudiantBundle:Participant')->findOneBy(array('etudiant' => $idEtudiant, 'etude' => $idEtude))->getStatutEtudiant();
+            $montantsAcomptes = $em->getRepository('JuniorEtudiantBundle:Indemnites')->findMontantsAcomptesByIndemnites($indemnites);
+            $totalAcomptes = $em->getRepository('JuniorEtudiantBundle:Indemnites')->findTotalAcomptesByIndemnites($indemnites);
+            $acomptes = $indemnites->getAcomptes();
+            
+            return $this->render('JuniorEtudiantBundle:Gestion:showIndemnites.html.twig', array('etudiant' => $etudiant, 'indemnites' => $indemnites, 'montantsAcomptes' => $montantsAcomptes, 'acomptes' => $acomptes, 'totalAcomptes' => $totalAcomptes, 'statut' => $statut));
+        }
     }
 
 //

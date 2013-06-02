@@ -112,6 +112,30 @@ junior_gestion_newConvention:
     pattern: /{idEntreprise}/convention/new
     defaults: { _controller: JuniorEtudiantBundle:Gestion:newConvention }
     
+#FACTURES
+
+junior_gestion_newFacture:
+    pattern: /{idEtude}/facture/new
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:newFacture }
+    
+junior_gestion_cancelFacture:
+    pattern: /{idFacture}/facture/cancel
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:cancelFacture }
+    
+junior_gestion_showFacture:
+    pattern: /{idEtude}/facture/show
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:showFacture }
+    
+#INDEMNITES
+
+junior_gestion_showIndemnites:
+    pattern: /{idEtudiant}/{idEtude}/indemnites/show
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:showIndemnites }
+    
+junior_gestion_selectEtudiantIndemnites:
+    pattern: /{idEtude}/indemnites/select
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:selectEtudiantIndemnites }
+    
 #junior_etudiant_showEtudiant:
 #    pattern:  /{id}/info
 #    defaults: { _controller: JuniorEtudiantBundle:Etudiant:showEtudiant }

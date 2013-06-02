@@ -12,4 +12,25 @@ use Doctrine\ORM\EntityRepository;
  */
 class IndemnitesRepository extends EntityRepository
 {
+    public function findMontantsAcomptesByIndemnites($indemnites) {
+        $acomptes = $indemnites->getAcomptes();
+        $montantsAcomptes = array(NULL);
+        $cpt = 0;
+        
+        foreach($acomptes as $acompte) {
+            $montantsAcomptes[$cpt] = $acompte->getMontantAcompte();
+            $cpt++;
+        }
+        return $montantsAcomptes;
+    }
+    
+    public function findTotalAcomptesByIndemnites($indemnites) {
+        $acomptes = $indemnites->getAcomptes();
+        $totalAcomptes = 0;
+        
+        foreach($acomptes as $acompte) {
+            $totalAcomptes += $acompte->getMontantAcompte();
+        }
+        return $totalAcomptes;
+    }
 }

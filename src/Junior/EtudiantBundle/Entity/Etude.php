@@ -14,7 +14,7 @@ class Etude
 {
     
     /**
-     * @ORM\OneToOne(targetEntity="Junior\EtudiantBundle\Entity\Facture", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Junior\EtudiantBundle\Entity\Facture", mappedBy="etude")
      */
     private $facture;
     
@@ -60,6 +60,20 @@ class Etude
      * @ORM\Column(name="prixJournee", type="float")
      */
     private $prixJournee;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="nbJoursEtude", type="float")
+     */
+    private $nbJoursEtude;
+    
+    /**
+     * @var date
+     *
+     * @ORM\Column(name="dateFinPrevue", type="date")
+     */
+    private $dateFinPrevue;
     
     /**
      * @var string
@@ -339,4 +353,50 @@ class Etude
         return $etudiants;
     }
     
+
+    /**
+     * Set nbJoursEtude
+     *
+     * @param float $nbJoursEtude
+     * @return Etude
+     */
+    public function setNbJoursEtude($nbJoursEtude)
+    {
+        $this->nbJoursEtude = $nbJoursEtude;
+
+        return $this;
+    }
+
+    /**
+     * Get nbJoursEtude
+     *
+     * @return float 
+     */
+    public function getNbJoursEtude()
+    {
+        return $this->nbJoursEtude;
+    }
+
+    /**
+     * Set dateFinPrevue
+     *
+     * @param \DateTime $dateFinPrevue
+     * @return Etude
+     */
+    public function setDateFinPrevue($dateFinPrevue)
+    {
+        $this->dateFinPrevue = $dateFinPrevue;
+
+        return $this;
+    }
+
+    /**
+     * Get dateFinPrevue
+     *
+     * @return \DateTime 
+     */
+    public function getDateFinPrevue()
+    {
+        return $this->dateFinPrevue;
+    }
 }
