@@ -13,12 +13,13 @@
 <p> Sélectionner l'étude pour laquelle vous souhaitez demander un acompte </p>
 
 <div class="well">
-    <form method="post" {{ form_enctype(form2) }}>
+    <form method="post" {{ form_enctype(form) }}>
         <div>
-            {{ form_label(form2.etudes, "Nom de l'étude :") }}
-                {{ form_widget(form2.etudes) }}
+            {{ form_label(form.etudes, "Nom de l'étude :") }}
+                {{ form_widget(form.etudes) }}
             </div>
 
+            {{ form_widget(form._token) }}
     <input type="submit" class="btn btn-primary" />
     <a class="btn btn-danger" href="{{ path('junior_etudiant_listEtudes') }}">Annuler</a>
 </form>

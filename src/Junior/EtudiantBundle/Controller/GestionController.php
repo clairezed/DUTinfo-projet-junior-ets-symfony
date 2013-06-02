@@ -61,14 +61,14 @@ class GestionController extends Controller {
         if ($etudiant === null) {
             throw $this->createNotFoundException('Oups, y a un soucis pour trouver l\étudiant [id=' . $idEtudiant . '].');
         }
-        $participant = $em->getRepository('JuniorEtudiantBundle:Etude')->findEtudesbyStudent($idEtudiant);
-//         $participant = $em->getRepository('JuniorEtudiantBundle:Etudiant')->findEtudesbyStudent($idEtudiant);
-        
-        
+//        $etudes = $em->getRepository('JuniorEtudiantBundle:Etude')->findEtudesbyStudent($idEtudiant);
+        $participants = $em->getRepository('JuniorEtudiantBundle:Participant')->findParticipantsbyEtudiant($idEtudiant);
         return $this->render('JuniorEtudiantBundle:Gestion:showEtudiant.html.twig', array(
+//                    'idEtudiant' => $etudiant->getId(),
                     'etudiant' => $etudiant,
 //                    'etudes' => $etudes,
-            'participant' => $participant,
+            'participants' => $participants,
+//            'etudeRepository' => $em->getRepository('JuniorEtudiantBundle:Etude'),
         ));
     }
 

@@ -35,13 +35,33 @@
         </thead>
         <tbody>
 
-
-            {% for etude in participant.etude %}
+               {#
+              {% for etude in etudes %}
+            {% set participant = etudeRepository.findParticipantbyEtudiant(idEtudiant) %}
+            
+            
             <tr>
                 <td>{{ etude.nomEtude }}</td>
                 <td>{{ etude.convention.entreprise.nomEntreprise }}</td>
                 <td>{{ etude.convention.id }}</td>
-              <td>{{ participant.statutEtudiant }}</td> 
+                <td>{{ participant.statutEtudiant }}</td>
+
+                <td>{{ participant.statutEtudiant }}</td> 
+
+                <td>indemn</td>
+
+            </tr>
+                        {% endfor %}
+#}
+
+            {% for participant in participants %}
+            <tr>
+                <td>{{ participant.etude }}</td>
+                <td>{{ participant.etude.convention.entreprise.nomEntreprise }}</td>
+                <td>{{ participant.etude.convention.id }}</td>
+                <td>{{ participant.statutEtudiant }}</td>
+     
+
                 <td>indemn</td>
 
             </tr>

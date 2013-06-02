@@ -33,4 +33,7 @@ class IndemnitesRepository extends EntityRepository
         }
         return $totalAcomptes;
     }
+    
+  
+    
 }

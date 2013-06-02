@@ -9,6 +9,7 @@ use Junior\EtudiantBundle\Entity\Acompte;
 use Junior\EtudiantBundle\Entity\Participant;
 use Junior\EtudiantBundle\Entity\Frais;
 use Junior\EtudiantBundle\Form\EtudiantType;
+use Junior\EtudiantBundle\Form\Etudiant2Type; // type specifique pour selectEtude
 use Junior\EtudiantBundle\Form\EtudeType;
 use Junior\EtudiantBundle\Form\AcompteType;
 use Junior\EtudiantBundle\Form\FraisType;
@@ -308,17 +309,17 @@ class EtudiantController extends Controller {
             return $this->render('JuniorEtudiantBundle::layout.html.twig');
         } else {
             $idEtudiant = $user->getId();
-            $form2 = $this->createForm(new EtudiantType($idEtudiant), $user);
+            $form = $this->createForm(new Etudiant2Type($idEtudiant), $user);
             $request = $this->get('request');
             
             if ($request->getMethod() == 'POST') {
-                $postData = $request->request->get('junior_etudiantbundle_etudianttype');
+                $postData = $request->request->get('junior_etudiantbundle_etudiant2type');
                 $idEtude = (int)$postData['etudes'];
                 return $this->redirect($this->generateUrl('junior_etudiant_newAcompte', array('idEtude' => $idEtude)));
             }
         }
         return $this->render('JuniorEtudiantBundle:Etudiant:selectEtude.html.twig', array(
-                    'form2' => $form2->createView(),
+                    'form' => $form->createView(),
         ));
     }
 
