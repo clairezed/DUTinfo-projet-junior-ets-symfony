@@ -7,6 +7,7 @@ use Junior\EtudiantBundle\Entity\Etudiant;
 use Junior\EtudiantBundle\Entity\Etude;
 use Junior\EtudiantBundle\Entity\Entreprise;
 use Junior\EtudiantBundle\Entity\Convention;
+use Junior\EtudiantBundle\Entity\Participant;
 use Junior\EtudiantBundle\Form\EtudiantType;
 use Junior\EtudiantBundle\Form\NewEtudiantType;
 use Junior\EtudiantBundle\Form\EtudeType;
@@ -15,7 +16,6 @@ use Junior\EtudiantBundle\Form\ChoixResponsableType;
 use Junior\EtudiantBundle\Form\EntrepriseType;
 use Junior\EtudiantBundle\Form\GroupeType;
 use Junior\EtudiantBundle\Form\ConventionType;
-use Junior\EtudiantBundle\Entity\Participant;
 //use Junior\EtudiantBundle\Form\EtudiantType;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 
@@ -50,8 +50,14 @@ class GestionController extends Controller {
         if ($etudiant === null) {
             throw $this->createNotFoundException('Oups, y a un soucis pour trouver l\étudiant [id=' . $idEtudiant . '].');
         }
+        $participant = $em->getRepository('JuniorEtudiantBundle:Etude')->findEtudesbyStudent($idEtudiant);
+//         $participant = $em->getRepository('JuniorEtudiantBundle:Etudiant')->findEtudesbyStudent($idEtudiant);
+        
+        
         return $this->render('JuniorEtudiantBundle:Gestion:showEtudiant.html.twig', array(
                     'etudiant' => $etudiant,
+//                    'etudes' => $etudes,
+            'participant' => $participant,
         ));
     }
 
@@ -71,6 +77,8 @@ class GestionController extends Controller {
                 $etudiant->setRoles(array('ROLE_ETUDIANT'));
                 $em->persist($etudiant);
                 $em->flush();
+                  $this->get('session')->getFlashBag()->add('info', 'L\'étudiant
+a bien été créé');
                 return $this->redirect($this->generateUrl('junior_gestion_showEtudiant', array(
                                     'idEtudiant' => $etudiant->getId(),
                 )));

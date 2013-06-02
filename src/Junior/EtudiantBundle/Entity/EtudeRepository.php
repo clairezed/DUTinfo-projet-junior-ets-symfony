@@ -31,6 +31,25 @@ class EtudeRepository extends EntityRepository
                 ;
     }
     
+    public function findEtudesbyStudent($idStudent) {
+        $qb = $this->createQueryBuilder('e')
+                ->leftJoin('e.participants', 'part')
+                ->addSelect('part')
+                ->leftJoin('part.etudiant', 'etudiant')
+                ->addSelect('etudiant')
+                ;
+
+        $qb->where('etudiant.id = :id')
+        ->setParameter('id', $idStudent)
+        ;
+
+        return $qb
+                ->getQuery()
+                        ->getResult()
+                ;
+    }
+    
+    
     public function findParticipantsbyEtude($idEtude) {
         $qb = $this->createQueryBuilder('e')
                 ->leftJoin('e.participants', 'part')

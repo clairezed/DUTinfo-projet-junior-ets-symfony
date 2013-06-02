@@ -5,37 +5,55 @@
 {% endblock %}
 
 {% block content_gestion %}
- <table class="table table-bordered table-condensed">
+
+<div  class="container-fluid">
+    <h2>Suivi des travaux de l'étudiant {{ etudiant.nomEtudiant }}</h2>
+
+    <div id="bloc-info-etudiant" class="container-fluid">
+        <div  class="span6">
+            <p><b>Nom étudiant : </b> {{ etudiant.nomEtudiant }} </p>
+            <p><b>Adresse : </b>{{ etudiant.adresseEtudiant }} </p>
+            <p><b>N° SS : </b>{{ etudiant.numSecu }} </p>
+        </div>
+        <div  class="span6">
+            <p><b>Date de naissance : </b>{{ etudiant.dateNaissance|date("d/m/Y") }} </p>
+            <p><b>N° Etudiant : </b>{{ etudiant.numEtudiant }} </p>
+        </div>
+
+    </div>
+
+
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Nom de l'étude</th>
+                <th>Nom de l'entreprise</th>
+                <th>N° de convention</th>
+                <th>Nature étudiant</th>
+                <th>Indemnités versées</th>
+            </tr>
+        </thead>
         <tbody>
+
+
+            {% for etude in participant.etude %}
             <tr>
-                <th>N° Etudiant</th>
-                <td>{{ etudiant.numEtudiant }}</td>
+                <td>{{ etude.nomEtude }}</td>
+                <td>{{ etude.convention.entreprise.nomEntreprise }}</td>
+                <td>{{ etude.convention.id }}</td>
+              <td>{{ participant.statutEtudiant }}</td> 
+                <td>indemn</td>
+
             </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ etudiant.nomEtudiant }}</td>
-            </tr>
-            <tr>
-                <th>Adresse</th>
-                <td>{{ etudiant.adresseEtudiant }}</td>
-            </tr>
-            <tr>
-                <th>N° SS</th>
-                <td>{{ etudiant.numSecu }}</td>
-            </tr>
-            <tr>
-                <th>Date de naissance</th>
-                <td>{{ etudiant.dateNaissance|date("d/m/Y") }}</td>
-            </tr>
-            <tr>
-                <th>Telephone</th>
-                <td>{{ etudiant.telEtudiant }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ etudiant.email }}</td>
-            </tr>
-            
+            {% endfor %}
+
         </tbody>
     </table>
+
+</div>
+
+<a class="btn btn-primary validButton" href="{{ path('junior_gestion_listEtudiants') }}">Retour à la liste</a>
+<a class="btn btn-primary validButton" href="#">Export PDF</a>
+
+
 {% endblock %} 
