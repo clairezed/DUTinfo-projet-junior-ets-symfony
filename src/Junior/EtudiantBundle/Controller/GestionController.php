@@ -8,6 +8,7 @@ use Junior\EtudiantBundle\Entity\Etude;
 use Junior\EtudiantBundle\Entity\Facture;
 use Junior\EtudiantBundle\Entity\Entreprise;
 use Junior\EtudiantBundle\Entity\Convention;
+use Junior\EtudiantBundle\Entity\Participant;
 use Junior\EtudiantBundle\Form\EtudiantType;
 use Junior\EtudiantBundle\Form\NewEtudiantType;
 use Junior\EtudiantBundle\Form\EtudeType;
@@ -16,7 +17,6 @@ use Junior\EtudiantBundle\Form\ChoixResponsableType;
 use Junior\EtudiantBundle\Form\EntrepriseType;
 use Junior\EtudiantBundle\Form\GroupeType;
 use Junior\EtudiantBundle\Form\ConventionType;
-use Junior\EtudiantBundle\Entity\Participant;
 //use Junior\EtudiantBundle\Form\EtudiantType;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 
@@ -61,8 +61,14 @@ class GestionController extends Controller {
         if ($etudiant === null) {
             throw $this->createNotFoundException('Oups, y a un soucis pour trouver l\étudiant [id=' . $idEtudiant . '].');
         }
+//        $etudes = $em->getRepository('JuniorEtudiantBundle:Etude')->findEtudesbyStudent($idEtudiant);
+        $participants = $em->getRepository('JuniorEtudiantBundle:Participant')->findParticipantsbyEtudiant($idEtudiant);
         return $this->render('JuniorEtudiantBundle:Gestion:showEtudiant.html.twig', array(
+//                    'idEtudiant' => $etudiant->getId(),
                     'etudiant' => $etudiant,
+//                    'etudes' => $etudes,
+            'participants' => $participants,
+//            'etudeRepository' => $em->getRepository('JuniorEtudiantBundle:Etude'),
         ));
     }
 
@@ -82,6 +88,8 @@ class GestionController extends Controller {
                 $etudiant->setRoles(array('ROLE_ETUDIANT'));
                 $em->persist($etudiant);
                 $em->flush();
+                  $this->get('session')->getFlashBag()->add('info', 'L\'étudiant
+a bien été créé');
                 return $this->redirect($this->generateUrl('junior_gestion_showEtudiant', array(
                                     'idEtudiant' => $etudiant->getId(),
                 )));
