@@ -48,14 +48,14 @@ class EtudiantController extends Controller {
 
 
             $etudiant = $em->getRepository('JuniorEtudiantBundle:Etudiant')->findOneById($id);
-            $etudes = $etudiant->getEtudes();
-            $statuts = $etudiant->getStatuts();
+            $listParticipations = $etudiant->getParticipants();
+//            $etudes = $etudiant->getEtudes();
+//            $statuts = $etudiant->getStatuts();
 
             return $this->render('JuniorEtudiantBundle:Etudiant:dashboardEtudiant.html.twig', array(
                         'list_frais' => $list_frais,
-                        'etudes' => $etudes,
+                        'participations' => $listParticipations,
                         'list_acompte' => $list_acompte,
-                        'statuts' => $statuts
             ));
         }
     }
@@ -257,22 +257,22 @@ class EtudiantController extends Controller {
             return $this->render('JuniorEtudiantBundle::layout.html.twig');
         } else {
             $id = $user->getId();
-            $cpt = 0;
-            $listeEtudes = array(NULL); //Initialisation des variables : évite une erreur si l'étudiant ne participe à aucune étude
-            $listeStatuts = array(NULL);
+//            $cpt = 0;
+//            $listeEtudes = array(NULL); //Initialisation des variables : évite une erreur si l'étudiant ne participe à aucune étude
+//            $listeStatuts = array(NULL);
             $em = $this->getDoctrine()->getManager();
 
             $etudiant = $em->getRepository('JuniorEtudiantBundle:Etudiant')->find($id);
             $listeParticipations = $etudiant->getParticipants(); //On récupère la liste des entrées de la table participation correspondant à cet étudiant
 
-            foreach ($listeParticipations as $participation) { //Pour chaque entrée dans la liste, on récupère l'étude associée et le statut de l'étudiant pour celle-ci
-                $listeEtudes[$cpt] = $participation->getEtude();
-                $listeStatuts[$cpt] = $participation->getStatutEtudiant();
-                $cpt++;
-            }
+//            foreach ($listeParticipations as $participation) { //Pour chaque entrée dans la liste, on récupère l'étude associée et le statut de l'étudiant pour celle-ci
+//                $listeEtudes[$cpt] = $participation->getEtude();
+//                $listeStatuts[$cpt] = $participation->getStatutEtudiant();
+//                $cpt++;
+//            }
 
             return $this->render('JuniorEtudiantBundle:Etudiant:listEtudes.html.twig', array(
-                        'etudes' => $listeEtudes, 'statuts' => $listeStatuts, 'etudiant' => $etudiant
+                        'participations' => $listeParticipations
             ));
         }
     }

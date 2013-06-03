@@ -231,17 +231,10 @@ bien supprimé');
         if (null === $user) {
             return $this->render('JuniorEtudiantBundle::layout.html.twig');
         } else {
-            $cpt = 0;
             $em = $this->getDoctrine()->getManager();
             $listEtudes = $em->getRepository('JuniorEtudiantBundle:Etude')->findAll();
-            $listEntreprises = ARRAY(NULL);
-
-            foreach ($listEtudes as $etude) {
-                $listEntreprises[$cpt] = $etude->getConvention()->getEntreprise();
-                $cpt++;
-            }
         }
-        return $this->render('JuniorEtudiantBundle:Gestion:listEtudes.html.twig', array('etudes' => $listEtudes, 'entreprises' => $listEntreprises));
+        return $this->render('JuniorEtudiantBundle:Gestion:listEtudes.html.twig', array('etudes' => $listEtudes));
     }
 
     public function showEtudeAction($idEtude) {
