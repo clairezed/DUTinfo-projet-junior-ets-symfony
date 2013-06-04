@@ -13,6 +13,7 @@ use Junior\EtudiantBundle\Form\Etudiant2Type; // type specifique pour selectEtud
 use Junior\EtudiantBundle\Form\EtudeType;
 use Junior\EtudiantBundle\Form\AcompteType;
 use Junior\EtudiantBundle\Form\FraisType;
+use Junior\EtudiantBundle\Form\NewFraisType;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -208,16 +209,19 @@ class EtudiantController extends Controller {
             return $this->render('JuniorEtudiantBundle::layout.html.twig');
         } else {
             $frais = new Frais;
-            $form = $this->createForm(new FraisType, $frais);
+            $idEtudiant = $user->getId();
+            $form = $this->createForm(new NewFraisType($user), $frais);
             $request = $this->get('request');
+
             if ($request->getMethod() == 'POST') {
 //                $postData = $request->request->get('junior_etudiantbundle_fraistype');
                 $form->bind($request);
                 if ($form->isValid()) {
-                    $idEtudiant = $user->getId();
+
                     $em = $this->getDoctrine()->getManager();
                     $entityEtud = $em->getRepository('JuniorEtudiantBundle:Etudiant')->find($idEtudiant);
                     $frais->setEtudiant($entityEtud);
+                    $frais->setStatutFrais('Enregistré');
                     $em->persist($frais);
                     $em->flush();
                     $this->get('session')->getFlashBag()->add('info', 'Votre frais a bien été enregistré');
@@ -311,10 +315,10 @@ class EtudiantController extends Controller {
             $idEtudiant = $user->getId();
             $form = $this->createForm(new Etudiant2Type($idEtudiant), $user);
             $request = $this->get('request');
-            
+
             if ($request->getMethod() == 'POST') {
                 $postData = $request->request->get('junior_etudiantbundle_etudiant2type');
-                $idEtude = (int)$postData['etudes'];
+                $idEtude = (int) $postData['etudes'];
                 return $this->redirect($this->generateUrl('junior_etudiant_newAcompte', array('idEtude' => $idEtude)));
             }
         }

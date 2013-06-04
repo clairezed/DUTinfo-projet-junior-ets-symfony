@@ -38,22 +38,22 @@ class ParticipantRepository extends EntityRepository {
                         ->getResult();
     }
     
-//    public function getIndemnites($idEtudiant, $idEtude) {
-//                $qb = $this->createQueryBuilder('p')
-//                ->leftJoin('p.etudiant', 'etudiant')
-//                ->addSelect('etudiant')
-//                 ->leftJoin('p.indemnites', 'indemn')
-//                ->addSelect('indemn');
-//
-//        $qb->where('p.etudiant = :id')
-//                ->setParameter('id', $idEtudiant);
-//
-//        return $qb
-//                        ->getQuery()
-//                        ->getResult();
-//        
-//        
-//    }
+    public function getIndemnites($idEtudiant, $idEtude) {
+                $qb = $this->createQueryBuilder('p')
+                ->leftJoin('p.etudiant', 'etudiant')
+                ->addSelect('etudiant')
+                 ->leftJoin('p.indemnites', 'indemn')
+                ->addSelect('indemn');
+
+        $qb->where('p.etudiant = :id')
+                ->setParameter('id', $idEtudiant);
+
+        return $qb
+                        ->getQuery()
+                        ->getResult();
+        
+        
+    }
     
 
 }

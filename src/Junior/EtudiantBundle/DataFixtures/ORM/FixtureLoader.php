@@ -39,7 +39,7 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $dupont->setNomEtudiant('Dupont');
         $dupont->setAdresseEtudiant('8, rue de la Choucroute Farcie');
         $dupont->setNumSecu('123456');
-        $dupont->setDateNaissance(new \DateTime('1987/12/13')); 
+        $dupont->setDateNaissance(new \DateTime('1987/12/13'));
         $dupont->setTelEtudiant('0612345678');
         $dupont->setUsername('e1');
         $dupont->setEmail('dupont@etu.com');
@@ -125,7 +125,7 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $uc_c = new Convention();
         $uc_c->setDateConvention(new \DateTime('2012/11/08'));
         $uc_c->setEntreprise($uc);
-        
+
         $dspr_c2 = new Convention();
         $dspr_c2->setDateConvention(new \DateTime('2013/05/08'));
         $dspr_c2->setEntreprise($dspr);
@@ -150,7 +150,7 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $uc_e->setStatutEtude('En cours');
         $uc_e->setDateFinPrevue(new \DateTime('2013/08/12'));
         $uc_e->setNbJoursEtude('15');
-        
+
         $dspr_e2 = new Etude();
         $dspr_e2->setNomEtude('L\'impact relations publiques longue durée de la destruction d\'une planète');
         $dspr_e2->setPrixJournee('300');
@@ -163,14 +163,14 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $manager->persist($uc_e);
         $manager->persist($dspr_e2);
         $manager->flush();
-        
+
         $dspr_e2f = new Facture();
         $dspr_e2f->setEtude($dspr_e2);
         $dspr_e2f->setCoutEtude('7500');
         $dspr_e2f->setMontantHT('7500');
         $dspr_e2f->setMontantTVA('1470');
         $dspr_e2f->setMontantTTC('8970');
-        
+
         $manager->persist($dspr_e2f);
         $manager->flush();
 
@@ -203,12 +203,12 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $p6->setEtude($dspr_e);
         $p6->setEtudiant($dupont);
         $p6->setStatutEtudiant("participant");
-        
+
         $p7 = new Participant();
         $p7->setEtude($dspr_e2);
         $p7->setEtudiant($dupont);
         $p7->setStatutEtudiant("reponsable");
-        
+
         $p8 = new Participant();
         $p8->setEtude($dspr_e2);
         $p8->setEtudiant($durand);
@@ -224,22 +224,22 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $manager->persist($p8);
         $manager->flush();
 
-        
-        
-         $rf1 = new RemboursementFrais();
+
+
+        $rf1 = new RemboursementFrais();
         $rf1->setDateRemboursement(new \DateTime('2013/02/04'));
 //        $rf1->addFrai($f1);
 //        $rf1->addFrai($f2);
 
         $rf2 = new RemboursementFrais();
-        $rf2->setDateRemboursement(new \DateTime('2013/05/06')); 
+        $rf2->setDateRemboursement(new \DateTime('2013/05/06'));
 //        $rf2->addFrai($f3);
 
         $rf3 = new RemboursementFrais();
-        $rf3->setDateRemboursement(new \DateTime('2013/06/05')); 
+        $rf3->setDateRemboursement(new \DateTime('2013/06/05'));
 //        $rf3->addFrai($f4);
-        
-        
+
+
 
         $manager->persist($rf1);
         $manager->persist($rf2);
@@ -252,8 +252,9 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $f1->setEtudiant($durand);
         $f1->setTypeFrais('Materiel de laboratoire');
         $f1->setMontantFrais('2000');
-        $f1->setDateAchat(new \DateTime('2013/04/15')); 
+        $f1->setDateAchat(new \DateTime('2013/04/15'));
         $f1->setRemboursementsFrais($rf1);
+        $f1->setStatutFrais('Enregistré');
 
 
         $f2 = new Frais();
@@ -261,32 +262,35 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $f2->setEtudiant($durand);
         $f2->setTypeFrais('Nourriture galactique standard');
         $f2->setMontantFrais('32');
-        $f2->setDateAchat(new \DateTime('2013/04/22')); 
+        $f2->setDateAchat(new \DateTime('2013/04/22'));
         $f2->setRemboursementsFrais($rf1);
+        $f2->setStatutFrais('Validé');
 
         $f3 = new Frais();
         $f3->setEtude($uc_e);
         $f3->setEtudiant($dupont);
         $f3->setTypeFrais('Transport Hyperluminique');
         $f3->setMontantFrais('12500');
-        $f3->setDateAchat(new \DateTime('2013/05/08')); 
+        $f3->setDateAchat(new \DateTime('2013/05/08'));
         $f3->setRemboursementsFrais($rf2);
+        $f3->setStatutFrais('Enregistré');
 
         $f4 = new Frais();
         $f4->setEtude($uc_e);
         $f4->setEtudiant($duchmol);
-        $f4->setTypeFrais('tournevis sonic');
+        $f4->setTypeFrais('Tournevis Sonique');
         $f4->setMontantFrais('1200');
-        $f4->setDateAchat(new \DateTime('2013/06/30')); 
+        $f4->setDateAchat(new \DateTime('2013/06/30'));
         $f4->setRemboursementsFrais($rf3);
+        $f4->setStatutFrais('Validé');
 
         $f5 = new Frais();
         $f5->setEtude($dspr_e);
         $f5->setEtudiant($dupont);
-        $f5->setTypeFrais('location licorne');
+        $f5->setTypeFrais('Location licorne');
         $f5->setMontantFrais('80');
-        $f5->setDateAchat(new \DateTime('2013/07/14')); 
-        
+        $f5->setDateAchat(new \DateTime('2013/07/14'));
+        $f5->setStatutFrais('Refusé');
 
         $manager->persist($f1);
         $manager->persist($f2);
@@ -296,9 +300,9 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $manager->flush();
 
 
-       
-        
-        
+
+
+
 
         $i1 = new Indemnites();
         $i1->setEtude($uc_e);
@@ -341,7 +345,7 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $i6->setNbJours('120');
         $i6->setRetenue('6');
         $i6->setIndemniteJournee('60');
-        
+
         $i7 = new Indemnites();
         $i7->setEtude($dspr_e2);
         $i7->setEtudiant($dupont);
@@ -355,7 +359,7 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $i8->setNbJours('40');
         $i8->setRetenue('4');
         $i8->setIndemniteJournee('50');
-        
+
         $manager->persist($i1);
         $manager->persist($i2);
         $manager->persist($i3);
@@ -368,13 +372,13 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
 
         $a1 = new Acompte();
         $a1->setIndemnite($i1);
-        $a1->setDateAcompte(new \DateTime('2013/05/18')); 
+        $a1->setDateAcompte(new \DateTime('2013/05/18'));
         $a1->setMontantAcompte('300');
         $a1->setStatutAcompte('En attente');
 
         $a2 = new Acompte();
         $a2->setIndemnite($i2);
-        $a2->setDateAcompte(new \DateTime('2013/03/13')); 
+        $a2->setDateAcompte(new \DateTime('2013/03/13'));
         $a2->setMontantAcompte('280.5');
         $a2->setStatutAcompte('Validé');
 

@@ -33,6 +33,9 @@
     </tbody>
 </table>
 #}
+
+{% if form.etude.count == 0 %}
+
 <div class="well">
     <form method="post" {{ form_enctype(form) }}>
         <div>
@@ -42,15 +45,22 @@
                 {{ form_widget(form.montantFrais) }}
                 {{ form_label(form.dateAchat, "Date de la facture :") }}
                 {{ form_widget(form.dateAchat) }}
+                {{ form_label(form.etude, "Etude :") }}
+                {{ form_widget(form.etude) }}
 
         </div>
-{{ form_widget(form) }}
+{{ form_widget(form._token) }}
             <input type="submit" class="btn btn-primary" />
                  <a class="btn btn-danger" href="{{ path('junior_etudiant_listFrais', { 'id': app.user.id }) }}">Annuler</a>
         </form>
    
     </div>
-    
+
+    {% else %}
+<p>Vous n'avez aucune étude en cours, enregistrement de frais impossible. </p>
+
+    {% endif %}
+
 
 
 {#

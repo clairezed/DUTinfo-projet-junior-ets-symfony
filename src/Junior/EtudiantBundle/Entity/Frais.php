@@ -38,6 +38,13 @@ class Frais
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="statutFrais", type="string", length=255)
+     */
+    private $statutFrais;
 
     /**
      * @var string
@@ -209,5 +216,28 @@ class Frais
     public function getEtude()
     {
         return $this->etude;
+    }
+
+    /**
+     * Set statutFrais
+     *
+     * @param string $statutFrais
+     * @return Frais
+     */
+    public function setStatutFrais($statutFrais)
+    {
+        $this->statutFrais = $statutFrais;
+    
+        return $this;
+    }
+
+    /**
+     * Get statutFrais
+     *
+     * @return string 
+     */
+    public function getStatutFrais()
+    {
+        return $this->statutFrais;
     }
 }
