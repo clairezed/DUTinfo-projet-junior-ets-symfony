@@ -177,42 +177,42 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $p1 = new Participant();
         $p1->setEtude($uc_e);
         $p1->setEtudiant($dupont);
-        $p1->setStatutEtudiant("reponsable");
+        $p1->setStatutEtudiant("Reponsable");
 
         $p2 = new Participant();
         $p2->setEtude($uc_e);
         $p2->setEtudiant($durand);
-        $p2->setStatutEtudiant("participant");
+        $p2->setStatutEtudiant("Participant");
 
         $p3 = new Participant();
         $p3->setEtude($uc_e);
         $p3->setEtudiant($duchmol);
-        $p3->setStatutEtudiant("participant");
+        $p3->setStatutEtudiant("Participant");
 
         $p4 = new Participant();
         $p4->setEtude($dspr_e);
         $p4->setEtudiant($duchmol);
-        $p4->setStatutEtudiant("reponsable");
+        $p4->setStatutEtudiant("Reponsable");
 
         $p5 = new Participant();
         $p5->setEtude($dspr_e);
         $p5->setEtudiant($durand);
-        $p5->setStatutEtudiant("participant");
+        $p5->setStatutEtudiant("Participant");
 
         $p6 = new Participant();
         $p6->setEtude($dspr_e);
         $p6->setEtudiant($dupont);
-        $p6->setStatutEtudiant("participant");
+        $p6->setStatutEtudiant("Participant");
         
         $p7 = new Participant();
         $p7->setEtude($dspr_e2);
         $p7->setEtudiant($dupont);
-        $p7->setStatutEtudiant("reponsable");
+        $p7->setStatutEtudiant("Reponsable");
         
         $p8 = new Participant();
         $p8->setEtude($dspr_e2);
         $p8->setEtudiant($durand);
-        $p8->setStatutEtudiant("participant");
+        $p8->setStatutEtudiant("Participant");
 
         $manager->persist($p1);
         $manager->persist($p2);

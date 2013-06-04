@@ -7,20 +7,24 @@
 {% block content_etudiant %}
 
 
-{% set total = etude.prixJournee * nbJours %}
+{% set total = etude.prixJournee * indemnites.nbJours %}
 
 <h2>Etude</h2>
 <div class="well">
     <ul class="inline">
         <li>N° : <span class="label">{{ etude.id }}</span></li>
         <li>Titre : <span class="label">{{ etude.nomEtude }}</span></li>
-        <li>Rôle : <span class="label">{{ statut }}</span></li>
     </ul>
     <ul class="inline">
-        <li>Durée : <span class="label">{{ nbJours }} jours</span></li>
-        <li>Prix par jour : <span class="label">{{ etude.prixJournee }} €</span></li>
-        <li>Total : <span class="label">{{ total }} €</span></li>
+        <li>Entreprise : <span class="label">{{ etude.convention.entreprise.nomEntreprise }}</li>
+        <li>Rôle : <span class="label">{{ participant.statutEtudiant }}</span></li>
         <li>Statut : <span class="label">{{ etude.statutEtude }}</span></li>
+    </ul>
+    <ul class="inline">
+        <li>Durée : <span class="label">{{ indemnites.nbJours }} jours</span></li>
+        <li>Date de fin prévue : <span class="label">{{ etude.dateFinPrevue|date('d/m/Y') }}</li>
+        <li>Prix par jour : <span class="label">{{ indemnites.indemniteJournee }} €</span></li>
+        <li>Total : <span class="label">{{ total }} €</span></li>
     </ul>
 </div>
 
@@ -53,7 +57,7 @@
 <p>Vous n'avez demandé aucun acompte pour cette étude.<p>
   {% endif %}
 
-{% if etude.statutEtude == "En cours" %}
+{% if etude.statutEtude == "En cours" and acomptes.count < 3 %}
     <td>   
         <a href="{{ path('junior_etudiant_newAcompte', {'idEtude': etude.id}) }}" class="btn btn-info btn-small">
             <i class="icon-edit icon-white"></i>
