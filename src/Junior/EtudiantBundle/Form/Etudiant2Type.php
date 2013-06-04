@@ -44,7 +44,7 @@ class Etudiant2Type extends AbstractType {
     }
 
     public function getName() {
-        return 'junior_etudiantbundle_etudianttype';
+        return 'junior_etudiantbundle_etudiant2type';
     }
 
 }

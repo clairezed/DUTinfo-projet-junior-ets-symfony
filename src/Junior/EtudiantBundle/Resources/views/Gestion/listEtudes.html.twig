@@ -25,52 +25,48 @@
         </tr>
     </thead>
     <tbody>
-        {% set cpt = 0 %}
-        {% if entreprises[0] != NULL %}
-            {% for etude in etudes %}
-                <tr>
-                    <td>{{ etude.nomEtude }}</td>
-                    <td>{{ entreprises[cpt].nomEntreprise }}</td>
-                    {% set cpt = cpt+1 %}
-                    <td>{{ etude.statutEtude }}</td>
-                    <td>   
-                        <a href="{{ path('junior_gestion_showEtude', {'idEtude': etude.id}) }}" class="btn btn-primary btn-small">
-                            <i class="icon-search icon-white"></i>
-                            Voir l'étude
+        {% for etude in etudes %}
+            <tr>
+                <td>{{ etude.nomEtude }}</td>
+                <td>{{ etude.convention.entreprise.nomEntreprise }}</td>
+                <td>{{ etude.statutEtude }}</td>
+                <td>   
+                    <a href="{{ path('junior_gestion_showEtude', {'idEtude': etude.id}) }}" class="btn btn-primary btn-small">
+                        <i class="icon-search icon-white"></i>
+                        Voir l'étude
+                    </a>
+                </td>
+                {% if etude.statutEtude == "Terminée" %}
+                    <td>
+                        <a href="{{ path('junior_gestion_showFacture', {'idEtude': etude.id}) }}" class="btn btn-warning btn-small">
+                            <i class="icon-file icon-white"></i>
+                            Consulter la facture
                         </a>
                     </td>
-                    {% if etude.statutEtude == "Terminée" %}
-                        <td>
-                            <a href="{{ path('junior_gestion_showFacture', {'idEtude': etude.id}) }}" class="btn btn-warning btn-small">
-                                <i class="icon-file icon-white"></i>
-                                Consulter la facture
-                            </a>
-                        </td>
-                    {% else %}
-                        <td>
-                            <a href="{{ path('junior_gestion_newFacture', {'idEtude': etude.id}) }}" onclick="return(confirm('Etes-vous sûr de vouloir clôturer cette étude?'));" class="btn btn-info btn-small">
-                                <i class="icon-off icon-white"></i>
-                                Clôturer cette étude
-                            </a>
-                        </td>
-                    {% endif %}
-                    {% if etude.statutEtude == "Terminée" %}
-                        <td>
-                            <a href="{{ path('junior_gestion_selectEtudiantIndemnites', {'idEtude': etude.id}) }}" class="btn btn-info btn-small">
-                                <i class="icon-book icon-white"></i>
-                                Consulter les indemnités
-                        </td>
-                    {% else %}
-                        <td>
-                            <a href="#" class="btn btn-warning btn-small">
-                                <i class="icon-ban-circle icon-white"></i>
-                                Cette étude n'est pas terminée
-                            </a>
-                        </td>
-                    {% endif %}
-                </tr>
-            {% endfor %}
-        {% endif %}
+                {% else %}
+                    <td>
+                        <a href="{{ path('junior_gestion_newFacture', {'idEtude': etude.id}) }}" onclick="return(confirm('Etes-vous sûr de vouloir clôturer cette étude?'));" class="btn btn-info btn-small">
+                            <i class="icon-off icon-white"></i>
+                            Clôturer cette étude
+                        </a>
+                    </td>
+                {% endif %}
+                {% if etude.statutEtude == "Terminée" %}
+                    <td>
+                        <a href="{{ path('junior_gestion_selectEtudiantIndemnites', {'idEtude': etude.id}) }}" class="btn btn-info btn-small">
+                            <i class="icon-book icon-white"></i>
+                            Consulter les indemnités
+                    </td>
+                {% else %}
+                    <td>
+                        <a href="#" class="btn btn-warning btn-small">
+                            <i class="icon-ban-circle icon-white"></i>
+                            Cette étude n'est pas terminée
+                        </a>
+                    </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
     </tbody>
 </table>
 

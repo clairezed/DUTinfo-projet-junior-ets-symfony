@@ -33,6 +33,40 @@
         </tr>
     </thead>
     <tbody>
+        {% for participation in participations %}
+            <tr>
+                <td>{{ participation.etude.nomEtude }}</td>
+                <td>{{ participation.statutEtudiant }}</td>
+                <td>
+                    <a href="{{ path('junior_etudiant_showEtude', {'idEtude': participation.etude.id, 'idEtudiant':app.user.id}) }}" class="btn btn-primary btn-small">
+                        <i class="icon-search icon-white"></i>
+                        Voir l'étude
+                    </a>
+                </td>
+                {% if participation.etude.statutEtude == "En cours" %}
+                    <td>   
+                        <a href="{{ path('junior_etudiant_newAcompte', {'idEtude': participation.etude.id}) }}" class="btn btn-info btn-small">
+                            <i class="icon-edit icon-white"></i>
+                            Demander un acompte
+                        </a>
+                    </td>
+                {% else %}
+                    <td>   
+                        <a href="#" class="btn btn-warning btn-small">
+                            <i class="icon-ban-circle icon-white"></i>
+                            Cette étude est terminée
+                        </a>
+                    </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %} 
+        
+        
+    {#    
         {% set cpt = 0 %}
         {% if etudes[0] != NULL %}
             {% for etude in etudes %}
@@ -61,18 +95,6 @@
                             </a>
                         </td>
                     {% endif %}
-                    {#
-                    <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('etudiant_show', { 'id': entity.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('etudiant_edit', { 'id': entity.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                    </td>
-                    #}
                 </tr>
             {% endfor %}
         {% endif %}
@@ -80,3 +102,5 @@
     </table>
 
 {% endblock %} 
+
+#}

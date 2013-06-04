@@ -70,7 +70,6 @@
         <p> Vous n'avez aucune demande d'acompte en cours </p>
         {% endif %}
 
-            <a class="btn btn-primary" href="{{ path('junior_etudiant_listEtudes') }}" ><i class="icon-search icon-white"></i>Voir toutes les études</a>
             <a class="btn btn-primary" href="#" > <i class="icon-edit icon-white"></i>Faire une demande d'acompte</a>
 
         </div>
@@ -88,38 +87,33 @@
             </tr>
         </thead>
         <tbody>
-            {% set cpt = 0 %}
-            {% if etudes[0] != NULL %}
-                {% for etude in etudes %}
-                    {% if etude.statutEtude == "En cours" %}
-                    <tr>
-                        <td>{{ etude.nomEtude }}</td>
-                        <td>{{ statuts[cpt] }}</td>
-                        {% set cpt = cpt+1 %}
-                        <td>   
-                            <a href="{{ path('junior_etudiant_showEtude', {'idEtude': etude.id, 'idEtudiant':app.user.id}) }}" class="btn btn-primary btn-small">
-                                <i class="icon-search icon-white"></i>
-                                Voir l'étude
-                            </a>
-                        </td>
-                        <td>   
-                            <a href="{{ path('junior_etudiant_newAcompte', {'idEtude': etude.id}) }}" class="btn btn-info btn-small">
-                                <i class="icon-edit icon-white"></i>
-                                Demander un acompte
-                            </a>
-                        </td>
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
+            {% for participation in participations %}
+                {% if participation.etude.statutEtude == "En cours" %}
+                <tr>
+                    <td>{{ participation.etude.nomEtude }}</td>
+                    <td>{{ participation.statutEtudiant }}</td>
+                    <td>   
+                        <a href="{{ path('junior_etudiant_showEtude', {'idEtude': participation.etude.id, 'idEtudiant':app.user.id}) }}" class="btn btn-primary btn-small">
+                            <i class="icon-search icon-white"></i>
+                            Voir l'étude
+                        </a>
+                    </td>
+                    <td>   
+                        <a href="{{ path('junior_etudiant_newAcompte', {'idEtude': participation.etude.id}) }}" class="btn btn-info btn-small">
+                            <i class="icon-edit icon-white"></i>
+                            Demander un acompte
+                        </a>
+                    </td>
+                {% endif %}
+            {% endfor %}
         </tbody>
     </table>
 
-<div style="text-align:right">
     <a href="{{ path('junior_etudiant_listEtudes') }}" class="btn btn-primary">
+        <i class="icon-search icon-white"></i>
         Voir toutes les études
     </a>
 </div>
-    </div>
     
 <p></p>
 <p></p>

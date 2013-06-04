@@ -50,14 +50,14 @@ class EtudiantController extends Controller {
 
 
             $etudiant = $em->getRepository('JuniorEtudiantBundle:Etudiant')->findOneById($id);
-            $etudes = $etudiant->getEtudes();
-            $statuts = $etudiant->getStatuts();
+            $listParticipations = $etudiant->getParticipants();
+//            $etudes = $etudiant->getEtudes();
+//            $statuts = $etudiant->getStatuts();
 
             return $this->render('JuniorEtudiantBundle:Etudiant:dashboardEtudiant.html.twig', array(
                         'list_frais' => $list_frais,
-                        'etudes' => $etudes,
+                        'participations' => $listParticipations,
                         'list_acompte' => $list_acompte,
-                        'statuts' => $statuts
             ));
         }
     }
@@ -262,22 +262,22 @@ class EtudiantController extends Controller {
             return $this->render('JuniorEtudiantBundle::layout.html.twig');
         } else {
             $id = $user->getId();
-            $cpt = 0;
-            $listeEtudes = array(NULL); //Initialisation des variables : évite une erreur si l'étudiant ne participe à aucune étude
-            $listeStatuts = array(NULL);
+//            $cpt = 0;
+//            $listeEtudes = array(NULL); //Initialisation des variables : évite une erreur si l'étudiant ne participe à aucune étude
+//            $listeStatuts = array(NULL);
             $em = $this->getDoctrine()->getManager();
 
             $etudiant = $em->getRepository('JuniorEtudiantBundle:Etudiant')->find($id);
             $listeParticipations = $etudiant->getParticipants(); //On récupère la liste des entrées de la table participation correspondant à cet étudiant
 
-            foreach ($listeParticipations as $participation) { //Pour chaque entrée dans la liste, on récupère l'étude associée et le statut de l'étudiant pour celle-ci
-                $listeEtudes[$cpt] = $participation->getEtude();
-                $listeStatuts[$cpt] = $participation->getStatutEtudiant();
-                $cpt++;
-            }
+//            foreach ($listeParticipations as $participation) { //Pour chaque entrée dans la liste, on récupère l'étude associée et le statut de l'étudiant pour celle-ci
+//                $listeEtudes[$cpt] = $participation->getEtude();
+//                $listeStatuts[$cpt] = $participation->getStatutEtudiant();
+//                $cpt++;
+//            }
 
             return $this->render('JuniorEtudiantBundle:Etudiant:listEtudes.html.twig', array(
-                        'etudes' => $listeEtudes, 'statuts' => $listeStatuts, 'etudiant' => $etudiant
+                        'participations' => $listeParticipations
             ));
         }
     }
@@ -294,13 +294,11 @@ class EtudiantController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $etude = $em->getRepository('JuniorEtudiantBundle:Etude')->find($idEtude);
             $participant = $em->getRepository('JuniorEtudiantBundle:Participant')->findOneBy(array('etudiant' => $idEtudiant, 'etude' => $idEtude));
-            $statut = $participant->getStatutEtudiant();
             $indemnites = $em->getRepository('JuniorEtudiantBundle:Indemnites')->findOneBy(array('etudiant' => $idEtudiant, 'etude' => $idEtude));
-            $nbJours = $indemnites->getNbJours();
             $acomptes = $indemnites->getAcomptes();
 
             return $this->render('JuniorEtudiantBundle:Etudiant:showEtude.html.twig', array(
-                        'etude' => $etude, 'statut' => $statut, 'nbJours' => $nbJours, 'acomptes' => $acomptes
+                        'etude' => $etude, 'participant' => $participant, 'indemnites' => $indemnites, 'acomptes' => $acomptes
             ));
         }
     }
@@ -318,7 +316,7 @@ class EtudiantController extends Controller {
 
             if ($request->getMethod() == 'POST') {
                 $postData = $request->request->get('junior_etudiantbundle_etudiant2type');
-                $idEtude = (int) $postData['etudes'];
+                $idEtude = $postData['etudes'];
                 return $this->redirect($this->generateUrl('junior_etudiant_newAcompte', array('idEtude' => $idEtude)));
             }
         }
@@ -331,8 +329,7 @@ class EtudiantController extends Controller {
      * Actions de manipulation des ACOMPTES
      * ************************************************* */
 
-    public
-            function newAcompteAction($idEtude) {
+    public function newAcompteAction($idEtude) {
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $acompte = new Acompte();
@@ -353,7 +350,7 @@ class EtudiantController extends Controller {
                 $postData = $request->request->get('junior_etudiantbundle_acomptetype');
                 $montant = $postData['montantAcompte'];
                 $form->bind($request);
-                if ($form->isValid() && $indemnite->getNombreAcomptes() < 3 && (($montant + $indemnite->getTotalAcomptes()) <= ($indemnite->getNbJours() * $indemnite->getEtude()->getPrixJournee() * 0.8))) {
+                if ($form->isValid() && $indemnite->getNombreAcomptes() < 3 && (($montant + $indemnite->getTotalAcomptes()) <= ($indemnite->getNbJours() * $indemnite->getIndemniteJournee() * 0.8))) {
                     var_dump($indemnite->getNombreAcomptes());
                     $acompte->setIndemnite($indemnite);
                     $acompte->setDateAcompte(new \Datetime());
@@ -363,7 +360,7 @@ class EtudiantController extends Controller {
                     $this->get('session')->getFlashBag()->add('info', 'Votre demande d\'acompte a été transmise');
                 } else if ($indemnite->getNombreAcomptes() >= 3) {
                     $this->get('session')->getFlashBag()->add('erreur', 'Erreur : vous avez déja demandé trois acomptes pour cette étude');
-                } else if (($montant + $indemnite->getTotalAcomptes()) > ($indemnite->getNbJours() * $indemnite->getEtude()->getPrixJournee() * 0.8)) {
+                } else if (($montant + $indemnite->getTotalAcomptes()) > ($indemnite->getNbJours() * $indemnite->getIndemniteJournee() * 0.8)) {
                     $this->get('session')->getFlashBag()->add('erreur', 'Erreur : vous avez dépassé le montant autorisé pour cette étude');
                 } else {
                     $this->get('session')->getFlashBag()->add('erreur', 'Erreur lors de la transmission de la demande');
