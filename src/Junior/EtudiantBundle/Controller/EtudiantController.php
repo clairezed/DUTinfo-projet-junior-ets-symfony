@@ -310,7 +310,14 @@ class EtudiantController extends Controller {
         if (null === $user) {
             return $this->render('JuniorEtudiantBundle::layout.html.twig');
         } else {
+            
             $idEtudiant = $user->getId();
+            $list_etudes = $em->getRepository('JuniorEtudiantBundle:Etude')->findEtudebyEtudiant($idEtudiant);
+            var_dump($list_etudes);
+//            if($list_etudes[0] ==  null){
+//                return $this->redirect($this->generateUrl('junior_etudiant_dashboard'));
+//            }
+                    
             $form = $this->createForm(new Etudiant2Type($idEtudiant), $user);
             $request = $this->get('request');
 
@@ -337,12 +344,15 @@ class EtudiantController extends Controller {
         if (null === $user) {
             return $this->render('JuniorEtudiantBundle::layout.html.twig');
         } else {
-            $idEtudiant = $user->getId();
+
+                 $idEtudiant = $user->getId();
             $etude = $em->getRepository('JuniorEtudiantBundle:Etude')->findOneById($idEtude);
             $indemnite = $em->getRepository('JuniorEtudiantBundle:Indemnites')->findOneBy(array('etudiant' => $idEtudiant, 'etude' => $idEtude));
             $acompte->setIndemnite($indemnite);
 
             $form = $this->createForm(new AcompteType(), $acompte);
+  
+           
 
             $request = $this->getRequest();
 
