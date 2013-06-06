@@ -230,6 +230,7 @@ class EtudiantController extends Controller {
             }
             return $this->render('JuniorEtudiantBundle:Etudiant:newFrais.html.twig', array(
                         'form' => $form->createView(),
+                        'user' => $user,
             ));
         }
     }
@@ -310,14 +311,7 @@ class EtudiantController extends Controller {
         if (null === $user) {
             return $this->render('JuniorEtudiantBundle::layout.html.twig');
         } else {
-            
             $idEtudiant = $user->getId();
-            $list_etudes = $em->getRepository('JuniorEtudiantBundle:Etude')->findEtudebyEtudiant($idEtudiant);
-//            var_dump($list_etudes);
-//            if($list_etudes[0] ==  null){
-//                return $this->redirect($this->generateUrl('junior_etudiant_dashboard'));
-//            }
-                    
             $form = $this->createForm(new Etudiant2Type($idEtudiant), $user);
             $request = $this->get('request');
 
@@ -329,6 +323,7 @@ class EtudiantController extends Controller {
         }
         return $this->render('JuniorEtudiantBundle:Etudiant:selectEtude.html.twig', array(
                     'form' => $form->createView(),
+                    'user' => $user,
         ));
     }
 
@@ -384,121 +379,5 @@ class EtudiantController extends Controller {
         }
     }
 
-    /*     * ************************************************
-     * Actions créés automatiquement par le CRUD etudiant
-     * (our info et exemples
-     * ************************************************* */
-
-//    
-//    public function showAction($id)
-//    {
-//        $em = $this->getDoctrine()->getManager();
-//
-//        $entity = $em->getRepository('JuniorEtudiantBundle:Etudiant')->find($id);
-//
-//        if (!$entity) {
-//            throw $this->createNotFoundException('Unable to find Etudiant entity.');
-//        }
-//
-//        $deleteForm = $this->createDeleteForm($id);
-//
-//        return $this->render('JuniorEtudiantBundle:Etudiant:show.html.twig', array(
-//            'entity'      => $entity,
-//            'delete_form' => $deleteForm->createView(),        ));
-//    }
-//
-//    /**
-//     * Displays a form to edit an existing Etudiant entity.
-//     *
-//     */
-//    public function editAction($id)
-//    {
-//        $em = $this->getDoctrine()->getManager();
-//
-//        $entity = $em->getRepository('JuniorEtudiantBundle:Etudiant')->find($id);
-//
-//        if (!$entity) {
-//            throw $this->createNotFoundException('Unable to find Etudiant entity.');
-//        }
-//
-//        $editForm = $this->createForm(new EtudiantType(), $entity);
-//        $deleteForm = $this->createDeleteForm($id);
-//
-//        return $this->render('JuniorEtudiantBundle:Etudiant:edit.html.twig', array(
-//            'entity'      => $entity,
-//            'edit_form'   => $editForm->createView(),
-//            'delete_form' => $deleteForm->createView(),
-//        ));
-//    }
-//
-//    /**
-//     * Edits an existing Etudiant entity.
-//     *
-//     */
-//    public function updateAction(Request $request, $id)
-//    {
-//        $em = $this->getDoctrine()->getManager();
-//
-//        $entity = $em->getRepository('JuniorEtudiantBundle:Etudiant')->find($id);
-//
-//        if (!$entity) {
-//            throw $this->createNotFoundException('Unable to find Etudiant entity.');
-//        }
-//
-//        $deleteForm = $this->createDeleteForm($id);
-//        $editForm = $this->createForm(new EtudiantType(), $entity);
-//        $editForm->bind($request);
-//
-//        if ($editForm->isValid()) {
-//            $em->persist($entity);
-//            $em->flush();
-//
-//            return $this->redirect($this->generateUrl('etudiant_edit', array('id' => $id)));
-//        }
-//
-//        return $this->render('JuniorEtudiantBundle:Etudiant:edit.html.twig', array(
-//            'entity'      => $entity,
-//            'edit_form'   => $editForm->createView(),
-//            'delete_form' => $deleteForm->createView(),
-//        ));
-//    }
-//
-//    /**
-//     * Deletes a Etudiant entity.
-//     *
-//     */
-//    public function deleteAction(Request $request, $id)
-//    {
-//        $form = $this->createDeleteForm($id);
-//        $form->bind($request);
-//
-//        if ($form->isValid()) {
-//            $em = $this->getDoctrine()->getManager();
-//            $entity = $em->getRepository('JuniorEtudiantBundle:Etudiant')->find($id);
-//
-//            if (!$entity) {
-//                throw $this->createNotFoundException('Unable to find Etudiant entity.');
-//            }
-//
-//            $em->remove($entity);
-//            $em->flush();
-//        }
-//
-//        return $this->redirect($this->generateUrl('etudiant'));
-//    }
-//
-//    /**
-//     * Creates a form to delete a Etudiant entity by id.
-//     *
-//     * @param mixed $id The entity id
-//     *
-//     * @return Symfony\Component\Form\Form The form
-//     */
-//    private function createDeleteForm($id)
-//    {
-//        return $this->createFormBuilder(array('id' => $id))
-//            ->add('id', 'hidden')
-//            ->getForm()
-//        ;
-//    }
+ 
 }

@@ -7,8 +7,13 @@
 {% block content_etudiant %}
 
 
-
 <h2>Demander un acompte</h2>
+
+{% if user.etudes == 0 %}
+
+<p> Vous n'avez aucune étude, demande d'acompte impossible. </p>
+
+{% else %}
 
 <p> Sélectionner l'étude pour laquelle vous souhaitez demander un acompte </p>
 
@@ -26,6 +31,7 @@
 
 </div>
 
+{% endif %}
 
 
 

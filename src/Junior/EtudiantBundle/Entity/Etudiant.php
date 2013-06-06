@@ -371,6 +371,7 @@ class Etudiant extends BaseUser
             $listeEtudes[$cpt] = $participation->getEtude();
             $cpt++;
         }
+        if ($cpt == 0) return 0;
         return $listeEtudes;
     }
     

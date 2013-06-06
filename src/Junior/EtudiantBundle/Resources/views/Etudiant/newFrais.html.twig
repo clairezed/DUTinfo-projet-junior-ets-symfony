@@ -34,7 +34,7 @@
 </table>
 #}
 
-{% if form.etude.count == 0 %}
+{% if user.etudes != 0 %}
 
 <div class="well">
     <form method="post" {{ form_enctype(form) }}>
