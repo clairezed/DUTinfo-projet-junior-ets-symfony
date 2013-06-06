@@ -53,8 +53,12 @@ junior_gestion_sortFrais:
     defaults: { _controller: JuniorEtudiantBundle:Gestion:sortFrais }
     
 junior_gestion_validFrais:
-    pattern: /frais/validation
+    pattern: /{idFrais}/frais/validation
     defaults: { _controller: JuniorEtudiantBundle:Gestion:validFrais }
+    
+junior_gestion_refusFrais:
+    pattern: /{idFrais}/frais/refus
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:refusFrais }
     
 #REMBOURSEMENT DE FRAIS
     

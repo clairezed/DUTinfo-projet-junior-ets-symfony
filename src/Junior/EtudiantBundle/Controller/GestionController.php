@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Junior\EtudiantBundle\Entity\Etudiant;
 use Junior\EtudiantBundle\Entity\Etude;
 use Junior\EtudiantBundle\Entity\Facture;
+use Junior\EtudiantBundle\Entity\Frais;
 use Junior\EtudiantBundle\Entity\Entreprise;
 use Junior\EtudiantBundle\Entity\Convention;
 use Junior\EtudiantBundle\Entity\Participant;
@@ -209,15 +210,57 @@ bien supprimé');
      * ************************************************* */
 
     public function listFraisAction() {
-        return $this->render('JuniorEtudiantBundle:Gestion:listFrais.html.twig');
+         $user = $this->getUser();
+
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $listFraisEnregistrés = $em->getRepository('JuniorEtudiantBundle:Frais')->findFraisByStatut('Enregistré');
+            $listFraisNotInRF = $em->getRepository('JuniorEtudiantBundle:Frais')->findFraisNotInRF();
+        }
+        return $this->render('JuniorEtudiantBundle:Gestion:listFrais.html.twig', array(
+            'listFraisEnregistrés' => $listFraisEnregistrés, 
+            'listFraisNotInRF' => $listFraisNotInRF
+                ));
     }
+        
+
 
     public function sortFraisAction() {
         return $this->render('JuniorEtudiantBundle:Gestion:sortFrais.html.twig');
     }
 
-    public function validFraisAction() {
-        return $this->render('JuniorEtudiantBundle:Gestion:validFrais.html.twig');
+    public function validFraisAction($idFrais) {
+          $user = $this->getUser();
+
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $frais = $em->getRepository('JuniorEtudiantBundle:Frais')->findOneById($idFrais);
+            $frais->setStatutFrais('Validé');
+            $em->persist($frais);
+            $em->flush();
+            $this->get('session')->getFlashBag()->add('info', 'Frais validé');
+        }
+        return $this->redirect($this->generateUrl('junior_gestion_listFrais'));
+    }
+    
+    public function refusFraisAction($idFrais) {
+          $user = $this->getUser();
+
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $frais = $em->getRepository('JuniorEtudiantBundle:Frais')->findOneById($idFrais);
+            $frais->setStatutFrais('Refusé');
+            $em->persist($frais);
+            $em->flush();
+            $this->get('session')->getFlashBag()->add('info', 'Frais refusé');
+        }
+        return $this->redirect($this->generateUrl('junior_gestion_listFrais'));
     }
 
     public function newRFAction() {

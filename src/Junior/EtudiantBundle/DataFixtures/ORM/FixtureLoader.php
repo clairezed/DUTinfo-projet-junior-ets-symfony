@@ -227,23 +227,23 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
 
 
         $rf1 = new RemboursementFrais();
-        $rf1->setDateRemboursement(new \DateTime('2013/02/04'));
+        $rf1->setDateRemboursement(new \DateTime('2013/04/30'));
 //        $rf1->addFrai($f1);
 //        $rf1->addFrai($f2);
 
         $rf2 = new RemboursementFrais();
-        $rf2->setDateRemboursement(new \DateTime('2013/05/06'));
+        $rf2->setDateRemboursement(new \DateTime('2013/05/31'));
 //        $rf2->addFrai($f3);
 
-        $rf3 = new RemboursementFrais();
-        $rf3->setDateRemboursement(new \DateTime('2013/06/05'));
+//        $rf3 = new RemboursementFrais();
+//        $rf3->setDateRemboursement(new \DateTime('2013/06/05'));
 //        $rf3->addFrai($f4);
 
 
 
         $manager->persist($rf1);
         $manager->persist($rf2);
-        $manager->persist($rf3);
+//        $manager->persist($rf3);
         $manager->flush();
 
 
@@ -254,7 +254,7 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $f1->setMontantFrais('2000');
         $f1->setDateAchat(new \DateTime('2013/04/15'));
         $f1->setRemboursementsFrais($rf1);
-        $f1->setStatutFrais('Enregistré');
+        $f1->setStatutFrais('Validé');
 
 
         $f2 = new Frais();
@@ -273,7 +273,7 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $f3->setMontantFrais('12500');
         $f3->setDateAchat(new \DateTime('2013/05/08'));
         $f3->setRemboursementsFrais($rf2);
-        $f3->setStatutFrais('Enregistré');
+        $f3->setStatutFrais('Validé');
 
         $f4 = new Frais();
         $f4->setEtude($uc_e);
@@ -281,16 +281,25 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $f4->setTypeFrais('Tournevis Sonique');
         $f4->setMontantFrais('1200');
         $f4->setDateAchat(new \DateTime('2013/06/30'));
-        $f4->setRemboursementsFrais($rf3);
-        $f4->setStatutFrais('Validé');
+//        $f4->setRemboursementsFrais($rf3);
+        $f4->setStatutFrais('Enregistré');
 
         $f5 = new Frais();
         $f5->setEtude($dspr_e);
         $f5->setEtudiant($dupont);
         $f5->setTypeFrais('Location licorne');
         $f5->setMontantFrais('80');
-        $f5->setDateAchat(new \DateTime('2013/07/14'));
-        $f5->setStatutFrais('Refusé');
+        $f5->setDateAchat(new \DateTime('2013/06/14'));
+        $f5->setStatutFrais('Enregistré');
+        
+        $f6 = new Frais();
+        $f6->setEtude($dspr_e);
+        $f6->setEtudiant($dupont);
+        $f6->setTypeFrais('Schtroumpf en terre cuite');
+        $f6->setMontantFrais('170');
+        $f6->setDateAchat(new \DateTime('2013/06/15'));
+        $f6->setStatutFrais('Enregistré');
+        
 
         $manager->persist($f1);
         $manager->persist($f2);

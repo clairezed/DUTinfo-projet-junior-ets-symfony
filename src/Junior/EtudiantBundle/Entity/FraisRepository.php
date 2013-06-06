@@ -13,7 +13,7 @@ use Doctrine\ORM\EntityRepository;
 class FraisRepository extends EntityRepository {
 
     public function findFraisbyIdEtudiant($idEtudiant) {
-        
+
         $qb = $this->createQueryBuilder('frais')
                 ->leftJoin('frais.etudiant', 'etu')
                 ->addSelect('etu')
@@ -28,9 +28,28 @@ class FraisRepository extends EntityRepository {
                         ->getResult();
     }
 
+    public function findFraisByStatut($statut) {
+        $qb = $this->createQueryBuilder('frais');
+
+        $qb->where('frais.statutFrais = :statut')
+                ->setParameter('statut', $statut);
+
+        return $qb->getQuery()
+                        ->getResult();
+    }
+
     
+    // Query used in GestionController - listFrais -> to show valid frais that have to be paid to student
     public function findFraisNotInRF() {
+         $qb = $this->createQueryBuilder('frais');
+
+        $qb->where('frais.remboursementsFrais is null');
         
+        $qb->andWhere('frais.statutFrais = :statut')
+                ->setParameter('statut', 'Validé');
+
+        return $qb->getQuery()
+                        ->getResult();
     }
 
 }
