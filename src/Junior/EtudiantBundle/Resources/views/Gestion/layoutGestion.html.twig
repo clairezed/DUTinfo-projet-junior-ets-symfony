@@ -5,9 +5,14 @@
 {% endblock %}
     {% block body %}
 <div id="menu" class="span3">
-    <ul class="nav nav-tabs nav-stacked">
-        <li><a href="{{ path('junior_gestion_dashboard') }}" >DASHBOARD</a></li>
-        <li><a href="#" id="etudiants" title="frais">ETUDIANTS</a></li>
+    <ul class="nav nav-list">
+        <li class="nav-header">
+            <a href="{{ path('junior_gestion_dashboard') }}" >DASHBOARD</a>
+        </li>
+        <li class="divider"></li>
+        <li class="nav-header">
+            <a href="#" id="etudiants" title="frais">ETUDIANTS</a>
+        </li>
         <ul class="submenu">
             <li>
                 <a href="{{ path('junior_gestion_listEtudiants') }}" id="etu-frais-liste" title="liste etudiants"><p>tous les étudiants</p></a>
@@ -22,17 +27,19 @@
                 <a href="{{ path('junior_gestion_listFrais') }}" id="etu-frais-enr" title="gérer frais"><p>Gérer les frais</p></a>
             </li>
         </ul>
-        <li>
+         <li class="divider"></li>
+        <li class="nav-header">
             <a href="#" id="etu-etudes" title="études"><p>ETUDES</p></a>
-            <ul class="submenu">
-                <li>
-                    <a href="{{ path('junior_gestion_listEtudes') }}" id="etu-etudes-liste" title="liste etudes"><p>toutes les études</p></a>
-                </li>
-                <li>
-                    <a href="{{ path('junior_gestion_choixEntreprise') }}" id="etu-etudes-liste" title="créer etude"><p>Créer une étude</p></a>
-                </li>
-            </ul>
         </li>
+        <ul class="submenu">
+            <li>
+                <a href="{{ path('junior_gestion_listEtudes') }}" id="etu-etudes-liste" title="liste etudes"><p>toutes les études</p></a>
+            </li>
+            <li>
+                <a href="{{ path('junior_gestion_choixEntreprise') }}" id="etu-etudes-liste" title="créer etude"><p>Créer une étude</p></a>
+            </li>
+        </ul>
+
     </ul>
 </div>
 <div id="content" class="span9">
@@ -42,8 +49,8 @@
 
     <div class="container-fluid">
         {% block content_gestion %}{% endblock %}
+        </div>
     </div>
-</div>
 
 {% endblock %}
 

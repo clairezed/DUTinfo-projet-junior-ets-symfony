@@ -73,6 +73,11 @@ body
     background-color: #EEE;
 }
 
+#menu li
+{
+    list-style-type: none;
+}
+
 
 /****************************************
     CONTENT

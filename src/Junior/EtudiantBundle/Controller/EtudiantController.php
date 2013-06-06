@@ -313,7 +313,7 @@ class EtudiantController extends Controller {
             
             $idEtudiant = $user->getId();
             $list_etudes = $em->getRepository('JuniorEtudiantBundle:Etude')->findEtudebyEtudiant($idEtudiant);
-            var_dump($list_etudes);
+//            var_dump($list_etudes);
 //            if($list_etudes[0] ==  null){
 //                return $this->redirect($this->generateUrl('junior_etudiant_dashboard'));
 //            }
