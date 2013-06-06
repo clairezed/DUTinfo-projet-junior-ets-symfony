@@ -54,6 +54,13 @@ class Frais
     private $typeFrais;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="objetFrais", type="string", length=255)
+     */
+    private $objetFrais;    
+    
+    /**
      * @var float
      *
      * @ORM\Column(name="montantFrais", type="float")
@@ -216,5 +223,28 @@ class Frais
     public function getEtude()
     {
         return $this->etude;
+    }
+
+    /**
+     * Set statutFrais
+     *
+     * @param string $statutFrais
+     * @return Frais
+     */
+    public function setStatutFrais($statutFrais)
+    {
+        $this->statutFrais = $statutFrais;
+    
+        return $this;
+    }
+
+    /**
+     * Get statutFrais
+     *
+     * @return string 
+     */
+    public function getStatutFrais()
+    {
+        return $this->statutFrais;
     }
 }

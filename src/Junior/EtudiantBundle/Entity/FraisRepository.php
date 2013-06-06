@@ -51,5 +51,16 @@ class FraisRepository extends EntityRepository {
         return $qb->getQuery()
                         ->getResult();
     }
+    
+    public function findFraisNotInRF2() {
+         $qb = $this->createQueryBuilder('frais');
+
+        $qb->where('frais.remboursementsFrais is null');
+        
+        $qb->andWhere('frais.statutFrais = :statut')
+                ->setParameter('statut', 'Validé');
+
+        return $qb;
+    }
 
 }

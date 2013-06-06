@@ -11,7 +11,10 @@ class ChoixEntrepriseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('entreprise', 'entity', array('class' => 'JuniorEtudiantBundle:Entreprise', 'property' => 'nomEntreprise', 'multiple' => false))
+            ->add('entreprise', 'entity', array(
+                        'class' => 'JuniorEtudiantBundle:Entreprise', 
+                        'property' => 'nomEntreprise', 
+                        'multiple' => false))
         ;
     }
 

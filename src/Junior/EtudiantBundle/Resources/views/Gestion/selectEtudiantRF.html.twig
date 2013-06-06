@@ -1,0 +1,26 @@
+{% extends "JuniorEtudiantBundle:Gestion:layoutGestion.html.twig" %}
+
+{% block title %}
+{{ parent()}} - Créer un groupe
+{% endblock %}
+
+{% block content_gestion %}
+
+<div>
+    <h2>Choix de l'étudiant</h2>
+    
+    <p> Choisissez l'étudiant pour lequel vous souhaitez créer une note de remboursement de frais :</p>
+    <form method="post" {{ form_enctype(form) }}>
+        <div>
+           
+            {{ form_errors(form.etudiants) }}
+                
+            {{ form_widget(form.etudiants) }}
+        </div>
+        {{ form_rest(form) }}
+    <input type="submit" class="btn btn-primary validButton" value="Valider"/>
+     <a class="btn btn-danger validButton" href="{{ path('junior_gestion_listFrais') }}">Annuler</a>
+    </form>
+</div>
+
+{% endblock %} 

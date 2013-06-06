@@ -60,10 +60,14 @@ junior_gestion_refusFrais:
     pattern: /{idFrais}/frais/refus
     defaults: { _controller: JuniorEtudiantBundle:Gestion:refusFrais }
     
+junior_gestion_selectEtudiantRF:
+    pattern: /frais/selectetudiant
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:selectEtudiantRF }
+    
 #REMBOURSEMENT DE FRAIS
     
 junior_gestion_newRF:
-    pattern: /remboursementfrais/new
+    pattern: /{idEtudiant}/remboursementfrais/new
     defaults: { _controller: JuniorEtudiantBundle:Gestion:newRF }
     
 junior_gestion_showRF:

@@ -22,6 +22,7 @@
                 <tr>
                     <th>Date</th>
                     <th>Nom Etudiant</th>
+                    <th>Objet</th>
                     <th>Type</th>
                     <th>Montant</th>
                     <th>Statut</th>
@@ -34,61 +35,70 @@
                     <tr>
                         <td>{{ frais.dateAchat|date("d/m/Y") }}</td>
                         <td>{{ frais.etudiant.nomEtudiant }}</td>
+                        <td>{{ frais.objetFrais }}</td>
                         <td>{{ frais.typeFrais }}</td>
                         <td>{{ frais.montantFrais }}</td>
                         <td>{{ frais.StatutFrais }}</td>
                         <td>
-                            <a href="{{ path('junior_gestion_validFrais', {'idFrais': frais.id}) }}" onclick="return(confirm('Valider ce frais ?'));" class="btn btn-success btn-small">
+                            <a href="{{ path('junior_gestion_validFrais', {'idFrais': frais.id}) }}" class="btn btn-success btn-small">
                                 <i class="icon-ok icon-white"></i>
                             </a>
                         </td>
                         <td>
-                            <a href="{{ path('junior_gestion_refusFrais', {'idFrais': frais.id}) }}" onclick="return(confirm('Refuser ce frais ?'));" class="btn btn-danger btn-small">
+                            <a href="{{ path('junior_gestion_refusFrais', {'idFrais': frais.id}) }}" class="btn btn-danger btn-small">
                                 <i class="icon-remove icon-white"></i>
                             </a>
                         </td>
-                        </tr>
+                    </tr>
                 {% endfor %}
-                    </tbody>
-                </table>
+                </tbody>
+            </table>
     {% else %}
-                <p> Aucun frais en attente de validation</p>
+            <p> Aucun frais en attente de validation</p>
     {% endif %}
 
 
 
-                <h2>Frais en attente de remboursement</h2>
+            <h2>Frais en attente de remboursement</h2>
     {% if listFraisNotInRF|length > 0 %}
-                <table class="table table-striped table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Nom Etudiant</th>
-                            <th>Type</th>
-                            <th>Montant</th>
-                            <th>Statut</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Nom Etudiant</th>
+                        <th>Objet</th>
+                        <th>Type</th>
+                        <th>Montant</th>
+                        <th>Statut</th>
+                    </tr>
+                </thead>
+                <tbody>
                 {% for frais in listFraisNotInRF %}
-                            <tr>
-                                <td>{{ frais.dateAchat|date("d/m/Y") }}</td>
-                                <td>{{ frais.etudiant.nomEtudiant }}</td>
-                                <td>{{ frais.typeFrais }}</td>
-                                <td>{{ frais.montantFrais }}</td>
-                                <td>{{ frais.StatutFrais }}</td>
-                                <td>
-                                    <a href="#" class="btn btn-info btn-small">
-                                        <i class="icon-file icon-white"></i>
-                                        Afficher le bulletin
-                                    </a>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>{{ frais.dateAchat|date("d/m/Y") }}</td>
+                            <td>{{ frais.etudiant.nomEtudiant }}</td>
+                            <td>{{ frais.objetFrais }}</td>
+                            <td>{{ frais.typeFrais }}</td>
+                            <td>{{ frais.montantFrais }}</td>
+                            <td>{{ frais.StatutFrais }}</td>
+
+                        </tr>
                 {% endfor %}
-                        </tbody>
-                    </table>
+                    </tbody>
+
+                </table>
+                <div>
+                {% if listFraisEnregistrés|length == 0 %}
+                        <a href="{{ path('junior_gestion_selectEtudiantRF') }}" class="btn btn-info btn-small">
+                            <i class="icon-file icon-white"></i>
+                            Créer notes remboursements
+                        </a>
+                {% endif %}
+                    </div>
+
+
     {% else %}
-                    <p> Aucun acompte validé </p>
+                    <p> Validez les frais en attente pour pouvoir créer une fiche de remboursement de frais </p>
     {% endif %}
                 </div>
 

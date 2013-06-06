@@ -203,12 +203,12 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $p6->setEtude($dspr_e);
         $p6->setEtudiant($dupont);
         $p6->setStatutEtudiant("Participant");
-        
+
         $p7 = new Participant();
         $p7->setEtude($dspr_e2);
         $p7->setEtudiant($dupont);
         $p7->setStatutEtudiant("Responsable");
-        
+
         $p8 = new Participant();
         $p8->setEtude($dspr_e2);
         $p8->setEtudiant($durand);
@@ -234,7 +234,6 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $rf2 = new RemboursementFrais();
         $rf2->setDateRemboursement(new \DateTime('2013/05/31'));
 //        $rf2->addFrai($f3);
-
 //        $rf3 = new RemboursementFrais();
 //        $rf3->setDateRemboursement(new \DateTime('2013/06/05'));
 //        $rf3->addFrai($f4);
@@ -250,7 +249,8 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $f1 = new Frais();
         $f1->setEtude($dspr_e);
         $f1->setEtudiant($durand);
-        $f1->setTypeFrais('Materiel de laboratoire');
+        $f1->setTypeFrais('Autre');
+        $f1->setObjetFrais('Materiel de laboratoire');
         $f1->setMontantFrais('2000');
         $f1->setDateAchat(new \DateTime('2013/04/15'));
         $f1->setRemboursementsFrais($rf1);
@@ -260,7 +260,8 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $f2 = new Frais();
         $f2->setEtude($dspr_e);
         $f2->setEtudiant($durand);
-        $f2->setTypeFrais('Nourriture galactique standard');
+        $f2->setObjetFrais('Nourriture galactique standard');
+        $f2->setTypeFrais('Séjour');
         $f2->setMontantFrais('32');
         $f2->setDateAchat(new \DateTime('2013/04/22'));
         $f2->setRemboursementsFrais($rf1);
@@ -269,7 +270,8 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $f3 = new Frais();
         $f3->setEtude($uc_e);
         $f3->setEtudiant($dupont);
-        $f3->setTypeFrais('Transport Hyperluminique');
+        $f3->setObjetFrais('Transport Hyperluminique');
+        $f3->setTypeFrais('Déplacement');
         $f3->setMontantFrais('12500');
         $f3->setDateAchat(new \DateTime('2013/05/08'));
         $f3->setRemboursementsFrais($rf2);
@@ -278,7 +280,8 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $f4 = new Frais();
         $f4->setEtude($uc_e);
         $f4->setEtudiant($duchmol);
-        $f4->setTypeFrais('Tournevis Sonique');
+        $f4->setObjetFrais('Tournevis Sonique');
+        $f4->setTypeFrais('Autre');
         $f4->setMontantFrais('1200');
         $f4->setDateAchat(new \DateTime('2013/06/30'));
 //        $f4->setRemboursementsFrais($rf3);
@@ -287,19 +290,21 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $f5 = new Frais();
         $f5->setEtude($dspr_e);
         $f5->setEtudiant($dupont);
-        $f5->setTypeFrais('Location licorne');
+        $f5->setObjetFrais('Location licorne');
+        $f5->setTypeFrais('Déplacement');
         $f5->setMontantFrais('80');
         $f5->setDateAchat(new \DateTime('2013/06/14'));
         $f5->setStatutFrais('Enregistré');
-        
+
         $f6 = new Frais();
         $f6->setEtude($dspr_e);
         $f6->setEtudiant($dupont);
-        $f6->setTypeFrais('Schtroumpf en terre cuite');
+        $f6->setObjetFrais('Schtroumpf en terre cuite');
+        $f6->setTypeFrais('Autre');
         $f6->setMontantFrais('170');
         $f6->setDateAchat(new \DateTime('2013/06/15'));
         $f6->setStatutFrais('Enregistré');
-        
+
 
         $manager->persist($f1);
         $manager->persist($f2);
