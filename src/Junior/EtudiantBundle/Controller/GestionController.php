@@ -276,7 +276,12 @@ bien supprimé');
 
             if ($request->getMethod() == 'POST') {
                 $postData = $request->request->get('junior_etudiantbundle_choixetudiantrftype');
-                $idEtudiant = $postData['etudiants'];
+//                $idEtudiant = $postData['etudiants'];
+
+                $idFrais = $postData['etudiants'];
+                $frais = $em->getRepository('JuniorEtudiantBundle:Frais')->findOneById($idFrais);
+                $idEtudiant = $frais->getEtudiant()->getId();
+//                var_dump($idEtudiant);
 
                 return $this->redirect($this->generateUrl('junior_gestion_newRF', array(
                                     'idEtudiant' => $idEtudiant,
@@ -298,7 +303,7 @@ bien supprimé');
 
             $em = $this->getDoctrine()->getManager();
             $etudiant = $em->getRepository('JuniorEtudiantBundle:Etudiant')->findOneById($idEtudiant);
-            var_dump($etudiant);
+            var_dump($idEtudiant);
             $listFraisNewRF = $em->getRepository('JuniorEtudiantBundle:Frais')
                     ->findFraisNotInRFbyStudent($idEtudiant);
             foreach ($listFraisNewRF as $frais) {
@@ -315,11 +320,9 @@ bien supprimé');
                     'rf' => $rf,
                     'etudiant' => $etudiant,
                     'idEtudiant' => $idEtudiant
-                
         ));
     }
 
-    
     public function showRFAction($idRF) {
         return $this->render('JuniorEtudiantBundle:Gestion:showRF.html.twig');
     }

@@ -38,40 +38,51 @@ class FraisRepository extends EntityRepository {
                         ->getResult();
     }
 
-    
     // Query used in GestionController - listFrais -> to show valid frais that have to be paid to student
     public function findFraisNotInRF() {
-         $qb = $this->createQueryBuilder('frais');
+        $qb = $this->createQueryBuilder('frais');
 
         $qb->where('frais.remboursementsFrais is null');
-        
+
         $qb->andWhere('frais.statutFrais = :statut')
                 ->setParameter('statut', 'Validé');
 
         return $qb->getQuery()
                         ->getResult();
     }
-    
+
     // Query used in ChoixEtudiantRFType
     public function findFraisNotInRF2() {
-         $qb = $this->createQueryBuilder('frais');
+        $qb = $this->createQueryBuilder('frais');
 
         $qb->where('frais.remboursementsFrais is null');
-        
+
         $qb->andWhere('frais.statutFrais = :statut')
                 ->setParameter('statut', 'Validé');
 
         return $qb;
     }
-    
-     // Query used in GestionController - listFrais -> to show valid frais that have to be paid to student
-    public function findFraisNotInRFbyStudent($idEtudiant) {
-         $qb = $this->createQueryBuilder('frais');
 
-        $qb->where('frais.remboursementsFrais is null');
+    // Query used in GestionController - listFrais -> to show valid frais that have to be paid to student
+    public function findFraisNotInRFbyStudent($idEtudiant) {
+
+          
+            $qb = $this->createQueryBuilder('frais')
+                ->leftJoin('frais.etudiant', 'etu')
+                ->addSelect('etu')
+//                ->leftJoin('part.etudiant', 'etudiant')
+//                ->addSelect('etudiant')
+                    ;
+
+        $qb->where("frais.remboursementsFrais is null")
+                ->andWhere('frais.statutFrais = :statut')
+                ->setParameter('statut', 'Validé')
+                ->andWhere('etu.id = :id')
+                ->setParameter('id', $idEtudiant)
+        ;
+
         
-        $qb->andWhere('frais.statutFrais = :statut')
-                ->setParameter('statut', 'Validé');
+        
 
         return $qb->getQuery()
                         ->getResult();
