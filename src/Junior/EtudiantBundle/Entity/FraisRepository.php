@@ -52,6 +52,7 @@ class FraisRepository extends EntityRepository {
                         ->getResult();
     }
     
+    // Query used in ChoixEtudiantRFType
     public function findFraisNotInRF2() {
          $qb = $this->createQueryBuilder('frais');
 
@@ -61,6 +62,19 @@ class FraisRepository extends EntityRepository {
                 ->setParameter('statut', 'Validé');
 
         return $qb;
+    }
+    
+     // Query used in GestionController - listFrais -> to show valid frais that have to be paid to student
+    public function findFraisNotInRFbyStudent($idEtudiant) {
+         $qb = $this->createQueryBuilder('frais');
+
+        $qb->where('frais.remboursementsFrais is null');
+        
+        $qb->andWhere('frais.statutFrais = :statut')
+                ->setParameter('statut', 'Validé');
+
+        return $qb->getQuery()
+                        ->getResult();
     }
 
 }

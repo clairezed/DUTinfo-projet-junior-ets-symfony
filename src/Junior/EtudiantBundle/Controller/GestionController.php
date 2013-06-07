@@ -10,8 +10,10 @@ use Junior\EtudiantBundle\Entity\Frais;
 use Junior\EtudiantBundle\Entity\Entreprise;
 use Junior\EtudiantBundle\Entity\Convention;
 use Junior\EtudiantBundle\Entity\Participant;
+use Junior\EtudiantBundle\Entity\RemboursementFrais;
 use Junior\EtudiantBundle\Form\EtudiantType;
 use Junior\EtudiantBundle\Form\NewEtudiantType;
+use Junior\EtudiantBundle\Form\NewRemboursementFraisType;
 use Junior\EtudiantBundle\Form\EtudeType;
 use Junior\EtudiantBundle\Form\ChoixEntrepriseType;
 use Junior\EtudiantBundle\Form\ChoixEtudiantRFType;
@@ -268,7 +270,7 @@ bien supprimé');
         if (null === $user) {
             return $this->render('JuniorEtudiantBundle::layout.html.twig');
         } else {
-           $em = $this->getDoctrine()->getManager();
+            $em = $this->getDoctrine()->getManager();
             $form = $this->createForm(new ChoixEtudiantRFType());
             $request = $this->getRequest();
 
@@ -278,21 +280,47 @@ bien supprimé');
 
                 return $this->redirect($this->generateUrl('junior_gestion_newRF', array(
                                     'idEtudiant' => $idEtudiant,
-                    )));
+                )));
             }
             return $this->render('JuniorEtudiantBundle:Gestion:selectEtudiantRF.html.twig', array(
                         'form' => $form->createView()));
         }
-
     }
 
     public function newRFAction($idEtudiant) {
-        
-        
-        return $this->render('JuniorEtudiantBundle:Gestion:newRF.html.twig');
+        $user = $this->getUser();
+
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $rf = new RemboursementFrais;
+            $rf->setDateRemboursement(new \DateTime());
+
+            $em = $this->getDoctrine()->getManager();
+            $etudiant = $em->getRepository('JuniorEtudiantBundle:Etudiant')->findOneById($idEtudiant);
+            var_dump($etudiant);
+            $listFraisNewRF = $em->getRepository('JuniorEtudiantBundle:Frais')
+                    ->findFraisNotInRFbyStudent($idEtudiant);
+            foreach ($listFraisNewRF as $frais) {
+//                    $etudiant = $em->getRepository('JuniorEtudiantBundle:Etudiant')->findOneById($participant);
+                $rf->addFrai($frais);
+                $frais->setRemboursementsFrais($rf);
+                $em->persist($frais);
+            }
+
+            $em->persist($rf);
+            $em->flush();
+        }
+        return $this->render('JuniorEtudiantBundle:Gestion:newRF.html.twig', array(
+                    'rf' => $rf,
+                    'etudiant' => $etudiant,
+                    'idEtudiant' => $idEtudiant
+                
+        ));
     }
 
-    public function showRFAction() {
+    
+    public function showRFAction($idRF) {
         return $this->render('JuniorEtudiantBundle:Gestion:showRF.html.twig');
     }
 

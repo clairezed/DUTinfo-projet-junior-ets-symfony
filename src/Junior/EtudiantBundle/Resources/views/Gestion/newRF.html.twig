@@ -6,4 +6,68 @@
 
 {% block content_gestion %}
 
+<h2>Fiche de remboursement de frais</h2>
+
+<p>Date : {{rf.dateRemboursement|date("d/m/Y")}}</p>
+<p>N° RF : {{rf.id}}</p>
+<p>Nom Etudiant : {{idEtudiant}}</p>
+<p>N° Etudiant : {{idEtudiant}}</p>
+
+
+<div class="row-fluid">
+
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>N° Convention</th>
+                    <th>Date</th>
+                    <th>Montant / Déplacement</th>
+                    <th>Montant / Séjour</th>
+                    <th>Montant / Autres</th>
+                    <th>Total / Convention</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+  
+
+{#
+{% set totalHT = prixTotal + totalRF%}
+{% set montantTVA = totalHT * 19.6/100 %}
+{% set totalTVA = totalHT + montantTVA %}
+
+
+<div class="well">
+    <ul>
+        <li>Montant facture H.T : {{facture.montantHT}} €</li>
+        <li>Montant TVA : {{facture.montantTVA}} €</li>
+        <li>Montant facture TTC : {{facture.montantTTC}} €</li>
+    </ul>
+</div>
+
+<a href="{{ path('junior_gestion_closeEtude', {'idEtude': facture.etude.id}) }}" class="btn btn-info btn-small validButton">
+    <i class="icon-check icon-white"></i>
+    Valider
+</a>
+
+<a href="{{ path('junior_gestion_cancelFacture', {'idFacture': facture.id}) }}" class="btn btn-danger btn-small validButton">
+    <i class="icon-chevron-left icon-white"></i>
+    Annuler
+</a>
+
+#}
+
+
+
+
 {% endblock %} 
