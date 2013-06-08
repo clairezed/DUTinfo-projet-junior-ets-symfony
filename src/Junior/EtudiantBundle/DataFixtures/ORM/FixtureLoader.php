@@ -305,12 +305,23 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $f6->setDateAchat(new \DateTime('2013/06/15'));
         $f6->setStatutFrais('Enregistré');
 
+        $f7 = new Frais();
+        $f7->setEtude($uc_e);
+        $f7->setEtudiant($dupont);
+        $f7->setObjetFrais('500 kg de rutabagas');
+        $f7->setTypeFrais('Séjour');
+        $f7->setMontantFrais('450');
+        $f7->setDateAchat(new \DateTime('2013/06/20'));
+        $f7->setStatutFrais('Enregistré');
+
 
         $manager->persist($f1);
         $manager->persist($f2);
         $manager->persist($f3);
         $manager->persist($f4);
         $manager->persist($f5);
+        $manager->persist($f6);
+        $manager->persist($f7);
         $manager->flush();
 
 

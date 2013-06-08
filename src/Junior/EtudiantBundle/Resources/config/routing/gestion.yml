@@ -71,8 +71,12 @@ junior_gestion_newRF:
     defaults: { _controller: JuniorEtudiantBundle:Gestion:newRF }
     
 junior_gestion_showRF:
-    pattern: /remboursementfrais
+    pattern: /remboursementfrais/{idRF}
     defaults: { _controller: JuniorEtudiantBundle:Gestion:showRF }
+    
+junior_gestion_cancelRF:
+    pattern: /cancelrf/{idRF}
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:cancelRF }
     
 #ETUDES
     

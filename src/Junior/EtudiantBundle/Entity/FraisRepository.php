@@ -81,9 +81,6 @@ class FraisRepository extends EntityRepository {
                 ->setParameter('id', $idEtudiant)
         ;
 
-        
-        
-
         return $qb->getQuery()
                         ->getResult();
     }

@@ -18,7 +18,7 @@ class ChoixEtudiantRFType extends AbstractType {
         $builder
                 ->add('etudiants', 'entity', array(
                     'class' => 'JuniorEtudiantBundle:Frais',
-//                    'multiple' => false,
+                    'multiple' => false,
                     'property' => 'etudiant',
                     'query_builder' => function(FraisRepository $er){
                         return $er->findFraisNotInRF2();
