@@ -85,7 +85,8 @@ body
 
 #content
 {
-    background-color: #EEE;
+    background-color: #f5f5f5; 
+    /*#EEE;*/
 }
 
 
@@ -108,6 +109,15 @@ placeholder
     background-color: #FFF;
 }
 
+.table-striped th {
+  background-color: #0088cc;
+  color:#FFF;
+      /*#4EADCC;*/
+}
+
+.breadcrumb{
+    background-color: #EEE;
+}
 
 /****************************************
     BOUTONS
