@@ -14,8 +14,9 @@
             <tr>
                 <th>Date achat</th>
                 <th>Etude</th>
-                <th>Type frais</th>
-                <th>Montant frais</th>
+                <th>Objet</th>
+                <th>Type</th>
+                <th>Montant</th>
                 <th>Statut</th>
 
             </tr>
@@ -25,6 +26,7 @@
                 <tr>
                     <td>{{ frais.dateAchat|date("d/m/Y") }}</td>
                     <td>{{ frais.etude.nomEtude }}</td>
+                    <td>{{ frais.objetFrais }}</td>
                     <td>{{ frais.typeFrais }}</td>
                     <td>{{ frais.montantFrais }}</td>
                     <td>{{ frais.statutFrais }}</td>

@@ -39,7 +39,9 @@
 <div class="well">
     <form method="post" {{ form_enctype(form) }}>
         <div>
-            {{ form_label(form.typeFrais, "Intitulé du frais :") }}
+            {{ form_label(form.objetFrais, "Objet du frais :") }}
+                {{ form_widget(form.objetFrais) }}
+                {{ form_label(form.typeFrais, "Type :") }}
                 {{ form_widget(form.typeFrais) }}
                 {{ form_label(form.montantFrais, "Montant :") }}
                 {{ form_widget(form.montantFrais) }}
@@ -48,16 +50,16 @@
                 {{ form_label(form.etude, "Etude :") }}
                 {{ form_widget(form.etude) }}
 
-        </div>
+            </div>
 {{ form_widget(form._token) }}
             <input type="submit" class="btn btn-primary" />
-                 <a class="btn btn-danger" href="{{ path('junior_etudiant_listFrais', { 'id': app.user.id }) }}">Annuler</a>
+            <a class="btn btn-danger" href="{{ path('junior_etudiant_listFrais', { 'id': app.user.id }) }}">Annuler</a>
         </form>
-   
+
     </div>
 
     {% else %}
-<p>Vous n'avez aucune étude en cours, enregistrement de frais impossible. </p>
+    <p>Vous n'avez aucune étude en cours, enregistrement de frais impossible. </p>
 
     {% endif %}
 
