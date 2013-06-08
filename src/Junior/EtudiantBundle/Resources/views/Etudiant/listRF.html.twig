@@ -7,30 +7,37 @@
 {% block content_etudiant %}
 
 
-    <h2>Tous mes remboursements de frais</h2>
+<h2>Tous mes remboursements de frais</h2>
 
-    <table class="table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th>N° RF</th>
-                <th>Date</th>
-                <th>Nb frais</th>
-                <th>Montant total</th>
-                <th></th>
+     {% if list_rf[0] == NULL %}
+<p> Aucun remboursement de frais dans la base de données</p>
+                    {% else %}
 
-            </tr>
-        </thead>
-        <tbody>
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>N° RF</th>
+            <th>Date</th>
+            <th>Nb frais</th>
+            <th>Montant total</th>
+            <th></th>
+
+        </tr>
+    </thead>
+    <tbody>
+
         {% for rf in list_rf %}
-                <tr>
-                    <td>{{ rf.id }}</td>
-                    <td>{{ rf.dateRemboursement|date("d/m/Y")}}</td>
-                    <td>{{ rf.frais.count }}</td>
-                    <td>{{ rf.montantTotal }}</td>
-                    <td><a href="{{ path('junior_etudiant_showRembFrais', {'idRF': rf.id}) }}" class="btn btn-primary btn-small">
-                            <i class="icon-search icon-white"></i>
-                            Détail
-                        </a></td>
+        <tr>
+            <td>{{ rf.id }}</td>
+            <td>{{ rf.dateRemboursement|date("d/m/Y")}}</td>
+            <td>{{ rf.frais.count }}</td>
+            <td>{{ rf.montantTotal }}</td>
+            <td>
+                <a href="{{ path('junior_etudiant_showRembFrais', {'idRF': rf.id}) }}" class="btn btn-primary btn-small">
+                    <i class="icon-search icon-white"></i>
+                    Détail
+                </a>
+            </td>
 
                 {#
                 <td>
@@ -44,11 +51,11 @@
                 </ul>
                 </td>
                 #}
-                </tr>
+        </tr>
         {% endfor %}
-            </tbody>
-        </table>
-
+    </tbody>
+</table>
+{%endif%}
 
 
 {% endblock %}

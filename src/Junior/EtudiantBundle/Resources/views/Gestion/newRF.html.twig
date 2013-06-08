@@ -7,7 +7,7 @@
 {% block content_gestion %}
 {% set totalFrais = 0 %}
 
-<h2>Fiche de remboursement de frais</h2>
+<h2>Fiche de remboursement de frais - Aperçu</h2>
 
 <p>Date : {{rf.dateRemboursement|date("d/m/Y")}}</p>
 <p>N° RF : {{rf.id}}</p>
@@ -96,7 +96,7 @@
     </ul>
 </div>
 
-<a href="{{ path('junior_gestion_showRF', {'idRF': rf.id}) }}" class="btn btn-info btn-small validButton">
+<a href="{{ path('junior_gestion_showRF', {'idRF': rf.id, 'idEtudiant': etudiant.id}) }}" class="btn btn-info btn-small validButton">
     <i class="icon-check icon-white"></i>
     Valider
 </a>

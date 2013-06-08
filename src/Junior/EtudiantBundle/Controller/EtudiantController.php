@@ -131,8 +131,7 @@ class EtudiantController extends Controller {
         if (null === $user) {
             return $this->render('JuniorEtudiantBundle::layout.html.twig');
         } else {
-            $id = $user->getId();
-
+           $id = $user->getId();
             $em = $this->getDoctrine()->getManager();
 
             $entity = $em->getRepository('JuniorEtudiantBundle:Etudiant')->find($id);
@@ -141,7 +140,7 @@ class EtudiantController extends Controller {
                 throw $this->createNotFoundException('Unable to find Etudiant entity.');
             }
 
-            $editForm = $this->createForm(new EtudiantType($id), $entity);
+             $editForm = $this->createForm(new EtudiantType($id), $entity);
             $editForm->bind($request);
 
             if ($editForm->isValid()) {

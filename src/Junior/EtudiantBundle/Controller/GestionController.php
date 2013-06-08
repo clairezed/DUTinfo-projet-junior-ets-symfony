@@ -221,10 +221,12 @@ bien supprimé');
             $em = $this->getDoctrine()->getManager();
             $listFraisEnregistrés = $em->getRepository('JuniorEtudiantBundle:Frais')->findFraisByStatut('Enregistré');
             $listFraisNotInRF = $em->getRepository('JuniorEtudiantBundle:Frais')->findFraisNotInRF();
+            $list_rf = $em->getRepository('JuniorEtudiantBundle:RemboursementFrais')->findAll();
         }
         return $this->render('JuniorEtudiantBundle:Gestion:listFrais.html.twig', array(
                     'listFraisEnregistrés' => $listFraisEnregistrés,
-                    'listFraisNotInRF' => $listFraisNotInRF
+                    'listFraisNotInRF' => $listFraisNotInRF,
+                    'list_rf' => $list_rf
         ));
     }
 
@@ -332,8 +334,26 @@ bien supprimé');
         ));
     }
 
-    public function showRFAction($idRF) {
-        return $this->render('JuniorEtudiantBundle:Gestion:showRF.html.twig');
+    public function showRFAction($idRF, $idEtudiant) {
+        $user = $this->getUser();
+        
+        var_dump($idRF);
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $rf = $em->getRepository('JuniorEtudiantBundle:RemboursementFrais')->findOneById($idRF);
+            $etudiant = $em->getRepository('JuniorEtudiantBundle:Etudiant')->findOneById($idEtudiant);
+            $listFrais = $rf->getFrais();
+            $listEtudes = $em->getRepository('JuniorEtudiantBundle:Etude')
+                    ->findEtudesbyStudent($idEtudiant);
+        }
+        return $this->render('JuniorEtudiantBundle:Gestion:showRF.html.twig', array(
+                    'rf' => $rf,
+                    'etudiant' => $etudiant,
+                    'listFrais' => $listFrais,
+                    'listEtudes' => $listEtudes
+        ));
     }
 
     public function cancelRFAction($idRF) {
@@ -353,6 +373,22 @@ bien supprimé');
             $em->flush();
 
             return $this->redirect($this->generateUrl('junior_gestion_listFrais'));
+        }
+    }
+
+    public function listRFAction() {
+        $user = $this->getUser();
+
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $em = $this->getDoctrine()->getEntityManager();
+
+            $list_rf = $em->getRepository('JuniorEtudiantBundle:RemboursementFrais')->findAll();
+
+            return $this->render('JuniorEtudiantBundle:Gestion:listRF.html.twig', array(
+                        'list_rf' => $list_rf
+            ));
         }
     }
 
