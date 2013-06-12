@@ -7,6 +7,7 @@ use Junior\EtudiantBundle\Entity\Etudiant;
 use Junior\EtudiantBundle\Entity\Etude;
 use Junior\EtudiantBundle\Entity\Facture;
 use Junior\EtudiantBundle\Entity\Frais;
+use Junior\EtudiantBundle\Entity\Indemnites;
 use Junior\EtudiantBundle\Entity\Entreprise;
 use Junior\EtudiantBundle\Entity\Convention;
 use Junior\EtudiantBundle\Entity\Participant;
@@ -472,6 +473,7 @@ bien supprimé');
         } else {
             $em = $this->getDoctrine()->getManager();
             $etude = $em->getRepository('JuniorEtudiantBundle:Etude')->findOneById($idEtude);
+            $nbParticipants = 0;
 
             $form = $this->createForm(new GroupeType());
             $request = $this->getRequest();
@@ -479,6 +481,10 @@ bien supprimé');
             if ($request->getMethod() == 'POST') {
                 $postData = $request->request->get('junior_etudiantbundle_groupetype');
                 $participants = $postData['participants'];
+                
+                foreach ($participants as $participant) {
+                    $nbParticipants++;
+                }
 
                 foreach ($participants as $participant) {
                     $etudiant = $em->getRepository('JuniorEtudiantBundle:Etudiant')->findOneById($participant);
@@ -486,6 +492,13 @@ bien supprimé');
                     $membre->setEtude($etude);
                     $membre->setEtudiant($etudiant);
                     $membre->setStatutEtudiant("Participant");
+                    $indemnite = new Indemnites();
+                    $indemnite->setEtude($etude);
+                    $indemnite->setEtudiant($etudiant);
+                    $indemnite->setRetenue(5);
+                    $indemnite->setNbJours($etude->getNbJoursEtude() / $nbParticipants);
+                    $indemnite->setIndemniteJournee($etude->getPrixJournee() / $nbParticipants);
+                    $em->persist($indemnite);
                     $em->persist($membre);
                     $em->flush();
                 }
