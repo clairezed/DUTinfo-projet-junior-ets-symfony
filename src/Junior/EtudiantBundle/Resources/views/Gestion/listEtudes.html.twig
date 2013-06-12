@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content_gestion %}
-
+<h2>Etudes</h2>
 {% for flashMessage in app.session.flashbag.get('info') %}
     <div class="alert alert-info">
         {{ flashMessage }}

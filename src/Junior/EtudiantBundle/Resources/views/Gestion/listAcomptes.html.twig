@@ -7,14 +7,14 @@
 {% block content_gestion %}
 
 {% for flashMessage in app.session.flashbag.get('info') %}
-    <div class="alert alert-info">
+<div class="alert alert-info">
         {{ flashMessage }}
         <button type="button" class="close" data-dismiss="alert">&times;</button>
     </div>
 {% endfor %}
 
-<div class="container-fluid">    
-    <h2>Acomptes en attente</h2>
+    <div class="container-fluid">    
+        <h2>Acomptes en attente</h2>
     {% if listAcomptesEnCours|length > 0 %}
         <table class="table table-striped table-bordered">
             <thead>
@@ -43,46 +43,46 @@
                         </td>
                     </tr>
                 {% endfor %}
-            </tbody>
-        </table>
+                </tbody>
+            </table>
     {% else %}
-        <p> Aucun acompte en attente </p>
+            <p> Aucun acompte en attente </p>
     {% endif %}
-
-    <h2>Acomptes validés</h2>
+            <hr>
+            <h2>Acomptes validés</h2>
     {% if listAcomptesValides|length > 0 %}
-        <table class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>N°</th>
-                    <th>Nom Etudiant</th>
-                    <th>Etude</th>
-                    <th>Montant</th>
-                    <th>Date</th>
-                    <th>Statut</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for acompte in listAcomptesValides %}
+            <table class="table table-striped table-bordered">
+                <thead>
                     <tr>
-                        <td>{{ acompte.id }}</td>
-                        <td>{{ acompte.indemnite.etudiant.nomEtudiant }}</td>
-                        <td>{{ acompte.indemnite.etude.nomEtude }}</td>
-                        <td>{{ acompte.montantAcompte }}</td>
-                        <td>{{ acompte.dateAcompte|date("d/m/Y") }}</td>
-                        <td>
-                            <a href="#" class="btn btn-info btn-small">
-                                <i class="icon-file icon-white"></i>
-                                Afficher le bulletin
-                            </a>
-                        </td>
+                        <th>N°</th>
+                        <th>Nom Etudiant</th>
+                        <th>Etude</th>
+                        <th>Montant</th>
+                        <th>Date</th>
+                        <th>Statut</th>
                     </tr>
+                </thead>
+                <tbody>
+                {% for acompte in listAcomptesValides %}
+                        <tr>
+                            <td>{{ acompte.id }}</td>
+                            <td>{{ acompte.indemnite.etudiant.nomEtudiant }}</td>
+                            <td>{{ acompte.indemnite.etude.nomEtude }}</td>
+                            <td>{{ acompte.montantAcompte }}</td>
+                            <td>{{ acompte.dateAcompte|date("d/m/Y") }}</td>
+                            <td>
+                                <a href="#" class="btn btn-info btn-small">
+                                    <i class="icon-file icon-white"></i>
+                                    Afficher le bulletin
+                                </a>
+                            </td>
+                        </tr>
                 {% endfor %}
-            </tbody>
-        </table>
+                    </tbody>
+                </table>
     {% else %}
-        <p> Aucun acompte validé </p>
+                <p> Aucun acompte validé </p>
     {% endif %}
-</div>
-  
+            </div>
+
 {% endblock %} 
