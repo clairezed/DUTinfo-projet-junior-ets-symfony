@@ -36,7 +36,7 @@ time, mark, audio, video {
 
 body
 {
-    background-color: #DDD;
+    background-color: #EEE;
 }
 
 /****************************************
@@ -44,7 +44,8 @@ body
 *******************************************/
 #header
 {
-    background-color: #CCC;
+    background-color: #0088cc;
+    /*#CCC;*/
     display:inline-block;
     width:100%;
 }
@@ -52,17 +53,33 @@ body
 #logo
 {
     float:left;
-    margin-right: 10px;
+    margin-left:2%;
+    color: #FFF;
 }
 
 #user-tools
 {
     float:right;
-    
+    color: white;
+    margin-right: 2%;
 }
 
+#user-tools a
+{
+    /*float:right;*/
+    color: #EEE;
+}
 
+hr
+{
+   border-bottom-color:  #0088cc;
+   border-top-color: #0088cc;
+}
 
+footer p
+{
+    margin-left:2%;
+}
 
 /****************************************
     SIDE MENU
@@ -89,6 +106,49 @@ body
     /*#EEE;*/
 }
 
+/****************************************
+    LOGIN
+*******************************************/
+#foslogin
+{
+    width: 17%;
+    margin:auto;
+    margin-top: 5%;
+    margin-bottom: 3%;
+    padding: 1%;
+    padding-bottom: 0.1%;
+    /*text-align: center;*/
+    /*border: 1px solid black;*/
+    background-color: #0088cc;
+    font-weight: bolder;
+}
+
+#remember_me
+{
+    /*padding-right: 2%;*/
+    margin-right: 8%;
+}
+
+#foslogin label
+{
+    font-weight: bolder;
+    color: white;
+}
+
+#checkbox-login label
+{
+    font-weight: normal;
+}
+
+#_submit
+{
+    margin-top: 8%;
+    /*padding-bottom: 1%;*/
+}
+
+input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0px 1000px white inset;
+    }
 
 /****************************************
     SURCHARGE BOOTSTRAP
@@ -110,9 +170,9 @@ placeholder
 }
 
 .table-striped th {
-  background-color: #0088cc;
-  color:#FFF;
-      /*#4EADCC;*/
+    background-color: #0088cc;
+    color:#FFF;
+    /*#4EADCC;*/
 }
 
 .breadcrumb{
@@ -125,5 +185,5 @@ placeholder
 
 #validButton
 {
-	margin-top:10px;
+    margin-top:10px;
 }

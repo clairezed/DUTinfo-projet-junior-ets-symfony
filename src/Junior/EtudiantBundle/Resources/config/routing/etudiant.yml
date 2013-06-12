@@ -52,35 +52,3 @@ junior_etudiant_newAcompte:
     pattern:  /{idEtude}/acompte/new
     defaults: { _controller: "JuniorEtudiantBundle:Etudiant:newAcompte" }
 
-
-#routes generees par le crud etudiant, pour info et exemple
-#etudiant:
-#    pattern:  /
-#    defaults: { _controller: "JuniorEtudiantBundle:Etudiant:index" }
-#
-#etudiant_show:
-#    pattern:  /{id}/show
-#    defaults: { _controller: "JuniorEtudiantBundle:Etudiant:show" }
-#
-#etudiant_new:
-#    pattern:  /new
-#    defaults: { _controller: "JuniorEtudiantBundle:Etudiant:new" }
-#
-#etudiant_create:
-#    pattern:  /create
-#    defaults: { _controller: "JuniorEtudiantBundle:Etudiant:create" }
-#    requirements: { _method: post }
-#
-#etudiant_edit:
-#    pattern:  /{id}/edit
-#    defaults: { _controller: "JuniorEtudiantBundle:Etudiant:edit" }
-#
-#etudiant_update:
-#    pattern:  /{id}/update
-#    defaults: { _controller: "JuniorEtudiantBundle:Etudiant:update" }
-#    requirements: { _method: post|put }
-#
-#etudiant_delete:
-#    pattern:  /{id}/delete
-#    defaults: { _controller: "JuniorEtudiantBundle:Etudiant:delete" }
-#    requirements: { _method: post|delete }

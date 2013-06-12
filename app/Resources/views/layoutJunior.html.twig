@@ -8,9 +8,11 @@
         <link rel="stylesheet" href="{{ asset('css/layoutJunior.css') }}"type="text/css" />
         {% endblock %}
     </head>
+
     <body>
-        <div class="container-fluid">
-            <div id="header">
+
+        <div class="navbar navbar-static-top">
+            <div id="header" >
                 <div id="logo">
                     <h1>Junior Entreprise</h1>
                 </div>
@@ -23,7 +25,8 @@
 
                     </div>
                 </div>
-
+            </div>
+            <div class="container-fluid">
                 <div class="row-fluid">
                  {% block body %} {% endblock %}
 
