@@ -128,5 +128,16 @@ class RemboursementFrais {
         return $total;
     }
     
+     public function etudiant() {
+        $listFrais = $this->frais;
+        $frais = $listFrais[0];
+        $etudiant = $frais->getEtudiant();
+//        foreach ($listFrais as $frais) {
+//            $total+=$frais->getMontantFrais();
+//        }
+
+        return $etudiant;
+    }
+    
     
 }

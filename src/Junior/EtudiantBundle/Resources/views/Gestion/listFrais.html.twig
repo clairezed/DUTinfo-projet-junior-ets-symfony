@@ -124,17 +124,15 @@
             {% for rf in list_rf %}
             <tr>
                 <td>{{ rf.id }}</td>
-                <td>Nom</td>
+                <td>{{ rf.etudiant.nomEtudiant }}</td>
                 <td>{{ rf.dateRemboursement|date("d/m/Y")}}</td>
                 <td>{{ rf.frais.count }}</td>
                 <td>{{ rf.montantTotal }}</td>
-                <td>
-                    {#
-                    <a href="{{ path('junior_gestion_showRF', {'idRF': rf.id}) }}" class="btn btn-primary btn-small">
+                <td>                 
+                    <a href="{{ path('junior_gestion_showRF', {'idRF': rf.id, 'idEtudiant' : rf.etudiant.id}) }}" class="btn btn-primary btn-small">
                         <i class="icon-search icon-white"></i>
                         Détail
                     </a>
-#}
                 </td>
             </tr>
             {% endfor %}
