@@ -1,3 +1,5 @@
+{# layout surchargeant la page login de fosUserBundle #}
+
 {% extends "::layoutJunior.html.twig"%}
 
 {% block title %}
@@ -25,7 +27,7 @@
                 <label for="remember_me">{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}</label>
             </div>
 
-            <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
+            <input class="btn" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
         </form>
         <div>
     {#
