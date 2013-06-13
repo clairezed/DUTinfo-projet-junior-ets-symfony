@@ -5,10 +5,12 @@
 {% endblock %}
 
 {% block content_gestion %}
-
 {% set total = etude.nbJoursEtude * etude.prixJournee %}
 
-<h2>Etude</h2>
+<div  class="container-fluid docref">
+
+
+<h2>Fiche convention</h2>
 <div class="well">
     <ul class="inline">
         <li>N° : <span class="label">{{ etude.id }}</span></li>
@@ -52,10 +54,11 @@
         </table>
     </div>
 {% else %}
-    <p>Aucun étudiant ne participe à cette étude<p>
+    <p>Aucun étudiant ne participe à cette étude</p>
 {% endif %}
 <a class="btn btn-primary validButton" href="{{ path('junior_gestion_listEtudes') }}">Retour à la liste</a>
-{#
 <a class="btn btn-primary validButton" href="{{ path('junior_gestion_showConvention', {'idEtude': etude.id}) }}">Voir convention</a>
-#}
+
+    </div>
+
 {% endblock %} 

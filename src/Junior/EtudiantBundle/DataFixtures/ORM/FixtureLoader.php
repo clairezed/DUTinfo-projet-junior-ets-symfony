@@ -167,9 +167,9 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $dspr_e2f = new Facture();
         $dspr_e2f->setEtude($dspr_e2);
         $dspr_e2f->setCoutEtude('7500');
-        $dspr_e2f->setMontantHT('7500');
-        $dspr_e2f->setMontantTVA('1470');
-        $dspr_e2f->setMontantTTC('8970');
+        $dspr_e2f->setMontantHT('9532');
+        $dspr_e2f->setMontantTVA('1868');
+        $dspr_e2f->setMontantTTC('11400');
 
         $manager->persist($dspr_e2f);
         $manager->flush();

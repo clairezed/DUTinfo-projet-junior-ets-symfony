@@ -7,11 +7,35 @@
 {% block content_gestion %}
 
 <h2>Nouvelle entreprise</h2>
-<div class="well">
+
     <form method="post" {{ form_enctype(form) }}>
+        
+        <div>
+            {{ form_label(form.nomEntreprise, "Nom de l'entreprise :") }}
+
+            {{ form_errors(form.nomEntreprise) }}
+                
+            {{ form_widget(form.nomEntreprise) }}
+        </div>
+                <div>
+            {{ form_label(form.adresseEntreprise, "Adresse de l'entreprise :") }}
+
+            {{ form_errors(form.adresseEntreprise) }}
+                
+            {{ form_widget(form.adresseEntreprise) }}
+        </div>
+                     <div>
+            {{ form_label(form.telEntreprise, "Téléphone de l'entreprise :") }}
+
+            {{ form_errors(form.telEntreprise) }}
+                
+            {{ form_widget(form.telEntreprise) }}
+        </div>
+        
+        
         {{ form_widget(form) }}
         <input type="submit" class="btn validButton btn-primary" value="Valider"/>
     </form>
-</div>
+
 
 {% endblock %} 

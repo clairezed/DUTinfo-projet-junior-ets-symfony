@@ -102,9 +102,7 @@ class GestionController extends Controller {
                 $em->flush();
                 $this->get('session')->getFlashBag()->add('info', 'L\'étudiant
 a bien été créé');
-                return $this->redirect($this->generateUrl('junior_gestion_showEtudiant', array(
-                                    'idEtudiant' => $etudiant->getId(),
-                )));
+                return $this->redirect($this->generateUrl('junior_gestion_listEtudiants'));
             }
         }
         return $this->render('JuniorEtudiantBundle:Gestion:newEtudiant.html.twig', array(
