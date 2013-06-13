@@ -34,6 +34,32 @@ class IndemnitesRepository extends EntityRepository
         return $totalAcomptes;
     }
     
-  
+  public function findIndembyEtudiantAndEtude($idEtudiant, $idEtude)
+  {
+        $qb = $this->createQueryBuilder('indem')
+//                ->leftJoin('e.participants', 'part')
+//                ->addSelect('part')
+//                ->leftJoin('part.etudiant', 'etudiant')
+//                ->addSelect('etudiant')
+                ;
+
+        $qb->where('indem.etudiant = :etudiant')
+                ->setParameter('etudiant', $idEtudiant)
+                ->andWhere('indem.etude = :etude')
+                ->setParameter('etude', $idEtude)
+        ;
+        
+//        $indemEntity =  $qb
+//                ->getQuery()
+//                        ->getResult();
+//        $indem = $indemEntity->getNbJours() * $indemEntity->getIndemniteJournee();
+//        
+//                return $indem;
+                
+        return $qb
+                ->getQuery()
+                        ->getResult()
+        ;
+  }
     
 }

@@ -66,14 +66,21 @@ class GestionController extends Controller {
         if ($etudiant === null) {
             throw $this->createNotFoundException('Oups, y a un soucis pour trouver l\étudiant [id=' . $idEtudiant . '].');
         }
-//        $etudes = $em->getRepository('JuniorEtudiantBundle:Etude')->findEtudesbyStudent($idEtudiant);
+        $cpt = 0;
+        $indemnites = array(NULL);
         $participants = $em->getRepository('JuniorEtudiantBundle:Participant')->findParticipantsbyEtudiant($idEtudiant);
+        foreach ($participants as $participant) {
+            $idEtudiant = $participant->getEtudiant()->getId();
+            $idEtude = $participant->getEtude()->getId();   
+            $indemnites[$cpt] = $em->getRepository('JuniorEtudiantBundle:Indemnites')-> findOneBy(array('etudiant' => $idEtudiant, 'etude' => $idEtude));
+            $indemnites[$cpt] = $indemnites[$cpt]->getNbJours() * $indemnites[$cpt]->getIndemniteJournee();
+            $cpt++;
+        }
+
         return $this->render('JuniorEtudiantBundle:Gestion:showEtudiant.html.twig', array(
-//                    'idEtudiant' => $etudiant->getId(),
                     'etudiant' => $etudiant,
-//                    'etudes' => $etudes,
                     'participants' => $participants,
-//            'etudeRepository' => $em->getRepository('JuniorEtudiantBundle:Etude'),
+                    'indemnites'    => $indemnites,
         ));
     }
 
@@ -337,7 +344,7 @@ bien supprimé');
 
     public function showRFAction($idRF, $idEtudiant) {
         $user = $this->getUser();
-        
+
         var_dump($idRF);
         if (null === $user) {
             return $this->render('JuniorEtudiantBundle::layout.html.twig');
@@ -434,7 +441,10 @@ bien supprimé');
         }
 
         return $this->render('JuniorEtudiantBundle:Gestion:showEtude.html.twig', array(
-                    'etude' => $etude, 'entreprise' => $entreprise, 'etudiants' => $etudiants, 'statuts' => $statuts));
+                    'etude' => $etude,
+                    'entreprise' => $entreprise,
+                    'etudiants' => $etudiants,
+                    'statuts' => $statuts));
     }
 
     public function newEtudeAction($idConvention) {
@@ -481,7 +491,7 @@ bien supprimé');
             if ($request->getMethod() == 'POST') {
                 $postData = $request->request->get('junior_etudiantbundle_groupetype');
                 $participants = $postData['participants'];
-                
+
                 foreach ($participants as $participant) {
                     $nbParticipants++;
                 }

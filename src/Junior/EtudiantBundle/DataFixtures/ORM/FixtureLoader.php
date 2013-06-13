@@ -332,58 +332,58 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $i1 = new Indemnites();
         $i1->setEtude($uc_e);
         $i1->setEtudiant($dupont);
-        $i1->setNbJours('75');
+        $i1->setNbJours('5');
         $i1->setRetenue('5');
-        $i1->setIndemniteJournee('50');
+        $i1->setIndemniteJournee('200');
 
         $i2 = new Indemnites();
         $i2->setEtude($uc_e);
         $i2->setEtudiant($durand);
-        $i2->setNbJours('75');
+        $i2->setNbJours('55');
         $i2->setRetenue('5');
-        $i2->setIndemniteJournee('50');
+        $i2->setIndemniteJournee('200');
 
         $i3 = new Indemnites();
         $i3->setEtude($uc_e);
         $i3->setEtudiant($duchmol);
-        $i3->setNbJours('75');
+        $i3->setNbJours('5');
         $i3->setRetenue('5');
-        $i3->setIndemniteJournee('50');
+        $i3->setIndemniteJournee('200');
 
         $i4 = new Indemnites();
         $i4->setEtude($dspr_e);
         $i4->setEtudiant($duchmol);
-        $i4->setNbJours('120');
+        $i4->setNbJours('8');
         $i4->setRetenue('6');
-        $i4->setIndemniteJournee('60');
+        $i4->setIndemniteJournee('300');
 
         $i5 = new Indemnites();
         $i5->setEtude($dspr_e);
         $i5->setEtudiant($durand);
-        $i5->setNbJours('120');
+        $i5->setNbJours('12');
         $i5->setRetenue('6');
-        $i5->setIndemniteJournee('60');
+        $i5->setIndemniteJournee('300');
 
         $i6 = new Indemnites();
         $i6->setEtude($dspr_e);
         $i6->setEtudiant($dupont);
-        $i6->setNbJours('120');
+        $i6->setNbJours('8');
         $i6->setRetenue('6');
-        $i6->setIndemniteJournee('60');
+        $i6->setIndemniteJournee('300');
 
         $i7 = new Indemnites();
         $i7->setEtude($dspr_e2);
         $i7->setEtudiant($dupont);
-        $i7->setNbJours('40');
+        $i7->setNbJours('15');
         $i7->setRetenue('4');
-        $i7->setIndemniteJournee('50');
+        $i7->setIndemniteJournee('300');
 
         $i8 = new Indemnites();
         $i8->setEtude($dspr_e2);
         $i8->setEtudiant($durand);
-        $i8->setNbJours('40');
+        $i8->setNbJours('10');
         $i8->setRetenue('4');
-        $i8->setIndemniteJournee('50');
+        $i8->setIndemniteJournee('300');
 
         $manager->persist($i1);
         $manager->persist($i2);
