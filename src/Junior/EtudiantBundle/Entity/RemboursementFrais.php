@@ -128,6 +128,7 @@ class RemboursementFrais {
         return $total;
     }
     
+    // returns etudiant's Entity who owns the RF
      public function etudiant() {
         $listFrais = $this->frais;
         $frais = $listFrais[0];

@@ -247,7 +247,7 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
 
 
         $f1 = new Frais();
-        $f1->setEtude($dspr_e);
+        $f1->setEtude($dspr_e2);
         $f1->setEtudiant($durand);
         $f1->setTypeFrais('Autre');
         $f1->setObjetFrais('Materiel de laboratoire');
@@ -258,7 +258,7 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
 
 
         $f2 = new Frais();
-        $f2->setEtude($dspr_e);
+        $f2->setEtude($dspr_e2);
         $f2->setEtudiant($durand);
         $f2->setObjetFrais('Nourriture galactique standard');
         $f2->setTypeFrais('Séjour');
@@ -406,9 +406,23 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $a2->setDateAcompte(new \DateTime('2013/03/13'));
         $a2->setMontantAcompte('280.5');
         $a2->setStatutAcompte('Validé');
+        
+        $a3 = new Acompte();
+        $a3->setIndemnite($i7);
+        $a3->setDateAcompte(new \DateTime('2013/03/13'));
+        $a3->setMontantAcompte('150');
+        $a3->setStatutAcompte('Validé');
+        
+        $a4 = new Acompte();
+        $a4->setIndemnite($i7);
+        $a4->setDateAcompte(new \DateTime('2013/04/13'));
+        $a4->setMontantAcompte('250');
+        $a4->setStatutAcompte('Validé');
 
         $manager->persist($a1);
         $manager->persist($a2);
+        $manager->persist($a3);
+        $manager->persist($a4);
         $manager->flush();
     }
 

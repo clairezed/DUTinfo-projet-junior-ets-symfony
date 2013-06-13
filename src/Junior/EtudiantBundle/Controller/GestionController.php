@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Junior\EtudiantBundle\Entity\Etudiant;
 use Junior\EtudiantBundle\Entity\Etude;
 use Junior\EtudiantBundle\Entity\Facture;
-use Junior\EtudiantBundle\Entity\Frais;
+//use Junior\EtudiantBundle\Entity\Frais;
 use Junior\EtudiantBundle\Entity\Indemnites;
 use Junior\EtudiantBundle\Entity\Entreprise;
 use Junior\EtudiantBundle\Entity\Convention;
@@ -14,7 +14,7 @@ use Junior\EtudiantBundle\Entity\Participant;
 use Junior\EtudiantBundle\Entity\RemboursementFrais;
 use Junior\EtudiantBundle\Form\EtudiantType;
 use Junior\EtudiantBundle\Form\NewEtudiantType;
-use Junior\EtudiantBundle\Form\NewRemboursementFraisType;
+//use Junior\EtudiantBundle\Form\NewRemboursementFraisType;
 use Junior\EtudiantBundle\Form\EtudeType;
 use Junior\EtudiantBundle\Form\ChoixEntrepriseType;
 use Junior\EtudiantBundle\Form\ChoixEtudiantRFType;
@@ -216,9 +216,9 @@ bien supprimé');
         return $this->render('JuniorEtudiantBundle:Gestion:showAcompte.html.twig');
     }
 
-    /*     * ************************************************
+    /**************************************************
      * Actions de manipulation des infos FRAIS
-     * ************************************************* */
+     * **************************************************/
 
     public function listFraisAction() {
         $user = $this->getUser();
@@ -286,12 +286,10 @@ bien supprimé');
 
             if ($request->getMethod() == 'POST') {
                 $postData = $request->request->get('junior_etudiantbundle_choixetudiantrftype');
-//                $idEtudiant = $postData['etudiants'];
 
                 $idFrais = $postData['etudiants'];
                 $frais = $em->getRepository('JuniorEtudiantBundle:Frais')->findOneById($idFrais);
                 $idEtudiant = $frais->getEtudiant()->getId();
-//                var_dump($idEtudiant);
 
                 return $this->redirect($this->generateUrl('junior_gestion_newRF', array(
                                     'idEtudiant' => $idEtudiant,
@@ -337,7 +335,6 @@ bien supprimé');
                     'rf' => $rf,
                     'etudiant' => $etudiant,
                     'listFrais' => $listFraisNewRF,
-//                    'numsConv' => $conventions,
                     'listEtudes' => $listEtudes
         ));
     }
@@ -345,7 +342,6 @@ bien supprimé');
     public function showRFAction($idRF, $idEtudiant) {
         $user = $this->getUser();
 
-        var_dump($idRF);
         if (null === $user) {
             return $this->render('JuniorEtudiantBundle::layout.html.twig');
         } else {
