@@ -18,7 +18,7 @@
     <h2>Modifier l'étudiant  {{ etudiant.numEtudiant }}</h2>
     <form method="post" {{ form_enctype(form) }}>
         <div>
-            {{ form_label(form.numEtudiant, "Nom :") }}
+            {{ form_label(form.numEtudiant, "Numéro étudiant :") }}
 
             {{ form_errors(form.numEtudiant) }}
 
