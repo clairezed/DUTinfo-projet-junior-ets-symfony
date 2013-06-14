@@ -19,7 +19,7 @@ class Etude
     private $facture;
     
     /**
-     * @ORM\OneToOne(targetEntity="Junior\EtudiantBundle\Entity\Convention", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Junior\EtudiantBundle\Entity\Convention", mappedBy="etude")
      */
     private $convention;
     
@@ -233,7 +233,7 @@ class Etude
     public function setConvention(\Junior\EtudiantBundle\Entity\Convention $convention = null)
     {
         $this->convention = $convention;
-
+        $convention->setEtude($this);
         return $this;
     }
 
