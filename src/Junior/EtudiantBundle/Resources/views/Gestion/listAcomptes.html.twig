@@ -68,12 +68,12 @@
                             <td>{{ acompte.id }}</td>
                             <td>{{ acompte.indemnite.etudiant.nomEtudiant }}</td>
                             <td>{{ acompte.indemnite.etude.nomEtude }}</td>
-                            <td>{{ acompte.montantAcompte }}</td>
+                            <td>{{ acompte.montantAcompte }} €</td>
                             <td>{{ acompte.dateAcompte|date("d/m/Y") }}</td>
                             <td>
-                                <a href="#" class="btn btn-info btn-small">
-                                    <i class="icon-file icon-white"></i>
-                                    Afficher le bulletin
+                                <a href="#" class="btn btn-warning btn-small">
+                                    <i class="icon-ban-circle icon-white"></i>
+                                    Acompte déjà validé
                                 </a>
                             </td>
                         </tr>

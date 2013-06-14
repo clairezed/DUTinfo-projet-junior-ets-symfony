@@ -23,7 +23,7 @@
     <ul class="inline">
         <li>Durée : <span class="label">{{ indemnites.nbJours }} jours</span></li>
         <li>Date de fin prévue : <span class="label">{{ etude.dateFinPrevue|date('d/m/Y') }}</li>
-        <li>Prix par jour : <span class="label">{{ indemnites.indemniteJournee }} €</span></li>
+        <li>Indemnité par jour : <span class="label">{{ indemnites.indemniteJournee }} €</span></li>
         <li>Total : <span class="label">{{ total }} €</span></li>
     </ul>
 </div>
@@ -46,7 +46,7 @@
                 <tr>
                     <td>{{ acompte.id }}</td>
                     <td>{{ acompte.dateAcompte|date("d/m/Y") }}</td>
-                    <td>{{ acompte.montantAcompte }}</td>
+                    <td>{{ acompte.montantAcompte }} €</td>
                     <td>{{ acompte.statutAcompte }}</td>
                 </tr>
             {% endfor %}

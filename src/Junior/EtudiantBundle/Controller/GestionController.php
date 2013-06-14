@@ -501,7 +501,7 @@ bien supprimé');
                     $indemnite->setEtudiant($etudiant);
                     $indemnite->setRetenue(5);
                     $indemnite->setNbJours($etude->getNbJoursEtude() / $nbParticipants);
-                    $indemnite->setIndemniteJournee($etude->getPrixJournee() / $nbParticipants);
+                    $indemnite->setIndemniteJournee($etude->getPrixJournee());
                     $em->persist($indemnite);
                     $em->persist($membre);
                     $em->flush();
