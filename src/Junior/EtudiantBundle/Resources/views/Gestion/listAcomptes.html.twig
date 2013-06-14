@@ -59,7 +59,7 @@
                         <th>Etude</th>
                         <th>Montant</th>
                         <th>Date</th>
-                        <th>Statut</th>
+                  
                     </tr>
                 </thead>
                 <tbody>
@@ -70,12 +70,7 @@
                             <td>{{ acompte.indemnite.etude.nomEtude }}</td>
                             <td>{{ acompte.montantAcompte }} €</td>
                             <td>{{ acompte.dateAcompte|date("d/m/Y") }}</td>
-                            <td>
-                                <a href="#" class="btn btn-warning btn-small">
-                                    <i class="icon-ban-circle icon-white"></i>
-                                    Acompte déjà validé
-                                </a>
-                            </td>
+                           
                         </tr>
                 {% endfor %}
                     </tbody>

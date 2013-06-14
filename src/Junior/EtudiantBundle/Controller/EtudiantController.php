@@ -10,6 +10,7 @@ use Junior\EtudiantBundle\Entity\Participant;
 use Junior\EtudiantBundle\Entity\Frais;
 use Junior\EtudiantBundle\Form\EtudiantType;
 use Junior\EtudiantBundle\Form\Etudiant2Type; // type specifique pour selectEtude
+use Junior\EtudiantBundle\Form\Etudiant3Type;
 use Junior\EtudiantBundle\Form\EtudeType;
 use Junior\EtudiantBundle\Form\AcompteType;
 use Junior\EtudiantBundle\Form\FraisType;
@@ -111,7 +112,19 @@ class EtudiantController extends Controller {
                 throw $this->createNotFoundException('Unable to find Etudiant entity.');
             }
 
-            $editForm = $this->createForm(new EtudiantType($id), $entity);
+            $editForm = $this->createForm(new Etudiant3Type($id), $entity);
+            $request = $this->getRequest();
+
+            if (($request->getMethod() == 'POST')) {
+                $editForm->bind($request);
+                if ($editForm->isValid()) {
+                    $em->persist($entity);
+                    $em->flush();
+                    $this->get('session')->getFlashBag()->add('info', 'Vos informations ont bien été modifiées');
+
+                    return $this->redirect($this->generateUrl('junior_etudiant_showEtudiant'));
+                }
+            }
 
             return $this->render('JuniorEtudiantBundle:Etudiant:editEtudiant.html.twig', array(
                         'entity' => $entity,
@@ -131,7 +144,7 @@ class EtudiantController extends Controller {
         if (null === $user) {
             return $this->render('JuniorEtudiantBundle::layout.html.twig');
         } else {
-           $id = $user->getId();
+            $id = $user->getId();
             $em = $this->getDoctrine()->getManager();
 
             $entity = $em->getRepository('JuniorEtudiantBundle:Etudiant')->find($id);
@@ -140,7 +153,7 @@ class EtudiantController extends Controller {
                 throw $this->createNotFoundException('Unable to find Etudiant entity.');
             }
 
-             $editForm = $this->createForm(new EtudiantType($id), $entity);
+            $editForm = $this->createForm(new EtudiantType($id), $entity);
             $editForm->bind($request);
 
             if ($editForm->isValid()) {
@@ -269,7 +282,6 @@ class EtudiantController extends Controller {
 
             $etudiant = $em->getRepository('JuniorEtudiantBundle:Etudiant')->find($id);
             $listeParticipations = $etudiant->getParticipants(); //On récupère la liste des entrées de la table participation correspondant à cet étudiant
-
 //            foreach ($listeParticipations as $participation) { //Pour chaque entrée dans la liste, on récupère l'étude associée et le statut de l'étudiant pour celle-ci
 //                $listeEtudes[$cpt] = $participation->getEtude();
 //                $listeStatuts[$cpt] = $participation->getStatutEtudiant();
@@ -339,14 +351,14 @@ class EtudiantController extends Controller {
             return $this->render('JuniorEtudiantBundle::layout.html.twig');
         } else {
 
-                 $idEtudiant = $user->getId();
+            $idEtudiant = $user->getId();
             $etude = $em->getRepository('JuniorEtudiantBundle:Etude')->findOneById($idEtude);
             $indemnite = $em->getRepository('JuniorEtudiantBundle:Indemnites')->findOneBy(array('etudiant' => $idEtudiant, 'etude' => $idEtude));
             $acompte->setIndemnite($indemnite);
 
             $form = $this->createForm(new AcompteType(), $acompte);
-  
-           
+
+
 
             $request = $this->getRequest();
 
@@ -378,5 +390,4 @@ class EtudiantController extends Controller {
         }
     }
 
- 
 }

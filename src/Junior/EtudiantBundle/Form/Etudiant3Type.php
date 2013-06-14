@@ -7,7 +7,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Junior\EtudiantBundle\Entity\EtudeRepository;
 
-class EtudiantType extends AbstractType {
+//form for Etudiant -> editInfo
+class Etudiant3Type extends AbstractType {
 
     public function __construct($id) {
         $this->id = $id;
@@ -17,13 +18,13 @@ class EtudiantType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $id = $this->id;
         $builder
-                ->add('numEtudiant', 'text')
-                ->add('nomEtudiant', 'text')
-                ->add('numSecu', 'number')
+//                ->add('numEtudiant', 'text')
+//                ->add('nomEtudiant', 'text')
+//                ->add('numSecu', 'number')
                 ->add('adresseEtudiant', 'text')
                 ->add('telEtudiant', 'text')
                 ->add('email', 'email')
-                ->add('dateNaissance', 'date')
+//                ->add('dateNaissance', 'date')
 //                ->add('etudes', 'entity', array(
 //                    'class' => 'JuniorEtudiantBundle:Etude',
 ////                    'multiple' => false,
@@ -44,7 +45,7 @@ class EtudiantType extends AbstractType {
     }
 
     public function getName() {
-        return 'junior_etudiantbundle_etudianttype';
+        return 'junior_etudiantbundle_etudiant3type';
     }
 
 }
