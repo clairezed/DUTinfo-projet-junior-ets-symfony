@@ -440,6 +440,38 @@ bien supprimé');
                     'etudiants' => $etudiants,
                     'statuts' => $statuts));
     }
+    
+    public function showConventionAction($idEtude) {
+
+        $user = $this->getUser();
+
+        if (null === $user) {
+            return $this->render('JuniorEtudiantBundle::layout.html.twig');
+        } else {
+            $cpt = 0;
+            $em = $this->getDoctrine()->getManager();
+            $etude = $em->getRepository('JuniorEtudiantBundle:Etude')->findOneById($idEtude);
+            $entreprise = $etude->getConvention()->getEntreprise();
+            $listParticipants = $etude->getParticipants();
+            $etudiants = array(NULL);
+            $statuts = array(NULL);
+//            $nbJours = $etude->getIndemnites()->getNbJours();
+
+            foreach ($listParticipants as $participant) {
+                $statuts[$cpt] = $participant->getStatutEtudiant();
+                $etudiants[$cpt] = $participant->getEtudiant();
+                $cpt++;
+            }
+        }
+
+        return $this->render('JuniorEtudiantBundle:Gestion:showEtude.html.twig', array(
+                    'etude' => $etude,
+                    'entreprise' => $entreprise,
+                    'etudiants' => $etudiants,
+                    'statuts' => $statuts));
+    }
+    
+    
 
     public function newEtudeAction($idConvention) {
         $user = $this->getUser();
