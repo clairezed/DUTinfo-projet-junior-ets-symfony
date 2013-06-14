@@ -1,13 +1,13 @@
 {% extends "JuniorEtudiantBundle:Gestion:layoutGestion.html.twig" %}
 
 {% block title %}
-{{ parent()}} - Créer un groupe
+{{ parent()}} - Indemnités
 {% endblock %}
 
 {% block content_gestion %}
 
 <div>
-    <h2>Nouveau groupe</h2>
+    <h2>Afficher un bulletin d'indemnités</h2>
     <form method="post" {{ form_enctype(form) }}>
         <div>
             {{ form_label(form.participants, "Sélectionnez un des membres de l'équipe :") }}

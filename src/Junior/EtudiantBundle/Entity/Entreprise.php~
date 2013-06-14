@@ -20,6 +20,11 @@ class Entreprise
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Junior\EtudiantBundle\Entity\Convention", mappedBy="entreprise")
+     */
+    private $convention;
 
     /**
      * @var string
@@ -143,5 +148,28 @@ class Entreprise
     public function getTelEntreprise()
     {
         return $this->telEntreprise;
+    }
+
+    /**
+     * Set convention
+     *
+     * @param \Junior\EtudiantBundle\Entity\Convention $convention
+     * @return Entreprise
+     */
+    public function setConvention(\Junior\EtudiantBundle\Entity\Convention $convention = null)
+    {
+        $this->convention = $convention;
+
+        return $this;
+    }
+
+    /**
+     * Get convention
+     *
+     * @return \Junior\EtudiantBundle\Entity\Convention 
+     */
+    public function getConvention()
+    {
+        return $this->convention;
     }
 }

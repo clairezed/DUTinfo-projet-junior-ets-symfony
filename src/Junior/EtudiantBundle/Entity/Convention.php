@@ -14,10 +14,15 @@ class Convention
 {
     
     /**
-     * @ORM\ManyToOne(targetEntity="Junior\EtudiantBundle\Entity\Entreprise")
+     * @ORM\ManyToOne(targetEntity="Junior\EtudiantBundle\Entity\Entreprise", inversedBy="convention")
      * @ORM\JoinColumn(nullable=false)
      */
     private $entreprise;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Junior\EtudiantBundle\Entity\Etude", inversedBy="convention")
+     */
+    private $etude;
     
     /**
      * @var integer
@@ -80,7 +85,7 @@ class Convention
     public function setEntreprise(\Junior\EtudiantBundle\Entity\Entreprise $entreprise)
     {
         $this->entreprise = $entreprise;
-    
+        $entreprise->addConvention($this);
         return $this;
     }
 
@@ -92,5 +97,28 @@ class Convention
     public function getEntreprise()
     {
         return $this->entreprise;
+    }
+
+    /**
+     * Set etude
+     *
+     * @param \Junior\EtudiantBundle\Entity\Etude $etude
+     * @return Convention
+     */
+    public function setEtude(\Junior\EtudiantBundle\Entity\Etude $etude = null)
+    {
+        $this->etude = $etude;
+        
+        return $this;
+    }
+
+    /**
+     * Get etude
+     *
+     * @return \Junior\EtudiantBundle\Entity\Etude 
+     */
+    public function getEtude()
+    {
+        return $this->etude;
     }
 }
