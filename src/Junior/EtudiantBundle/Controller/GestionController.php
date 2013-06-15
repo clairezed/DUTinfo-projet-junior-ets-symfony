@@ -448,27 +448,38 @@ bien supprimé');
         if (null === $user) {
             return $this->render('JuniorEtudiantBundle::layout.html.twig');
         } else {
-            $cpt = 0;
             $em = $this->getDoctrine()->getManager();
             $etude = $em->getRepository('JuniorEtudiantBundle:Etude')->findOneById($idEtude);
-            $entreprise = $etude->getConvention()->getEntreprise();
-            $listParticipants = $etude->getParticipants();
-            $etudiants = array(NULL);
-            $statuts = array(NULL);
-//            $nbJours = $etude->getIndemnites()->getNbJours();
-
-            foreach ($listParticipants as $participant) {
-                $statuts[$cpt] = $participant->getStatutEtudiant();
-                $etudiants[$cpt] = $participant->getEtudiant();
-                $cpt++;
-            }
+            $convention = $etude->getConvention();
+            $realisateurs = $em->getRepository('JuniorEtudiantBundle:Etude')->findRealisateurs($etude);
+            $responsable = $em->getRepository('JuniorEtudiantBundle:Etude')->findResponsable($etude);
+            //$nbJours = $em->getRepository('JuniorEtudiantBundle:Indemnites')->findIndembyEtudiantAndEtude($responsable->getEtudiant()->getId(), $idEtude)->getNbJours();
+            $nbJours = $em->getRepository('JuniorEtudiantBundle:Indemnites')->findOneBy(array('etudiant' => $responsable->getEtudiant()->getId(), 'etude' => $idEtude))->getNbJours();
+            
+            return $this->render('JuniorEtudiantBundle:Gestion:showConvention.html.twig', array('convention' => $convention, 'realisateurs' => $realisateurs, 'responsable' => $responsable, 'nbJours' => $nbJours));
         }
-
-        return $this->render('JuniorEtudiantBundle:Gestion:showEtude.html.twig', array(
-                    'etude' => $etude,
-                    'entreprise' => $entreprise,
-                    'etudiants' => $etudiants,
-                    'statuts' => $statuts));
+            
+//            $cpt = 0;
+//            $em = $this->getDoctrine()->getManager();
+//            $etude = $em->getRepository('JuniorEtudiantBundle:Etude')->findOneById($idEtude);
+//            $entreprise = $etude->getConvention()->getEntreprise();
+//            $listParticipants = $etude->getParticipants();
+//            $etudiants = array(NULL);
+//            $statuts = array(NULL);
+//            $nbJours = $etude->getIndemnites()->getNbJours();
+//
+//            foreach ($listParticipants as $participant) {
+//                $statuts[$cpt] = $participant->getStatutEtudiant();
+//                $etudiants[$cpt] = $participant->getEtudiant();
+//                $cpt++;
+//            }
+//        }
+//
+//        return $this->render('JuniorEtudiantBundle:Gestion:showEtude.html.twig', array(
+//                    'etude' => $etude,
+//                    'entreprise' => $entreprise,
+//                    'etudiants' => $etudiants,
+//                    'statuts' => $statuts));
     }
     
     
@@ -666,6 +677,8 @@ bien supprimé');
         }
         return $this->render('JuniorEtudiantBundle:Gestion:newConvention.html.twig', array('form' => $form->createView()));
     }
+    
+
 
     /*     * ************************************************
      * Actions de manipulation des infos FACTURE

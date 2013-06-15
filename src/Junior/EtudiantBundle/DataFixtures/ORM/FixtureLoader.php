@@ -177,7 +177,7 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $p1 = new Participant();
         $p1->setEtude($uc_e);
         $p1->setEtudiant($dupont);
-        $p1->setStatutEtudiant("Reponsable");
+        $p1->setStatutEtudiant("Responsable");
 
         $p2 = new Participant();
         $p2->setEtude($uc_e);
@@ -192,7 +192,7 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $p4 = new Participant();
         $p4->setEtude($dspr_e);
         $p4->setEtudiant($duchmol);
-        $p4->setStatutEtudiant("Reponsable");
+        $p4->setStatutEtudiant("Responsable");
 
         $p5 = new Participant();
         $p5->setEtude($dspr_e);
@@ -353,35 +353,35 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface {
         $i4 = new Indemnites();
         $i4->setEtude($dspr_e);
         $i4->setEtudiant($duchmol);
-        $i4->setNbJours('8');
+        $i4->setNbJours('10');
         $i4->setRetenue('6');
         $i4->setIndemniteJournee('300');
 
         $i5 = new Indemnites();
         $i5->setEtude($dspr_e);
         $i5->setEtudiant($durand);
-        $i5->setNbJours('12');
+        $i5->setNbJours('10');
         $i5->setRetenue('6');
         $i5->setIndemniteJournee('300');
 
         $i6 = new Indemnites();
         $i6->setEtude($dspr_e);
         $i6->setEtudiant($dupont);
-        $i6->setNbJours('8');
+        $i6->setNbJours('10');
         $i6->setRetenue('6');
         $i6->setIndemniteJournee('300');
 
         $i7 = new Indemnites();
         $i7->setEtude($dspr_e2);
         $i7->setEtudiant($dupont);
-        $i7->setNbJours('15');
+        $i7->setNbJours('12.5');
         $i7->setRetenue('4');
         $i7->setIndemniteJournee('300');
 
         $i8 = new Indemnites();
         $i8->setEtude($dspr_e2);
         $i8->setEtudiant($durand);
-        $i8->setNbJours('10');
+        $i8->setNbJours('12.5');
         $i8->setRetenue('4');
         $i8->setIndemniteJournee('300');
 

@@ -129,6 +129,10 @@ junior_gestion_newConvention:
     pattern: /{idEntreprise}/convention/new
     defaults: { _controller: JuniorEtudiantBundle:Gestion:newConvention }
     
+junior_gestion_showConvention:
+    pattern: /{idEtude}/convention/show
+    defaults: { _controller: JuniorEtudiantBundle:Gestion:showConvention }
+    
 #FACTURES
 
 junior_gestion_newFacture:

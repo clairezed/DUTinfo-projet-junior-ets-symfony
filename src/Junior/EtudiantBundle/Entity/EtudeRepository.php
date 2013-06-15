@@ -111,5 +111,28 @@ class EtudeRepository extends EntityRepository {
         }
         return $montantRF;
     }
+    
+    public function findResponsable($etude) {
+        $participants = $etude->getParticipants();
+        foreach($participants as $etudiant) {
+            if($etudiant->getStatutEtudiant() == 'Responsable') {
+                $responsable = $etudiant;
+            }
+        }
+        return $responsable;
+    }
+    
+    public function findRealisateurs($etude) {
+        $participants = $etude->getParticipants();
+        $realisateurs = array(NULL);
+        $cpt = 0;
+        foreach($participants as $etudiant) {
+            if($etudiant->getStatutEtudiant() == 'Participant') {
+                $realisateurs[$cpt] = $etudiant;
+                $cpt++;
+            }
+        }
+        return $realisateurs;
+    }
 
 }
